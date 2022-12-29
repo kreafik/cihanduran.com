@@ -2,7 +2,7 @@
 <h2 align="center">
 <br/>
 
-<a  href="http://boidushya.com/"  target="_blank">boidushya.com</a>
+<a  href="http://cihanduran.com/"  target="_blank">boidushya.com</a>
 
 </h2>
 
