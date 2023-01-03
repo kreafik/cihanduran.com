@@ -4,7 +4,7 @@ import TerminalIcon from "@static/terminal.png";
 import CodeIcon from "@static/code.png";
 import GithubIcon from "@static/github.png";
 import FolderIcon from "@static/folder.png";
-import DopeIcon from "@static/dope.svg";
+import ToolsIcon from "@static/krea.png";
 import { Link } from "react-router-dom";
 
 const DockContent = () => {
@@ -45,10 +45,19 @@ const DockContent = () => {
 									/>
 								</li>
 							</Link>
-							<a href="https://qr.krea.dev">
+							<a href="https://qr.krea.dev" target="_blank" rel="noreferrer">
 								<li data-title="QR Code Generator">
 									<img
-										src={DopeIcon}
+										src={ToolsIcon}
+										className="img-fluid"
+										alt="dope"
+									/>
+								</li>
+							</a>
+							<a href="https://tools.krea.dev" target="_blank" rel="noreferrer">
+								<li data-title="Tools For Web">
+									<img
+										src={ToolsIcon}
 										className="img-fluid"
 										alt="dope"
 									/>

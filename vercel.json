@@ -25,7 +25,7 @@
 	"redirects": [
 		{
 			"source": "/gh",
-			"destination": "https://github.com/boidushya",
+			"destination": "https://github.com/kreafik",
 			"statusCode": 301
 		},
 		{
@@ -40,7 +40,7 @@
 			"has": [
 				{
 					"type": "host",
-					"value": "gh.boidushya.com"
+					"value": "gh.cihanduran.com"
 				}
 			],
 			"destination": "/gh/:path*"
@@ -50,7 +50,7 @@
 			"has": [
 				{
 					"type": "host",
-					"value": "resume.boidushya.com"
+					"value": "resume.cihanduran.com"
 				}
 			],
 			"destination": "/resume_link/:path*"
