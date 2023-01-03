@@ -12,9 +12,9 @@ const ResumeContent = () => {
 	return (
 		<BodyContent>
 			<Iframe
-				src="https://firebasestorage.googleapis.com/v0/b/boidushya.appspot.com/o/Boidushya's%20Resume.pdf?alt=media"
+				src="https://kreafik.com"
 				frameBorder="0"
-				title="Boidushya's Resume"
+				title="Cihan's Resume"
 			></Iframe>
 		</BodyContent>
 	);

@@ -9,7 +9,7 @@ const VSCode = () => {
 	return (
 		<Default
 			contextMenu={true}
-			heading="boidushya@epicest: ~/Documents/portfolio — zsh — 100×35"
+			heading="cihanduran@root: ~/Documents/portfolio — zsh — 100×35"
 		    programName="Terminal"
 		>
 			<Suspense fallback={<Loader />}>
