@@ -59,7 +59,7 @@ const compileCommandHTML = commandList => {
 		}),
 	];
 	let spaceList = getSpaces(argList);
-	let response = `ZSH version 5.8.0 (x86_64-apple-darwin20.0)
+	let response = `ZSH version 5.8.0 (x86_64-apple-cj.exe.20.0)
 These shell commands are defined internally.
 Type <span class="style2">'help'</span> to see this list.\n\n`;
 	argList.forEach((item, idx) => {
@@ -115,14 +115,6 @@ let commandList = [
 		description: "lists my github projects",
 	},
 	{
-		name: ["qemu"],
-		action: true,
-		response: "",
-		subPathStrict: [false],
-		description:
-			"an Operating System emulator that runs right on your browser (I had to flex I'm sorry)",
-	},
-	{
 		name: ["help"],
 		action: true,
 		response: "",
@@ -133,7 +125,7 @@ let commandList = [
 		name: ["uname"],
 		action: true,
 		response:
-			"Darwin MacBook-Pro.local 20.1.0 Darwin Kernel Version 20.1.0: Sun Jul 18 10:32:00 PDT 2021; root:xnu-7195.50.7~2/RELEASE_ARM64_T8101 arm64",
+			"CJ MacBook-Pro.local 20.1.0 CJ Kernel Version 20.1.0: Sun Jul 18 10:32:00 PDT 2022; root:xnu-7195.50.7~2/RELEASE_ARM64_T8101 arm64",
 		subPathStrict: [false],
 		description:
 			"prints the Darwin OS Kernel version / release / machine name. ",
@@ -141,7 +133,7 @@ let commandList = [
 	{
 		name: ["whoami"],
 		action: true,
-		response: "Boidushya Bhattacharyay",
+		response: "Cihan Duran <br> Software Developer @Bodrum",
 		subPathStrict: [false],
 		description:
 			"prints the full name of the current administrator when invoked",
@@ -158,13 +150,13 @@ commandList = commandList.map(item => {
 const fileList = [
 	{
 		name: ".github",
-		link: "https://github.com/boidushya",
+		link: "https://github.com/kreafik",
 		folder: true,
 		executable: false,
 	},
 	{
 		name: "src",
-		link: "https://github.com/boidushya/boidushya.com",
+		link: "https://github.com/kreafik/cihanduran.com",
 		folder: true,
 		executable: false,
 	},

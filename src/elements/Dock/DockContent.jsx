@@ -3,9 +3,7 @@ import "@styles/dock.scss";
 import TerminalIcon from "@static/terminal.png";
 import CodeIcon from "@static/code.png";
 import GithubIcon from "@static/github.png";
-import QemuIcon from "@static/qemu.png";
 import FolderIcon from "@static/folder.png";
-import FounderIcon from "@static/founder.jpg";
 import DopeIcon from "@static/dope.svg";
 import { Link } from "react-router-dom";
 
@@ -47,28 +45,10 @@ const DockContent = () => {
 									/>
 								</li>
 							</Link>
-							<Link to="/qemu">
-								<li data-title="Qemu">
-									<img
-										src={QemuIcon}
-										className="img-fluid"
-										alt="mac"
-									/>
-								</li>
-							</Link>
-							<a href="https://dope.boidushya.com">
-								<li data-title="This Website Is Dope">
+							<a href="https://qr.krea.dev">
+								<li data-title="QR Code Generator">
 									<img
 										src={DopeIcon}
-										className="img-fluid"
-										alt="dope"
-									/>
-								</li>
-							</a>
-							<a href="https://founder.boidushya.com">
-								<li data-title='Minimal "Founder-esque" Website'>
-									<img
-										src={FounderIcon}
 										className="img-fluid"
 										alt="dope"
 									/>

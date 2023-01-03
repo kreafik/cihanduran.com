@@ -2,7 +2,7 @@
 <h2 align="center">
 <br/>
 
-<a  href="http://cihanduran.com/"  target="_blank">boidushya.com</a>
+<a  href="http://cihanduran.com/"  target="_blank">cihanduran.com</a>
 
 </h2>
 
@@ -18,31 +18,6 @@
 
   
 
-<center>
-
-  
-
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) &nbsp;
-
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) &nbsp;
-
-[![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com) &nbsp;
-
-![GitHub Repo stars](https://img.shields.io/github/stars/boidushya/boidushya.com?color=red&logo=github&style=for-the-badge) &nbsp;
-
-![GitHub forks](https://img.shields.io/github/forks/boidushya/boidushya.com?color=red&logo=github&style=for-the-badge)
-
-  
-
-</center>
-
-  
-
-<h3 align="center">
-🔹<a  href="https://github.com/boidushya/boidushya.com/issues">Report Bug</a> &nbsp; &nbsp;
-🔹<a  href="https://github.com/boidushya/boidushya.com/issues">Request Feature</a>
-</h3>
-  
 
   
 
@@ -50,7 +25,7 @@
 
   
 
-You can fork this repo to modify and make changes of your own. Please give me proper credit by linking back to [boidushya](https://github.com/boidushya/boidushya.com). Thanks!
+You can fork this repo to modify and make changes of your own. Please give me proper credit by linking back to [kreafik](https://github.com/kreafik/cihanduran.com). Thanks!
 
   
 
@@ -58,7 +33,7 @@ You can fork this repo to modify and make changes of your own. Please give me pr
 
   
 
-My personal portfolio <a  href="http://boidushya.com/"  target="_blank">boidushya.com</a> made using ReactJS and styled-components emulating a macOS terminal among other features.<br/>
+My personal portfolio <a  href="http://cihanduran.com/"  target="_blank">cihanduran.com</a> made using ReactJS and styled-components emulating a macOS terminal among other features.<br/>
   
   
 This project was built using these technologies.

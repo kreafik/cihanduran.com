@@ -1,6 +1,6 @@
 {
 	"short_name": "Portfolio",
-	"name": "Boidushya's Portfolio Website",
+	"name": "Cihan Duran's Portfolio Website",
 	"icons": [
 		{
 			"src": "/assets/favicon/android-chrome-192x192.png",
@@ -17,6 +17,6 @@
 	"display": "standalone",
 	"theme_color": "#000000",
 	"background_color": "#ffffff",
-	"permissions": ["https://boidushya.com"],
-	"host_permissions": ["https://boidushya.com/*"]
+	"permissions": ["https://cihanduran.com"],
+	"host_permissions": ["https://cihanduran.com/*"]
 }
