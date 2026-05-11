@@ -36,7 +36,6 @@ const compileCommandHTML = commandList => {
 		},
 	];
 	let argList = [
-		...defArgs,
 		...commandList
 			.filter(item => !item.hidden)
 			.map(item => {
@@ -49,6 +48,7 @@ const compileCommandHTML = commandList => {
 					description: item.description,
 				};
 			}),
+		...defArgs,
 	];
 	let spaceList = getSpaces(argList);
 	let response = `ZSH version 5.9 (x86_64-apple-darwin22.0)
@@ -62,13 +62,13 @@ Listeyi görmek için <span class="style2">'help'</span> yazın.\n\n`;
 };
 
 let commandList = [
+	// --- Görünür komutlar (help sırası) ---
 	{
-		hidden: true,
-		name: ["resume", "./resume", "resume.sh", "./resume.sh", "cv", "./cv", "ozgecmis"],
-		action: { RESUME: "" },
+		name: ["help", "?", "man", "komutlar", "commands"],
+		action: true,
 		response: "",
 		subPathStrict: [false],
-		description: "özgeçmişimi görüntüle",
+		description: "bu mesajı görüntüle",
 	},
 	{
 		name: ["contact", "./contact", "contact.js", "./contact.js", "iletisim", "whatsapp", "mesaj", "yazisma"],
@@ -78,71 +78,11 @@ let commandList = [
 		description: "benimle iletişime geç",
 	},
 	{
-		name: ["projects", "./projects", "projects.app", "./projects.app", "portfolio", "./portfolio", "proje", "work"],
-		action: { PROJECTS: "" },
-		response: "",
-		subPathStrict: [false],
-		description: "projelerimi incele",
-	},
-	{
-		hidden: true,
-		name: ["neofetch", "about", "info", "fetch", "hakkimda"],
-		action: false,
-		response: `<pre>${neofetch}</pre>`,
-		subPathStrict: [false],
-		description: "hakkımda bilgileri estetik bir şekilde görüntüle",
-	},
-	{
-		name: ["code"],
-		action: true,
-		response: "",
-		subPathStrict: [true, { name: ".", response: "" }],
-		description: "bu sitenin kaynak kodunu görüntüle",
-		hidden: true,
-	},
-	{
-		name: ["danger"],
-		action: true,
-		response: "",
-		subPathStrict: [false],
-		description: '<span class="style7">¯\\_(ツ)_/¯</span>',
-	},
-	{
-		hidden: true,
-		name: ["git", "github"],
-		action: true,
-		response: "",
-		subPathStrict: [true, { name: "log", response: "" }],
-		description: "GitHub projelerimi listele",
-		hideSubPath: true,
-	},
-	{
-		name: ["iban", "./iban", "banka", "hesap", "bank", "para"],
-		action: { IBAN: "" },
-		response: "",
-		subPathStrict: [false],
-		description: "banka hesap numaralarını görüntüle",
-	},
-	{
 		name: ["hizmetler", "./hizmetler", "services", "service", "hizmet"],
 		action: { HIZMETLER: "" },
 		response: "",
 		subPathStrict: [false],
 		description: "sunduğum hizmetleri görüntüle",
-	},
-	{
-		name: ["web", "webdesign", "yazilim", "website", "software"],
-		action: { WEB: "" },
-		response: "",
-		subPathStrict: [false],
-		description: "web tasarım & yazılım hizmetini görüntüle",
-	},
-	{
-		name: ["grafik", "design", "graphic", "logo", "tasarim"],
-		action: { GRAFIK: "" },
-		response: "",
-		subPathStrict: [false],
-		description: "grafik tasarım hizmetini görüntüle",
 	},
 	{
 		name: ["drone", "./drone", "hava", "havadan", "aerial"],
@@ -159,11 +99,96 @@ let commandList = [
 		description: "fotoğraf & video hizmetini görüntüle",
 	},
 	{
+		name: ["web", "webdesign", "yazilim", "website", "software"],
+		action: { WEB: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "web tasarım & yazılım hizmetini görüntüle",
+	},
+	{
+		name: ["grafik", "design", "graphic", "logo", "tasarim"],
+		action: { GRAFIK: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "grafik tasarım hizmetini görüntüle",
+	},
+	{
+		name: ["projects", "./projects", "projects.app", "./projects.app", "portfolio", "./portfolio", "proje", "work"],
+		action: { PROJECTS: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "projelerimi incele",
+	},
+	{
+		name: ["iban", "./iban", "banka", "hesap", "bank", "para"],
+		action: { IBAN: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "banka hesap numaralarını görüntüle",
+	},
+	{
+		name: ["danger"],
+		action: true,
+		response: "",
+		subPathStrict: [false],
+		description: '<span class="style7">¯\\_(ツ)_/¯</span>',
+	},
+	{
 		name: ["date", "time", "tarih", "saat"],
 		action: false,
 		response: () => new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul", weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }),
 		subPathStrict: [false],
 		description: "mevcut tarih ve saati yazdırır",
+	},
+	// --- Gizli komutlar (çalışır, help'te görünmez) ---
+	{
+		hidden: true,
+		name: ["resume", "./resume", "resume.sh", "./resume.sh", "cv", "./cv", "ozgecmis"],
+		action: { RESUME: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "özgeçmişimi görüntüle",
+	},
+	{
+		hidden: true,
+		name: ["neofetch", "about", "info", "fetch", "hakkimda"],
+		action: false,
+		response: `<pre>${neofetch}</pre>`,
+		subPathStrict: [false],
+		description: "hakkımda bilgileri estetik bir şekilde görüntüle",
+	},
+	{
+		hidden: true,
+		name: ["git", "github"],
+		action: true,
+		response: "",
+		subPathStrict: [true, { name: "log", response: "" }],
+		description: "GitHub projelerimi listele",
+		hideSubPath: true,
+	},
+	{
+		hidden: true,
+		name: ["whoami"],
+		action: true,
+		response: "Cihan Duran",
+		subPathStrict: [false],
+		description: "mevcut yöneticinin adını yazdırır",
+	},
+	{
+		hidden: true,
+		name: ["code"],
+		action: true,
+		response: "",
+		subPathStrict: [true, { name: ".", response: "" }],
+		description: "bu sitenin kaynak kodunu görüntüle",
+	},
+	{
+		hidden: true,
+		name: ["uname"],
+		action: true,
+		response: "Darwin MacBook-Pro.local 23.1.0 Darwin Kernel Version 23.1.0; root:xnu-10002.41.9~6/RELEASE_ARM64_T8103 arm64",
+		subPathStrict: [false],
+		description: "Darwin OS çekirdek versiyonunu yazdırır",
 	},
 	{
 		hidden: true,
@@ -180,30 +205,6 @@ let commandList = [
 		response: `<span class="style4">HTTP/2 200</span>\ncontent-type: text/html; charset=utf-8\nserver: Vercel\n\n<span class="style2">Zaten buradasın :)</span>`,
 		subPathStrict: [false],
 		description: "cihanduran.com adresine istek gönder",
-	},
-	{
-		name: ["help", "?", "man", "komutlar", "commands"],
-		action: true,
-		response: "",
-		subPathStrict: [false],
-		description: "bu mesajı görüntüle",
-	},
-	{
-		name: ["uname"],
-		action: true,
-		response:
-			"Darwin MacBook-Pro.local 23.1.0 Darwin Kernel Version 23.1.0; root:xnu-10002.41.9~6/RELEASE_ARM64_T8103 arm64",
-		subPathStrict: [false],
-		description: "Darwin OS çekirdek versiyonunu yazdırır",
-		hidden: true,
-	},
-	{
-		hidden: true,
-		name: ["whoami"],
-		action: true,
-		response: "Cihan Duran",
-		subPathStrict: [false],
-		description: "mevcut yöneticinin adını yazdırır",
 	},
 ];
 
