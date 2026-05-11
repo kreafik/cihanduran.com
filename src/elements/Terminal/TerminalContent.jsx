@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import DataContext from "@contexts/Data/DataContext";
 import theme from "@styles/theme";
@@ -206,7 +206,7 @@ const InputLine = props => {
 				}}
 				onChange={e => {
 					e.preventDefault();
-					if (e.target.value.length <= 100) {
+					if (e.target.value.length <= 200) {
 						setVal(e.target.value.toLowerCase());
 						setTyping(true);
 						e.target.style.width = e.target.value.length + "ch";
@@ -228,6 +228,15 @@ const InputLine = props => {
 
 const Response = props => <Line>{props.content}</Line>;
 
+const WelcomeMsg = styled.div`
+	font-family: "Hack", monospace;
+	color: ${theme.bodyFont1};
+	padding: 0.2rem 0.4rem 0.6rem;
+	line-height: 1.6;
+	font-size: 0.875rem;
+	opacity: 0.7;
+`;
+
 const Command = props => {
 	const [response, setResponse] = useState("");
 	const [data, setData] = useState("");
@@ -240,6 +249,12 @@ const Command = props => {
 			setResponse(getResponse(data.trim()));
 		}
 	}, [data, props]);
+	useEffect(() => {
+		if (response) {
+			props.onResponseReady?.();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [response]);
 	return (
 		<Wrapper>
 			<InputLine
@@ -256,16 +271,37 @@ const Command = props => {
 const TerminalContent = () => {
 	const [child, setChild] = useState(1);
 	const [active, setActive] = useState(true);
+	const scrollRef = useRef(null);
+
 	useEffect(() => { setActive(true); }, [active]);
+
+	const scrollToBottom = useCallback(() => {
+		setTimeout(() => {
+			if (scrollRef.current) {
+				const el = scrollRef.current.getScrollElement();
+				el.scrollTop = el.scrollHeight;
+			}
+		}, 30);
+	}, []);
+
 	return (
 		<BodyContent>
-			<Wrapper>
+			<Wrapper ref={scrollRef}>
+				<WelcomeMsg>
+					{"Last login: "}
+					{new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul", weekday: "short", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+					{" on ttys001\n"}
+					{"Merhaba! Tüm komutlar için "}
+					<span style={{ color: "#aed8a0" }}>help</span>
+					{" yazın."}
+				</WelcomeMsg>
 				{Array.from(Array(child).keys()).map(i => (
 					<Command
 						setChild={setChild}
 						setActive={setActive}
 						child={child}
 						key={i === 0 ? active && i : i}
+						onResponseReady={scrollToBottom}
 					/>
 				))}
 			</Wrapper>

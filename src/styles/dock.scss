@@ -105,7 +105,18 @@ $img-padding: 0.5rem;
 	.main-contain {
 		.dock-nav {
 			margin-bottom: -0.5rem;
-			border-radius: 0.25rem;
+			border-radius: 0.5rem;
+			padding: 0.4rem 0.6rem;
+		}
+		.dock-nav ul {
+			gap: 0.6rem;
+		}
+		.dock-nav ul li {
+			width: 2.25rem;
+			height: 2.25rem;
+		}
+		.dock-nav ul .separator {
+			display: none;
 		}
 	}
 }

@@ -11,7 +11,7 @@ const VSCodeContent = () => {
 	return (
 		<BodyContent>
 			<Iframe
-				src="https://github1s.com/cihanduran/cihanduran.com/blob/main/src/components/Window.jsx"
+				src="https://github1s.com/kreafik/cihanduran.com/blob/main/src/components/Window.jsx"
 				frameBorder="0"
 				title="VS Code - Kaynak Kodu"
 			></Iframe>

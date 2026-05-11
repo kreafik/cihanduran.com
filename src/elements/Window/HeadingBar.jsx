@@ -96,8 +96,8 @@ const HeadingBar = props => {
 	return (
 		<Wrapper className={props.altClassName}>
 			<DotContainer>
-				<Dot variant="1" onClick={() => navigate(-1)} />
-				<Dot variant="2" />
+				<Dot variant="1" onClick={() => navigate("/")} />
+				<Dot variant="2" onClick={() => navigate("/hizmetler")} />
 				<Dot variant="3" onClick={() => navigate(1)} />
 			</DotContainer>
 			<TitleContainer>

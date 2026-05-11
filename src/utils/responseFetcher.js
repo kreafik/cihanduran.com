@@ -104,6 +104,12 @@ const Action = props => {
 				case "FOTO":
 					navigate("/hizmetler/emlak-tekne-fotograf-bodrum");
 					break;
+				case "WEB":
+					navigate("/hizmetler/web-tasarim-yazilim-bodrum");
+					break;
+				case "GRAFIK":
+					navigate("/hizmetler/grafik-tasarim-bodrum");
+					break;
 				case "HELP":
 					setAlertHidden(true);
 					break;
@@ -117,7 +123,7 @@ const Action = props => {
 };
 
 const parseResponse = (command, { data }) => {
-	let response = command.response;
+	let response = typeof command.response === "function" ? command.response() : command.response;
 	return (
 		<>
 			<Action action={command.action} />

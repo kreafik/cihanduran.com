@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useRef } from "react";
 import Loader from "@elements/Loader/Loader";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import HeadingBar from "@elements/Window/HeadingBar";
 import Draggable from "react-draggable";
 import bg from "@static/bg-new.jpeg";
@@ -21,6 +21,11 @@ const Wrapper = styled.div`
 	overflow: hidden;
 `;
 
+const windowOpen = keyframes`
+	from { opacity: 0; transform: scale(0.93); }
+	to   { opacity: 1; transform: scale(1); }
+`;
+
 const Container = styled.div`
 	width: fit-content;
 	border-radius: 0.6rem;
@@ -30,6 +35,7 @@ const Container = styled.div`
 	backdrop-filter: blur(1rem);
 	background: ${theme.bodyBgWithOpacity};
 	${props => props.$height && `height: ${props.$height}`}
+	animation: ${windowOpen} 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 `;
 
 const Default = props => {

@@ -7,7 +7,7 @@ import theme from "@styles/theme";
 import AlertContent from "@elements/Alert/AlertContent";
 import DockContent from "@elements/Dock/DockContent";
 import MenuContent from "@elements/Menu/MenuContent";
-import { css } from "styled-components";
+import { css, keyframes } from "styled-components";
 import { useLocation } from "react-router-dom";
 
 const Wrapper = styled.div`
@@ -17,6 +17,11 @@ const Wrapper = styled.div`
 	background: url(${bg}) no-repeat center center;
 	background-size: cover;
 	overflow: hidden;
+`;
+
+const windowOpen = keyframes`
+	from { opacity: 0; transform: scale(0.93); }
+	to   { opacity: 1; transform: scale(1); }
 `;
 
 const dimensionConstraints = css`
@@ -44,6 +49,7 @@ const Container = styled.div`
 	${props => (!props.$isEmulator ? dimensionConstraints : emulatorDimensions)}
 	backdrop-filter: blur(1rem);
 	background: ${theme.bodyBgWithOpacity};
+	animation: ${windowOpen} 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 	${props => props.$height && `height: ${props.$height}`}
 	@media (max-width: 640px) {
 		max-width: 100%;
