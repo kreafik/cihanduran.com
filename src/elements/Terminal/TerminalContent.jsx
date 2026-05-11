@@ -125,104 +125,111 @@ const InputLine = props => {
 		return () => clearTimeout(timeoutId);
 	}, [typing]);
 
+	const handleSubmit = () => {
+		if (disabled) return;
+		setDisabled(true);
+		props.setData(val);
+		props.setChild(props.child + 1);
+		setCommand(val);
+	};
+
 	return (
-		<InputContainer>
-			<Label
-				htmlFor="input"
-				dangerouslySetInnerHTML={{ __html: sanitize(path) }}
-			/>
-			<Input
-				id="input"
-				type="text"
-				ref={inputRef}
-				value={val}
-				onBlur={e => { if (!disabled) e.target.focus(); }}
-				onKeyDown={e => {
-					const ctrlCheck = e.ctrlKey;
-					const currentPos = parseFloat(cursorRef.current.style.transform.slice(11));
-					const textLength = inputRef.current.value.length;
-					const checkPos = Math.abs(Math.floor(currentPos));
-					switch (e.key) {
-						case "ArrowLeft":
-							if (checkPos <= textLength && !ctrlCheck) {
-								setTyping(true);
-								cursorRef.current.style.transform = `translateX(${currentPos - 1}ch)`;
-							} else e.preventDefault();
-							break;
-						case "Delete":
-							if (checkPos !== 1 && !ctrlCheck) {
-								cursorRef.current.style.transform = `translateX(${currentPos + 1}ch)`;
-							} else e.preventDefault();
-							break;
-						case "Home":
-							if (checkPos <= textLength) {
-								cursorRef.current.style.transform = `translateX(${-textLength - 0.5}ch)`;
-							} else e.preventDefault();
-							break;
-						case "End":
-							if (checkPos !== 1) {
-								cursorRef.current.style.transform = `translateX(-0.5ch)`;
-							} else e.preventDefault();
-							break;
-						case "ArrowRight":
-							if (checkPos !== 1 && !ctrlCheck) {
-								setTyping(true);
-								cursorRef.current.style.transform = `translateX(${currentPos + 1}ch)`;
-							} else e.preventDefault();
-							break;
-						case "ArrowUp":
-							if (counter > 0) {
-								setCounter(counter - 1);
-								const cmd = commands[counter - 1];
-								setVal(cmd);
-								e.target.style.width = cmd.length + "ch";
-								cursorRef.current.style.transform = `translateX(${-cmd.length - 0.5}ch)`;
-							}
-							break;
-						case "ArrowDown":
-							if (counter <= commands.length - 1) {
-								if (counter === commands.length - 1) {
-									setVal("");
-									e.target.style.width = "0ch";
+		<form
+			onSubmit={e => { e.preventDefault(); handleSubmit(); }}
+			style={{ display: "contents" }}
+		>
+			<InputContainer>
+				<Label
+					htmlFor="input"
+					dangerouslySetInnerHTML={{ __html: sanitize(path) }}
+				/>
+				<Input
+					id="input"
+					type="text"
+					ref={inputRef}
+					value={val}
+					onBlur={e => { if (!disabled) e.target.focus(); }}
+					onKeyDown={e => {
+						const ctrlCheck = e.ctrlKey;
+						const currentPos = parseFloat(cursorRef.current.style.transform.slice(11));
+						const textLength = inputRef.current.value.length;
+						const checkPos = Math.abs(Math.floor(currentPos));
+						switch (e.key) {
+							case "ArrowLeft":
+								if (checkPos <= textLength && !ctrlCheck) {
+									setTyping(true);
+									cursorRef.current.style.transform = `translateX(${currentPos - 1}ch)`;
+								} else e.preventDefault();
+								break;
+							case "Delete":
+								if (checkPos !== 1 && !ctrlCheck) {
+									cursorRef.current.style.transform = `translateX(${currentPos + 1}ch)`;
+								} else e.preventDefault();
+								break;
+							case "Home":
+								if (checkPos <= textLength) {
+									cursorRef.current.style.transform = `translateX(${-textLength - 0.5}ch)`;
+								} else e.preventDefault();
+								break;
+							case "End":
+								if (checkPos !== 1) {
 									cursorRef.current.style.transform = `translateX(-0.5ch)`;
-								} else {
-									setCounter(counter + 1);
-									const cmd = commands[counter + 1];
+								} else e.preventDefault();
+								break;
+							case "ArrowRight":
+								if (checkPos !== 1 && !ctrlCheck) {
+									setTyping(true);
+									cursorRef.current.style.transform = `translateX(${currentPos + 1}ch)`;
+								} else e.preventDefault();
+								break;
+							case "ArrowUp":
+								if (counter > 0) {
+									setCounter(counter - 1);
+									const cmd = commands[counter - 1];
 									setVal(cmd);
 									e.target.style.width = cmd.length + "ch";
 									cursorRef.current.style.transform = `translateX(${-cmd.length - 0.5}ch)`;
 								}
-							}
-							break;
-						case "Enter":
-							setDisabled(true);
-							props.setData(val);
-							props.setChild(props.child + 1);
-							setCommand(val);
-							break;
-						default:
-							break;
-					}
-				}}
-				onChange={e => {
-					e.preventDefault();
-					if (e.target.value.length <= 200) {
-						setVal(e.target.value.toLowerCase());
-						setTyping(true);
-						e.target.style.width = e.target.value.length + "ch";
-					}
-				}}
-				spellCheck={false}
-				autoComplete="off"
-				autoCorrect="off"
-			/>
-			<Cursor
-				ref={cursorRef}
-				$typing={typing}
-				$disabled={disabled}
-				style={{ transform: "translateX(-0.5ch)" }}
-			/>
-		</InputContainer>
+								break;
+							case "ArrowDown":
+								if (counter <= commands.length - 1) {
+									if (counter === commands.length - 1) {
+										setVal("");
+										e.target.style.width = "0ch";
+										cursorRef.current.style.transform = `translateX(-0.5ch)`;
+									} else {
+										setCounter(counter + 1);
+										const cmd = commands[counter + 1];
+										setVal(cmd);
+										e.target.style.width = cmd.length + "ch";
+										cursorRef.current.style.transform = `translateX(${-cmd.length - 0.5}ch)`;
+									}
+								}
+								break;
+							default:
+								break;
+						}
+					}}
+					onChange={e => {
+						e.preventDefault();
+						if (e.target.value.length <= 200) {
+							setVal(e.target.value.toLowerCase());
+							setTyping(true);
+							e.target.style.width = e.target.value.length + "ch";
+						}
+					}}
+					spellCheck={false}
+					autoComplete="off"
+					autoCorrect="off"
+				/>
+				<Cursor
+					ref={cursorRef}
+					$typing={typing}
+					$disabled={disabled}
+					style={{ transform: "translateX(-0.5ch)" }}
+				/>
+			</InputContainer>
+		</form>
 	);
 };
 
