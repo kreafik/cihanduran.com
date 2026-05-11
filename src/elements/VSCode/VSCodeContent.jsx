@@ -1,0 +1,22 @@
+import React from "react";
+import styled from "styled-components";
+import BodyContent from "@elements/Window/BodyContent";
+
+const Iframe = styled.iframe`
+	width: 100%;
+	border: none;
+`;
+
+const VSCodeContent = () => {
+	return (
+		<BodyContent>
+			<Iframe
+				src="https://github1s.com/cihanduran/cihanduran.com/blob/main/src/components/Window.jsx"
+				frameBorder="0"
+				title="VS Code - Kaynak Kodu"
+			></Iframe>
+		</BodyContent>
+	);
+};
+
+export default VSCodeContent;
