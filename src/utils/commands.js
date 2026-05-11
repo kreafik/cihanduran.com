@@ -132,6 +132,41 @@ let commandList = [
 		description: "sunduğum hizmetleri görüntüle",
 	},
 	{
+		name: ["drone"],
+		action: { DRONE: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "drone çekimi hizmetini görüntüle",
+	},
+	{
+		name: ["foto", "photo", "fotograf"],
+		action: { FOTO: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "fotoğraf & video hizmetini görüntüle",
+	},
+	{
+		name: ["date"],
+		action: false,
+		response: new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul", weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }),
+		subPathStrict: [false],
+		description: "mevcut tarih ve saati yazdırır",
+	},
+	{
+		name: ["cat about.txt", "cat"],
+		action: false,
+		response: `<span class="style4">Hakkımda:</span>\n\nBodrum / Muğla merkezli çalışan bir tasarımcı ve yazılımcıyım.\nWeb tasarım & yazılım, drone çekimi, emlak & tekne fotoğrafçılığı\nve grafik tasarım alanlarında hizmet veriyorum.\n\n<span class="style2">İletişim:</span> <a target="_blank" href="mailto:tasarim@cihanduran.com">tasarim@cihanduran.com</a>\n<span class="style2">Telefon:</span> +90 541 575 55 20`,
+		subPathStrict: [false],
+		description: "about.txt dosyasını görüntüle",
+	},
+	{
+		name: ["curl cihanduran.com", "curl"],
+		action: false,
+		response: `<span class="style4">HTTP/2 200</span>\ncontent-type: text/html; charset=utf-8\nserver: Vercel\n\n<span class="style2">Zaten buradasın :)</span>`,
+		subPathStrict: [false],
+		description: "cihanduran.com adresine istek gönder",
+	},
+	{
 		name: ["help"],
 		action: true,
 		response: "",
@@ -165,13 +200,13 @@ commandList = commandList.map(item => {
 const fileList = [
 	{
 		name: ".github",
-		link: "https://github.com/cihanduran",
+		link: "https://github.com/kreafik",
 		folder: true,
 		executable: false,
 	},
 	{
 		name: "src",
-		link: "https://github.com/cihanduran/cihanduran.com",
+		link: "https://github.com/kreafik/cihanduran.com",
 		folder: true,
 		executable: false,
 	},

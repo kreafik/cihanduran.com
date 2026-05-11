@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import commands from "@utils/commands";
 import styled from "styled-components";
 import theme from "@styles/theme";
@@ -63,6 +64,7 @@ const getErrorCommand = command => {
 
 const Action = props => {
 	const { setAlertHidden } = useContext(DataContext);
+	const navigate = useNavigate();
 	useEffect(() => {
 		if (props.action) {
 			switch (Object.keys(props.action)[0]) {
@@ -70,31 +72,37 @@ const Action = props => {
 					window.open(props.action.PATH);
 					break;
 				case "CODE":
-					document.location.href = "/vscode";
+					navigate("/vscode");
 					break;
 				case "DANGER":
-					document.location.href = "/danger-zone";
+					navigate("/danger-zone");
 					break;
 				case "QEMU":
-					document.location.href = "/qemu";
+					navigate("/qemu");
 					break;
 				case "RESUME":
-					document.location.href = "/resume";
+					navigate("/resume");
 					break;
 				case "PROJECTS":
-					document.location.href = "/projects";
+					navigate("/projects");
 					break;
 				case "CONTACT":
-					document.location.href = "/contact";
+					navigate("/contact");
 					break;
 				case "GIT":
-					document.location.href = "/git";
+					navigate("/git");
 					break;
 				case "IBAN":
-					document.location.href = "/iban";
+					navigate("/iban");
 					break;
 				case "HIZMETLER":
-					document.location.href = "/hizmetler";
+					navigate("/hizmetler");
+					break;
+				case "DRONE":
+					navigate("/hizmetler/drone-cekimi-bodrum");
+					break;
+				case "FOTO":
+					navigate("/hizmetler/emlak-tekne-fotograf-bodrum");
 					break;
 				case "HELP":
 					setAlertHidden(true);
