@@ -163,12 +163,12 @@ const IBANLabel = styled.div`
 
 const IBANNumber = styled.div`
 	font-family: "Hack", monospace;
-	font-size: 0.92rem;
-	letter-spacing: 0.1em;
+	font-size: 0.82rem;
+	letter-spacing: 0.08em;
 	color: ${props => props.$copied ? "#86efac" : "rgba(255,255,255,0.95)"};
 	transition: color 0.25s ease;
 	text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-	word-break: break-all;
+	white-space: nowrap;
 `;
 
 const CardBottom = styled.div`
