@@ -31,14 +31,6 @@ const getSpaces = commandList => {
 const compileCommandHTML = commandList => {
 	let defArgs = [
 		{
-			name: "ls",
-			description: "dizin içeriğini listeler",
-		},
-		{
-			name: "cd",
-			description: "çalışma dizinini değiştirir",
-		},
-		{
 			name: "clear",
 			description: "terminal ekranını temizler",
 		},
@@ -71,6 +63,7 @@ Listeyi görmek için <span class="style2">'help'</span> yazın.\n\n`;
 
 let commandList = [
 	{
+		hidden: true,
 		name: ["resume", "./resume", "resume.sh", "./resume.sh", "cv", "./cv", "ozgecmis"],
 		action: { RESUME: "" },
 		response: "",
@@ -92,6 +85,7 @@ let commandList = [
 		description: "projelerimi incele",
 	},
 	{
+		hidden: true,
 		name: ["neofetch", "about", "info", "fetch", "hakkimda"],
 		action: false,
 		response: `<pre>${neofetch}</pre>`,
@@ -114,6 +108,7 @@ let commandList = [
 		description: '<span class="style7">¯\\_(ツ)_/¯</span>',
 	},
 	{
+		hidden: true,
 		name: ["git", "github"],
 		action: true,
 		response: "",
@@ -203,6 +198,7 @@ let commandList = [
 		hidden: true,
 	},
 	{
+		hidden: true,
 		name: ["whoami"],
 		action: true,
 		response: "Cihan Duran",
