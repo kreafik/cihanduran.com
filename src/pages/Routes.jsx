@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "@pages/NotFound";
+import ScrollToTop from "@components/ScrollToTop";
 import styled, { keyframes } from "styled-components";
 import Window from "@components/Window";
 import Danger from "@components/Danger";
@@ -54,6 +55,7 @@ const WhatsAppBtn = styled.a`
 const AppRoutes = () => {
 	return (
 		<BrowserRouter>
+			<ScrollToTop />
 			<Routes>
 				<Route path="/" element={<Window />} />
 				<Route path="/danger-zone" element={<Danger />} />
@@ -64,77 +66,77 @@ const AppRoutes = () => {
 				<Route path="/projects" element={<Projects />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/iban" element={<IBAN />} />
-				<Route path="/hizmetler" element={<Suspense fallback={null}><HizmetlerPage /></Suspense>} />
-				<Route path="/hizmetler/drone-cekimi-bodrum" element={<Suspense fallback={null}><DroneService /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-bodrum" element={<Suspense fallback={null}><PhotoService /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-bodrum" element={<Suspense fallback={null}><WebService /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-bodrum" element={<Suspense fallback={null}><DesignService /></Suspense>} />
+				<Route path="/hizmetler" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><HizmetlerPage /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-bodrum" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><DroneService /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-bodrum" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><PhotoService /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-bodrum" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><WebService /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-bodrum" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><DesignService /></Suspense>} />
 
 				{/* Marmaris */}
-				<Route path="/hizmetler/drone-cekimi-marmaris" element={<Suspense fallback={null}><LocationServicePage locationSlug="marmaris" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-marmaris" element={<Suspense fallback={null}><LocationServicePage locationSlug="marmaris" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-marmaris" element={<Suspense fallback={null}><LocationServicePage locationSlug="marmaris" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-marmaris" element={<Suspense fallback={null}><LocationServicePage locationSlug="marmaris" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-marmaris" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="marmaris" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-marmaris" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="marmaris" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-marmaris" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="marmaris" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-marmaris" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="marmaris" serviceType="design" /></Suspense>} />
 
 				{/* Fethiye */}
-				<Route path="/hizmetler/drone-cekimi-fethiye" element={<Suspense fallback={null}><LocationServicePage locationSlug="fethiye" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-fethiye" element={<Suspense fallback={null}><LocationServicePage locationSlug="fethiye" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-fethiye" element={<Suspense fallback={null}><LocationServicePage locationSlug="fethiye" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-fethiye" element={<Suspense fallback={null}><LocationServicePage locationSlug="fethiye" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-fethiye" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="fethiye" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-fethiye" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="fethiye" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-fethiye" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="fethiye" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-fethiye" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="fethiye" serviceType="design" /></Suspense>} />
 
 				{/* Datça */}
-				<Route path="/hizmetler/drone-cekimi-datca" element={<Suspense fallback={null}><LocationServicePage locationSlug="datca" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-datca" element={<Suspense fallback={null}><LocationServicePage locationSlug="datca" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-datca" element={<Suspense fallback={null}><LocationServicePage locationSlug="datca" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-datca" element={<Suspense fallback={null}><LocationServicePage locationSlug="datca" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-datca" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="datca" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-datca" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="datca" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-datca" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="datca" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-datca" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="datca" serviceType="design" /></Suspense>} />
 
 				{/* Yalıkavak */}
-				<Route path="/hizmetler/drone-cekimi-yalikavak" element={<Suspense fallback={null}><LocationServicePage locationSlug="yalikavak" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-yalikavak" element={<Suspense fallback={null}><LocationServicePage locationSlug="yalikavak" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-yalikavak" element={<Suspense fallback={null}><LocationServicePage locationSlug="yalikavak" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-yalikavak" element={<Suspense fallback={null}><LocationServicePage locationSlug="yalikavak" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-yalikavak" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="yalikavak" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-yalikavak" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="yalikavak" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-yalikavak" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="yalikavak" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-yalikavak" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="yalikavak" serviceType="design" /></Suspense>} />
 
 				{/* Turgutreis */}
-				<Route path="/hizmetler/drone-cekimi-turgutreis" element={<Suspense fallback={null}><LocationServicePage locationSlug="turgutreis" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-turgutreis" element={<Suspense fallback={null}><LocationServicePage locationSlug="turgutreis" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-turgutreis" element={<Suspense fallback={null}><LocationServicePage locationSlug="turgutreis" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-turgutreis" element={<Suspense fallback={null}><LocationServicePage locationSlug="turgutreis" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-turgutreis" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="turgutreis" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-turgutreis" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="turgutreis" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-turgutreis" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="turgutreis" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-turgutreis" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="turgutreis" serviceType="design" /></Suspense>} />
 
 				{/* Gölköy-Türkbükü */}
-				<Route path="/hizmetler/drone-cekimi-golturkbuku" element={<Suspense fallback={null}><LocationServicePage locationSlug="golturkbuku" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-golturkbuku" element={<Suspense fallback={null}><LocationServicePage locationSlug="golturkbuku" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-golturkbuku" element={<Suspense fallback={null}><LocationServicePage locationSlug="golturkbuku" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-golturkbuku" element={<Suspense fallback={null}><LocationServicePage locationSlug="golturkbuku" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-golturkbuku" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="golturkbuku" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-golturkbuku" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="golturkbuku" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-golturkbuku" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="golturkbuku" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-golturkbuku" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="golturkbuku" serviceType="design" /></Suspense>} />
 
 				{/* Gündoğan */}
-				<Route path="/hizmetler/drone-cekimi-gundogan" element={<Suspense fallback={null}><LocationServicePage locationSlug="gundogan" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-gundogan" element={<Suspense fallback={null}><LocationServicePage locationSlug="gundogan" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-gundogan" element={<Suspense fallback={null}><LocationServicePage locationSlug="gundogan" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-gundogan" element={<Suspense fallback={null}><LocationServicePage locationSlug="gundogan" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-gundogan" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gundogan" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-gundogan" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gundogan" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-gundogan" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gundogan" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-gundogan" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gundogan" serviceType="design" /></Suspense>} />
 
 				{/* Bitez */}
-				<Route path="/hizmetler/drone-cekimi-bitez" element={<Suspense fallback={null}><LocationServicePage locationSlug="bitez" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-bitez" element={<Suspense fallback={null}><LocationServicePage locationSlug="bitez" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-bitez" element={<Suspense fallback={null}><LocationServicePage locationSlug="bitez" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-bitez" element={<Suspense fallback={null}><LocationServicePage locationSlug="bitez" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-bitez" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="bitez" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-bitez" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="bitez" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-bitez" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="bitez" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-bitez" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="bitez" serviceType="design" /></Suspense>} />
 
 				{/* Gümbet */}
-				<Route path="/hizmetler/drone-cekimi-gumbet" element={<Suspense fallback={null}><LocationServicePage locationSlug="gumbet" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-gumbet" element={<Suspense fallback={null}><LocationServicePage locationSlug="gumbet" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-gumbet" element={<Suspense fallback={null}><LocationServicePage locationSlug="gumbet" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-gumbet" element={<Suspense fallback={null}><LocationServicePage locationSlug="gumbet" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-gumbet" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gumbet" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-gumbet" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gumbet" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-gumbet" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gumbet" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-gumbet" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="gumbet" serviceType="design" /></Suspense>} />
 
 				{/* Torba */}
-				<Route path="/hizmetler/drone-cekimi-torba" element={<Suspense fallback={null}><LocationServicePage locationSlug="torba" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-torba" element={<Suspense fallback={null}><LocationServicePage locationSlug="torba" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-torba" element={<Suspense fallback={null}><LocationServicePage locationSlug="torba" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-torba" element={<Suspense fallback={null}><LocationServicePage locationSlug="torba" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-torba" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="torba" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-torba" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="torba" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-torba" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="torba" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-torba" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="torba" serviceType="design" /></Suspense>} />
 
 				{/* Ortakent */}
-				<Route path="/hizmetler/drone-cekimi-ortakent" element={<Suspense fallback={null}><LocationServicePage locationSlug="ortakent" serviceType="drone" /></Suspense>} />
-				<Route path="/hizmetler/emlak-tekne-fotograf-ortakent" element={<Suspense fallback={null}><LocationServicePage locationSlug="ortakent" serviceType="photo" /></Suspense>} />
-				<Route path="/hizmetler/web-tasarim-yazilim-ortakent" element={<Suspense fallback={null}><LocationServicePage locationSlug="ortakent" serviceType="web" /></Suspense>} />
-				<Route path="/hizmetler/grafik-tasarim-ortakent" element={<Suspense fallback={null}><LocationServicePage locationSlug="ortakent" serviceType="design" /></Suspense>} />
+				<Route path="/hizmetler/drone-cekimi-ortakent" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="ortakent" serviceType="drone" /></Suspense>} />
+				<Route path="/hizmetler/emlak-tekne-fotograf-ortakent" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="ortakent" serviceType="photo" /></Suspense>} />
+				<Route path="/hizmetler/web-tasarim-yazilim-ortakent" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="ortakent" serviceType="web" /></Suspense>} />
+				<Route path="/hizmetler/grafik-tasarim-ortakent" element={<Suspense fallback={<div style={{background:"#0d1117",minHeight:"100vh"}}/>}><LocationServicePage locationSlug="ortakent" serviceType="design" /></Suspense>} />
 
 				<Route path="*" element={<NotFound />} />
 			</Routes>

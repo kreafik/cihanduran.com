@@ -60,6 +60,7 @@ const NavCTA = styled.a`
 
 const Main = styled.main`
 	padding-top: 3.5rem;
+	animation: pageIn 0.3s ease both;
 `;
 
 const Footer = styled.footer`
