@@ -185,6 +185,14 @@ let commandList = [
 	},
 	{
 		hidden: true,
+		name: ["ai", "assistant", "chat", "gpt", "yapay-zeka"],
+		action: false,
+		response: "__AI_MODE__",
+		subPathStrict: [false],
+		description: "AI asistanı başlat",
+	},
+	{
+		hidden: true,
 		name: ["code"],
 		action: true,
 		response: "",

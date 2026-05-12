@@ -235,6 +235,182 @@ const InputLine = props => {
 
 const Response = props => <Line>{props.content}</Line>;
 
+/* ── AI Chat ─────────────────────────────────────────── */
+
+const AILine = styled.div`
+	white-space: pre-wrap;
+	word-break: break-word;
+	min-height: 1.3em;
+	color: ${p => p.$c || theme.bodyFont1};
+	font-size: 0.875rem;
+	line-height: 1.5;
+`;
+
+const AIPromptLabel = styled.span`
+	color: #5ec0ce;
+	white-space: nowrap;
+	flex-shrink: 0;
+	font-size: 0.875rem;
+	font-family: "Hack", monospace;
+`;
+
+const AIInputEl = styled.input`
+	background: transparent;
+	border: none;
+	outline: none;
+	color: ${theme.bodyFont1};
+	font-family: "Hack", monospace;
+	font-size: 0.875rem;
+	flex: 1;
+	min-width: 0;
+	caret-color: ${theme.bodyFont1};
+`;
+
+const AI_PROMPT = "ai@cihanduran:~$ ";
+
+const AIChat = ({ onExit, scrollToBottom }) => {
+	const [lines, setLines] = useState([
+		{ t: "AI modu aktif. Hizmetlerim hakkında sorularını sorabilirsin.", c: "#aed8a0" },
+		{ t: "Çıkmak için 'exit' yaz.", c: "#666" },
+		{ t: "", c: "" },
+	]);
+	const [input, setInput] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [history, setHistory] = useState([]);
+	const [cmdHistory, setCmdHistory] = useState([]);
+	const [histIdx, setHistIdx] = useState(-1);
+	const inputRef = useRef(null);
+	const abortRef = useRef(null);
+
+	useEffect(() => {
+		inputRef.current?.focus();
+	}, [loading]);
+
+	useEffect(() => {
+		return () => { abortRef.current?.abort(); };
+	}, []);
+
+	const send = async () => {
+		const msg = input.trim();
+		if (!msg || loading) return;
+		setInput("");
+		setHistIdx(-1);
+
+		if (msg === "exit" || msg === "quit" || msg === "logout") {
+			setLines(prev => [...prev,
+				{ t: AI_PROMPT + msg, c: "#5ec0ce" },
+				{ t: "AI modundan çıkılıyor...", c: "#888" },
+			]);
+			setTimeout(onExit, 400);
+			return;
+		}
+
+		if (msg === "clear") {
+			setLines([]);
+			setHistory([]);
+			return;
+		}
+
+		setCmdHistory(prev => [msg, ...prev]);
+		setLines(prev => [...prev, { t: AI_PROMPT + msg, c: "#5ec0ce" }]);
+		const newHistory = [...history, { role: "user", content: msg }];
+		setHistory(newHistory);
+		setLoading(true);
+
+		try {
+			abortRef.current = new AbortController();
+			const res = await fetch("/api/chat", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ messages: newHistory }),
+				signal: abortRef.current.signal,
+			});
+
+			if (!res.ok) {
+				let errMsg = "Bir hata oluştu.";
+				try { const j = await res.json(); errMsg = j.error || errMsg; } catch {}
+				setLines(prev => [...prev, { t: errMsg, c: "#ff5f58" }, { t: "", c: "" }]);
+				setLoading(false);
+				scrollToBottom?.();
+				return;
+			}
+
+			setLines(prev => [...prev, { t: "", c: null }]);
+			const reader = res.body.getReader();
+			const decoder = new TextDecoder();
+			let full = "";
+
+			while (true) {
+				const { done, value } = await reader.read();
+				if (done) break;
+				full += decoder.decode(value, { stream: true });
+				setLines(prev => {
+					const next = [...prev];
+					next[next.length - 1] = { t: full, c: null };
+					return next;
+				});
+				scrollToBottom?.();
+			}
+
+			setHistory(prev => [...prev, { role: "assistant", content: full }]);
+		} catch (err) {
+			if (err.name === "AbortError") return;
+			setLines(prev => {
+				const next = [...prev];
+				if (!next[next.length - 1]?.t) next[next.length - 1] = { t: "Bağlantı hatası.", c: "#ff5f58" };
+				else next.push({ t: "Bağlantı hatası.", c: "#ff5f58" });
+				return next;
+			});
+		}
+
+		setLines(prev => [...prev, { t: "", c: "" }]);
+		setLoading(false);
+		scrollToBottom?.();
+	};
+
+	return (
+		<div style={{ padding: "0.2rem 0" }}>
+			{lines.map((l, i) => (
+				<AILine key={i} $c={l.c}>{l.t}</AILine>
+			))}
+			{loading
+				? <AILine $c="#666">▋</AILine>
+				: (
+					<form onSubmit={e => { e.preventDefault(); send(); }} style={{ display: "flex", alignItems: "center" }}>
+						<AIPromptLabel>{AI_PROMPT}</AIPromptLabel>
+						<AIInputEl
+							ref={inputRef}
+							value={input}
+							onChange={e => setInput(e.target.value)}
+							onKeyDown={e => {
+								if (e.key === "ArrowUp") {
+									e.preventDefault();
+									const ni = histIdx + 1;
+									if (ni < cmdHistory.length) { setHistIdx(ni); setInput(cmdHistory[ni]); }
+								} else if (e.key === "ArrowDown") {
+									e.preventDefault();
+									const ni = histIdx - 1;
+									if (ni < 0) { setHistIdx(-1); setInput(""); }
+									else { setHistIdx(ni); setInput(cmdHistory[ni]); }
+								} else if (e.ctrlKey && e.key === "c") {
+									e.preventDefault();
+									setInput("");
+								}
+							}}
+							onBlur={e => { if (!loading) e.target.focus(); }}
+							spellCheck={false}
+							autoComplete="off"
+							autoCorrect="off"
+						/>
+					</form>
+				)
+			}
+		</div>
+	);
+};
+
+/* ── /AI Chat ────────────────────────────────────────── */
+
 const WelcomeMsg = styled.div`
 	font-family: "Hack", monospace;
 	color: ${theme.bodyFont1};
@@ -252,8 +428,14 @@ const Command = props => {
 			if (data.trim().toLowerCase() === "clear") {
 				props.setActive(false);
 				props.setChild(1);
+				return;
 			}
-			setResponse(getResponse(data.trim()));
+			const resp = getResponse(data.trim());
+			if (resp === "__AI_MODE__") {
+				props.onActivateAI?.();
+				return;
+			}
+			setResponse(resp);
 		}
 	}, [data, props]);
 	useEffect(() => {
@@ -278,6 +460,7 @@ const Command = props => {
 const TerminalContent = () => {
 	const [child, setChild] = useState(1);
 	const [active, setActive] = useState(true);
+	const [aiMode, setAiMode] = useState(false);
 	const scrollRef = useRef(null);
 
 	useEffect(() => { setActive(true); }, [active]);
@@ -291,6 +474,8 @@ const TerminalContent = () => {
 		}, 30);
 	}, []);
 
+	const visibleCommands = aiMode ? child - 1 : child;
+
 	return (
 		<BodyContent>
 			<Wrapper ref={scrollRef}>
@@ -300,17 +485,26 @@ const TerminalContent = () => {
 					{" on ttys001\n"}
 					{"Merhaba! Tüm komutlar için "}
 					<span style={{ color: "#aed8a0" }}>help</span>
+					{" yazın. AI asistanı için "}
+					<span style={{ color: "#5ec0ce" }}>ai</span>
 					{" yazın."}
 				</WelcomeMsg>
-				{Array.from(Array(child).keys()).map(i => (
+				{Array.from(Array(visibleCommands).keys()).map(i => (
 					<Command
 						setChild={setChild}
 						setActive={setActive}
 						child={child}
 						key={i === 0 ? active && i : i}
 						onResponseReady={scrollToBottom}
+						onActivateAI={() => { setAiMode(true); scrollToBottom(); }}
 					/>
 				))}
+				{aiMode && (
+					<AIChat
+						scrollToBottom={scrollToBottom}
+						onExit={() => setAiMode(false)}
+					/>
+				)}
 			</Wrapper>
 		</BodyContent>
 	);
