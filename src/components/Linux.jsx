@@ -1,16 +1,13 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import Default from "@components/Default";
-import Loader from "@elements/Loader/Loader";
-const LinuxContent = lazy(() => import("@elements/Linux/LinuxContent"));
+import LinuxContent from "@elements/Linux/LinuxContent";
 
-const Resume = () => {
+const Linux = () => {
 	return (
-		<Default heading="qemu" contextMenu={true} resizable={false}  programName="Qemu">
-			<Suspense fallback={<Loader />}>
-				<LinuxContent />
-			</Suspense>
+		<Default heading="qemu" contextMenu={true} resizable={false} programName="Qemu">
+			<LinuxContent />
 		</Default>
 	);
 };
 
-export default Resume;
+export default Linux;
