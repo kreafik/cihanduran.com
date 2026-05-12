@@ -309,6 +309,10 @@ const Arrow = styled.span`
 	}
 `;
 
+const DistrictHeader = styled.div`
+	margin-bottom: 0.75rem;
+`;
+
 const CTA = styled.section`
 	position: relative;
 	overflow: hidden;
@@ -432,11 +436,22 @@ const bentoItems = [
 	},
 ];
 
-const locationList = [
+const mainLocations = [
 	{ name: "Bodrum", region: "Muğla", slug: "bodrum" },
 	{ name: "Marmaris", region: "Muğla", slug: "marmaris" },
 	{ name: "Fethiye", region: "Muğla", slug: "fethiye" },
 	{ name: "Datça", region: "Muğla", slug: "datca" },
+];
+
+const bodrumDistricts = [
+	{ name: "Yalıkavak", region: "Bodrum", slug: "yalikavak" },
+	{ name: "Turgutreis", region: "Bodrum", slug: "turgutreis" },
+	{ name: "Gölköy-Türkbükü", region: "Bodrum", slug: "golturkbuku" },
+	{ name: "Gündoğan", region: "Bodrum", slug: "gundogan" },
+	{ name: "Bitez", region: "Bodrum", slug: "bitez" },
+	{ name: "Gümbet", region: "Bodrum", slug: "gumbet" },
+	{ name: "Torba", region: "Bodrum", slug: "torba" },
+	{ name: "Ortakent", region: "Bodrum", slug: "ortakent" },
 ];
 
 const serviceList = [
@@ -508,7 +523,7 @@ const HizmetlerPage = () => {
 				<SectionTitle>Hizmet Verdiğimiz Bölgeler</SectionTitle>
 				<SectionDesc>Bodrum merkezli olarak Muğla genelinde hizmet veriyoruz.</SectionDesc>
 				<LocationGrid>
-					{locationList.map(loc => (
+					{mainLocations.map(loc => (
 						<LocationCard key={loc.slug}>
 							<LocDotBg />
 							<LocGradBorder />
@@ -518,6 +533,37 @@ const HizmetlerPage = () => {
 							</LocTop>
 							<LocationName>{loc.name}</LocationName>
 							<LocationRegion>{loc.region} İli</LocationRegion>
+							<ServiceLinks>
+								{serviceList.map(svc => (
+									<ServiceLink
+										key={svc.slug}
+										to={`/hizmetler/${svc.slug}-${loc.slug}`}
+									>
+										<ServiceLinkIcon>{svc.icon}</ServiceLinkIcon>
+										{svc.label}
+										<Arrow>→</Arrow>
+									</ServiceLink>
+								))}
+							</ServiceLinks>
+						</LocationCard>
+					))}
+				</LocationGrid>
+
+				<DistrictHeader>
+					<SectionEyebrow style={{ marginTop: "2.5rem" }}>Bodrum İlçeleri</SectionEyebrow>
+					<SectionDesc>Yalıkavak, Turgutreis, Gölköy-Türkbükü ve daha fazlası.</SectionDesc>
+				</DistrictHeader>
+				<LocationGrid $cols={4}>
+					{bodrumDistricts.map(loc => (
+						<LocationCard key={loc.slug}>
+							<LocDotBg />
+							<LocGradBorder />
+							<LocTop>
+								<LocIconBox>🏘️</LocIconBox>
+								<LocStatus>Aktif</LocStatus>
+							</LocTop>
+							<LocationName>{loc.name}</LocationName>
+							<LocationRegion>{loc.region} İlçesi</LocationRegion>
 							<ServiceLinks>
 								{serviceList.map(svc => (
 									<ServiceLink
