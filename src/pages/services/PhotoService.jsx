@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ServiceLayout from "./ServiceLayout";
+import CrossLinks from "./CrossLinks";
 
 const Hero = styled.section`
 	position: relative;
@@ -418,6 +419,7 @@ const PhotoService = () => {
 						tanıtım videoları da aynı ekip tarafından gerçekleştirilmektedir.
 					</P>
 				</Section>
+				<CrossLinks currentService="photo" />
 			</Content>
 
 			<CTA>

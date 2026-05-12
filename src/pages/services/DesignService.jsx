@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ServiceLayout from "./ServiceLayout";
+import CrossLinks from "./CrossLinks";
 
 const Hero = styled.section`
 	position: relative;
@@ -425,6 +426,7 @@ const DesignService = () => {
 						<BenefitItem>Sosyal medya profil görseli optimizasyonu</BenefitItem>
 					</BenefitList>
 				</Section>
+				<CrossLinks currentService="design" />
 			</Content>
 
 			<CTA>

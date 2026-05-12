@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ServiceLayout from "./ServiceLayout";
+import CrossLinks from "./CrossLinks";
 
 const Hero = styled.section`
 	position: relative;
@@ -459,6 +460,7 @@ const WebService = () => {
 						adı, hosting kurulumu ve içerik yönetimi için kısa eğitim.
 					</P>
 				</Section>
+				<CrossLinks currentService="web" />
 			</Content>
 
 			<CTA>

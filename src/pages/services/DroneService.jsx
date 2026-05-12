@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ServiceLayout from "./ServiceLayout";
+import CrossLinks from "./CrossLinks";
 
 const Hero = styled.section`
 	position: relative;
@@ -477,30 +478,7 @@ const DroneService = () => {
 					</FAQ>
 				</Section>
 
-				<Section>
-					<H2>Bodrum İlçelerinde Drone Çekimi</H2>
-					<P>Bodrum yarımadasının tüm ilçelerinde hava fotoğrafı ve 4K drone video çekimi hizmetleri sunuyoruz.</P>
-					<DistrictGrid>
-						{[
-							{ name: "Yalıkavak", slug: "yalikavak" },
-							{ name: "Turgutreis", slug: "turgutreis" },
-							{ name: "Gölköy-Türkbükü", slug: "golturkbuku" },
-							{ name: "Gündoğan", slug: "gundogan" },
-							{ name: "Bitez", slug: "bitez" },
-							{ name: "Gümbet", slug: "gumbet" },
-							{ name: "Torba", slug: "torba" },
-							{ name: "Ortakent", slug: "ortakent" },
-						].map(d => (
-							<DistrictCard key={d.slug} to={`/hizmetler/drone-cekimi-${d.slug}`}>
-								<span style={{ fontSize: "1.1rem" }}>🚁</span>
-								<div>
-									<DistrictTitle>{d.name}</DistrictTitle>
-									<DistrictSub>Bodrum</DistrictSub>
-								</div>
-							</DistrictCard>
-						))}
-					</DistrictGrid>
-				</Section>
+				<CrossLinks currentService="drone" />
 			</Content>
 
 			<CTA>
