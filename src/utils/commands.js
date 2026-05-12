@@ -134,6 +134,7 @@ let commandList = [
 		description: '<span class="style7">¯\\_(ツ)_/¯</span>',
 	},
 	{
+		hidden: true,
 		name: ["date", "time", "tarih", "saat"],
 		action: false,
 		response: () => new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul", weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }),
