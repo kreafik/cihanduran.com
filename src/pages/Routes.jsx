@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NotFound from "@pages/NotFound";
 import styled, { keyframes } from "styled-components";
 import Window from "@components/Window";
 import Danger from "@components/Danger";
@@ -134,6 +135,8 @@ const AppRoutes = () => {
 				<Route path="/hizmetler/emlak-tekne-fotograf-ortakent" element={<Suspense fallback={null}><LocationServicePage locationSlug="ortakent" serviceType="photo" /></Suspense>} />
 				<Route path="/hizmetler/web-tasarim-yazilim-ortakent" element={<Suspense fallback={null}><LocationServicePage locationSlug="ortakent" serviceType="web" /></Suspense>} />
 				<Route path="/hizmetler/grafik-tasarim-ortakent" element={<Suspense fallback={null}><LocationServicePage locationSlug="ortakent" serviceType="design" /></Suspense>} />
+
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 			<WhatsAppBtn
 				href="https://wa.me/905415755520"

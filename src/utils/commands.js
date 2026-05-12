@@ -177,6 +177,14 @@ let commandList = [
 	},
 	{
 		hidden: true,
+		name: ["qemu", "linux", "vm"],
+		action: { QEMU: "" },
+		response: "",
+		subPathStrict: [false],
+		description: "linux vm'i başlat",
+	},
+	{
+		hidden: true,
 		name: ["code"],
 		action: true,
 		response: "",
