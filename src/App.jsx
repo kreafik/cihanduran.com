@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { HelmetProvider } from "react-helmet-async";
+import { Analytics } from "@vercel/analytics/react";
 import colors from "@styles/colors";
 import Routes from "@pages/Routes";
 import DataProvider from "@contexts/Data/DataProvider";
@@ -11,6 +12,7 @@ const App = () => {
 			<ThemeProvider theme={colors}>
 				<DataProvider>
 					<Routes />
+					<Analytics />
 				</DataProvider>
 			</ThemeProvider>
 		</HelmetProvider>

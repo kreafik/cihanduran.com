@@ -98,17 +98,31 @@ const Footer = styled.footer`
 	}
 `;
 
+const OG_IMAGE = "https://cihanduran.com/assets/favicon/logo1200.png";
+
 const ServiceLayout = ({ children, title, description, canonical }) => {
+	const fullTitle = `${title} | Cihan Duran — Bodrum`;
+	const fullUrl   = canonical ? `https://cihanduran.com${canonical}` : "https://cihanduran.com";
 	return (
 		<>
 			<Helmet>
-				<title>{title} | Cihan Duran — Bodrum</title>
+				<title>{fullTitle}</title>
 				<meta name="description" content={description} />
-				{canonical && <link rel="canonical" href={`https://cihanduran.com${canonical}`} />}
-				<meta property="og:title" content={`${title} | Cihan Duran — Bodrum`} />
+				{canonical && <link rel="canonical" href={fullUrl} />}
+				<meta property="og:type"        content="website" />
+				<meta property="og:url"         content={fullUrl} />
+				<meta property="og:title"       content={fullTitle} />
 				<meta property="og:description" content={description} />
-				<meta name="twitter:title" content={`${title} | Cihan Duran — Bodrum`} />
+				<meta property="og:image"       content={OG_IMAGE} />
+				<meta property="og:image:width"  content="1200" />
+				<meta property="og:image:height" content="630" />
+				<meta property="og:locale"      content="tr_TR" />
+				<meta property="og:site_name"   content="Cihan Duran" />
+				<meta name="twitter:card"        content="summary_large_image" />
+				<meta name="twitter:url"         content={fullUrl} />
+				<meta name="twitter:title"       content={fullTitle} />
 				<meta name="twitter:description" content={description} />
+				<meta name="twitter:image"       content={OG_IMAGE} />
 			</Helmet>
 			<Global />
 			<Nav>
