@@ -1,0 +1,75 @@
+---
+// İş duvarı: müşteri sitelerinin eğik, sürekli akan ekran görüntüleri (21st.dev "3D Marquee" esinli).
+// Duvar dekoratif (aria-hidden); erişilebilir bağlantı başlıkta.
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+
+const work = (await getCollection('isler')).filter((w) => w.data.desktopShot).sort((a, b) => a.data.order - b.data.order);
+const shots = await Promise.all(
+  work.map(async (w) => ({ id: w.id, src: (await getImage({ src: w.data.desktopShot!, width: 520, format: 'webp', quality: 70 })).src })),
+);
+const rows = [0, 1, 2].map((r) => shots.filter((_, i) => i % 3 === r));
+const liveSites = work.filter((w) => w.data.url).length;
+---
+<section class="wall" id="isler-duvari" aria-labelledby="duvar-baslik">
+  <div class="wall-stage" aria-hidden="true">
+    <div class="wall-tilt">
+      {rows.map((row, r) => (
+        <div class:list={['wall-row', { rev: r === 1 }]} style={`--dur:${48 + r * 9}s`}>
+          {[0, 1].map(() => row.map((s) => <img src={s.src} alt="" width="520" height="325" loading="lazy" decoding="async" />))}
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="wall-cap container">
+    <h2 id="duvar-baslik">{liveSites} site, hepsi şu an yayında.</h2>
+    <p>Otel, gulet, hukuk, inşaat, sağlık, güzellik. Hepsini açıp gezebilirsiniz.</p>
+    <a class="btn btn-ghost" href="/isler">Tüm işleri gör</a>
+  </div>
+</section>
+
+<style>
+  .wall { position: relative; isolation: isolate; overflow: hidden; padding-bottom: clamp(2rem, 1rem + 3vw, 4rem); }
+  .wall-stage {
+    position: relative;
+    height: clamp(300px, 22vw + 140px, 520px);
+    perspective: 1200px;
+    overflow: hidden;
+    mask-image: linear-gradient(transparent, #000 18%, #000 70%, transparent), linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-composite: intersect;
+    -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 70%, transparent);
+  }
+  .wall-tilt {
+    position: absolute;
+    left: -15%;
+    right: -15%;
+    top: 4%;
+    display: grid;
+    gap: clamp(10px, 1vw, 18px);
+    transform: rotateX(28deg) rotateZ(-8deg);
+    transform-origin: center top;
+  }
+  .wall-row { display: flex; gap: clamp(10px, 1vw, 18px); width: max-content; animation: wall-slide var(--dur) linear infinite; }
+  .wall-row.rev { animation-direction: reverse; }
+  .wall-row img {
+    width: clamp(200px, 16vw, 340px);
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 10px;
+    box-shadow: 0 14px 40px rgb(0 0 0 / 0.55), 0 0 0 0.5px rgb(255 255 255 / 0.12);
+  }
+  @keyframes wall-slide { to { transform: translateX(-50%); } }
+  .wall-cap { margin-top: -3rem; position: relative; }
+  .wall-cap h2 { font-size: var(--fs-xl); letter-spacing: -0.03em; }
+  .wall-cap p { margin-top: 0.6rem; color: var(--c-muted); font-size: var(--fs-md); max-width: 52ch; }
+  .wall-cap .btn { margin-top: 1.4rem; }
+  @media (max-width: 899px) {
+    .wall-tilt { transform: rotateX(22deg) rotateZ(-6deg); }
+    .wall-cap { margin-top: -1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wall-row { animation: none; }
+  }
+</style>

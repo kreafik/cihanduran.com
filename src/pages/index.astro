@@ -4,6 +4,7 @@ import Desktop from '../layouts/Desktop.astro';
 import Hero from '../components/home/Hero.astro';
 import StatStrip from '../components/home/StatStrip.astro';
 import TechMarquee from '../components/home/TechMarquee.astro';
+import WorkWall from '../components/home/WorkWall.astro';
 import ServiceWidget from '../components/ServiceWidget.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Placeholder from '../components/Placeholder.astro';
@@ -26,8 +27,9 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
   jsonLd={buildHomeSchema()}
 >
   <Hero />
+  <WorkWall />
 
-  <section class="section container" id="isler-duvari" aria-labelledby="hizmetler-baslik">
+  <section class="section container" aria-labelledby="hizmetler-baslik">
     <h2 id="hizmetler-baslik" class="visually-hidden">Hizmetler</h2>
     <ul class="widgets">
       {services.map((s) => <li><ServiceWidget entry={s} app={appFor[s.data.workCategory]} /></li>)}
