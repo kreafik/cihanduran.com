@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { run, INTRO } from './commands.mjs';
+import { shouldOpenFromHash } from './expand.mjs';
 import './terminal.css';
 
 const PROMPT = 'cihan@bodrum ~ %';
-const WELCOME = [[{ text: 'Merhaba. Komutları görmek için ', tone: 'muted' }, { text: 'help', tone: 'accent' }, { text: ' yazın ya da aşağıdaki klasörlere tıklayın.', tone: 'muted' }]];
+const WELCOME = [[{ text: 'Merhaba. Komutları görmek için ', tone: 'muted' }, { text: 'help', tone: 'accent' }, { text: ' yazın ya da klasörlere tıklayın.', tone: 'muted' }]];
 
 let nextId = 0;
 const entry = (input, output) => ({ id: nextId++, input, output });
@@ -20,14 +22,22 @@ function Lines({ lines }) {
   ));
 }
 
-export default function Terminal() {
+/**
+ * Ana sayfadaki terminal. Küçük haldeyken tıklanınca macOS "yakınlaştır" gibi ekranı kaplar;
+ * Esc, yeşil düğme ya da karartmaya tıklama küçültür. /#terminal adresi açılışta büyütür.
+ */
+export default function Terminal({ title = 'cihan — zsh' }) {
   const [log, setLog] = useState([]);
   const [value, setValue] = useState('');
   const [busy, setBusy] = useState(true);
   const [history, setHistory] = useState([]);
   const [cursor, setCursor] = useState(-1);
+  const [expanded, setExpanded] = useState(false);
   const inputRef = useRef(null);
   const scrollRef = useRef(null);
+  const frameRef = useRef(null);
+  const placeholderRef = useRef(null);
+  const compactHeight = useRef(0);
 
   function exec(input) {
     const res = run(input);
@@ -36,7 +46,7 @@ export default function Terminal() {
     if (res.navigate) setTimeout(() => window.location.assign(res.navigate), 350);
   }
 
-  // Açılışta INTRO komutlarını yazarak çalıştır (azaltılmış hareket tercihinde anında).
+  // Açılış komutları (azaltılmış harekette anında).
   useEffect(() => {
     const instant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let cancelled = false;
@@ -61,10 +71,48 @@ export default function Terminal() {
     return () => { cancelled = true; timers.forEach(clearTimeout); };
   }, []);
 
+  // /#terminal → büyüt; geri/ileri ile hash değişirse de izle.
+  useEffect(() => {
+    const sync = () => { if (shouldOpenFromHash(window.location.hash)) setExpanded(true); };
+    sync();
+    window.addEventListener('hashchange', sync);
+    return () => window.removeEventListener('hashchange', sync);
+  }, []);
+
+  // Büyükken: Esc ile küçül, sayfa kaymasın, odak girişte.
+  // Küçülünce odağı terminale geri ver (pencere portaldan çıkınca yeniden oluşur).
+  const wasExpanded = useRef(false);
+  useEffect(() => {
+    if (expanded) { wasExpanded.current = true; return; }
+    if (wasExpanded.current) frameRef.current?.focus({ preventScroll: true });
+  }, [expanded]);
+
+  useEffect(() => {
+    if (!expanded) return;
+    const onKey = (e) => { if (e.key === 'Escape') collapse(); };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 60);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.documentElement.style.overflow = prevOverflow;
+    };
+  }, [expanded]);
+
   useEffect(() => {
     const el = scrollRef.current;
     if (el) el.scrollTop = el.scrollHeight;
-  }, [log, value]);
+  }, [log, value, expanded]);
+
+  function expand() {
+    if (frameRef.current) compactHeight.current = frameRef.current.offsetHeight;
+    setExpanded(true);
+  }
+  function collapse() {
+    setExpanded(false);
+    if (shouldOpenFromHash(window.location.hash)) window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
 
   function onSubmit(e) {
     e.preventDefault();
@@ -93,35 +141,77 @@ export default function Terminal() {
     }
   }
 
-  return (
-    <div className="term" onClick={(e) => { if (e.target.tagName !== 'A') inputRef.current?.focus({ preventScroll: true }); }}>
-      <div className="term-scroll" ref={scrollRef} aria-live="polite">
-        <Lines lines={WELCOME} />
-        {log.map((it) => (
-          <div key={it.id}>
-            <div className="t-line"><span className="t-prompt">{PROMPT}</span> {it.input}</div>
-            <Lines lines={it.output} />
+  function onFrameClick(e) {
+    if (e.target.closest('a, button')) return;
+    if (!expanded) expand();
+    else inputRef.current?.focus({ preventScroll: true });
+  }
+
+  const frame = (
+      <div
+        ref={frameRef}
+        className={`term-window${expanded ? ' is-expanded' : ''}`}
+        role={expanded ? 'dialog' : 'group'}
+        aria-modal={expanded ? 'true' : undefined}
+        aria-label="Terminal"
+        tabIndex={-1}
+        onClick={onFrameClick}
+        onKeyDown={(e) => { if (!expanded && e.key === 'Enter' && e.target === frameRef.current) expand(); }}
+      >
+        <div className="term-bar">
+          <span className="term-lights">
+            <button type="button" className="l-close" aria-label={expanded ? 'Küçült' : 'Terminali büyüt'} onClick={(e) => { e.stopPropagation(); expanded ? collapse() : expand(); }} />
+            <button type="button" className="l-min" aria-label="Küçült" onClick={(e) => { e.stopPropagation(); if (expanded) collapse(); }} />
+            <button type="button" className="l-max" aria-label={expanded ? 'Küçült' : 'Terminali büyüt'} onClick={(e) => { e.stopPropagation(); expanded ? collapse() : expand(); }} />
+          </span>
+          <span className="term-title">{expanded ? `${title} — tam ekran` : title}</span>
+          {!expanded && <button type="button" className="term-grow" onClick={(e) => { e.stopPropagation(); expand(); }}>Büyüt</button>}
+        </div>
+        <div className="term">
+          <div className="term-scroll" ref={scrollRef} aria-live="polite">
+            <Lines lines={WELCOME} />
+            {log.map((it) => (
+              <div key={it.id}>
+                <div className="t-line"><span className="t-prompt">{PROMPT}</span> {it.input}</div>
+                <Lines lines={it.output} />
+              </div>
+            ))}
+            <form className="t-line t-input-row" onSubmit={onSubmit}>
+              <label htmlFor="term-input" className="t-prompt">{PROMPT}</label>
+              <input
+                id="term-input"
+                ref={inputRef}
+                className="t-input"
+                value={value}
+                onChange={(e) => !busy && setValue(e.target.value.slice(0, 120))}
+                onFocus={() => { if (!expanded && window.matchMedia('(max-width: 899px)').matches) expand(); }}
+                onKeyDown={onKeyDown}
+                readOnly={busy}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                enterKeyHint="go"
+                aria-label="Komut yazın"
+              />
+            </form>
           </div>
-        ))}
-        <form className="t-line t-input-row" onSubmit={onSubmit}>
-          <label htmlFor="term-input" className="t-prompt">{PROMPT}</label>
-          <input
-            id="term-input"
-            ref={inputRef}
-            className="t-input"
-            value={value}
-            onChange={(e) => !busy && setValue(e.target.value.slice(0, 120))}
-            onKeyDown={onKeyDown}
-            readOnly={busy}
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck={false}
-            enterKeyHint="go"
-            aria-label="Komut yazın"
-          />
-        </form>
+        </div>
       </div>
-    </div>
+  );
+
+  // Büyükken pencere body'ye taşınır: sayfadaki yığın bağlamlarının (menü, dock) üstünde kalsın.
+  if (!expanded) return frame;
+  return (
+    <>
+      <div ref={placeholderRef} className="term-placeholder" style={{ height: compactHeight.current || undefined }} aria-hidden="true" />
+      {createPortal(
+        <>
+          <div className="term-backdrop" onClick={collapse} aria-hidden="true" />
+          {frame}
+        </>,
+        document.body,
+      )}
+    </>
   );
 }
