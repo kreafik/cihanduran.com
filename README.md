@@ -65,6 +65,12 @@ tests/                       node:test
 
 ## Cloudflare Workers Builds ayarları
 
+> **Durum (2026-11-26):** Site canlıda (`wrangler deploy`, özel alan adları `cihanduran.com` + `www`). Vercel projesi kaldırıldı,
+> apex ve www'nin Vercel CNAME'leri silindi (yedek: Masaüstü `cihanduran-dns-yedek-2026-11-26.txt`). Medya R2 `cihanduran-media`
+> → `media.cihanduran.com`. **Kalan:** Workers Builds'i GitHub reposuna bağlamak (Cloudflare paneli → Workers → cihanduran →
+> Settings → Builds → Connect; dal `main`, derleme `npm run build`, dağıtım `npx wrangler deploy`), Search Console / Bing.
+> `360` ve `sare` alt alan adları hâlâ Vercel'de; onlara dokunulmadı.
+
 Panel: **Workers & Pages → Create → Import a repository → kreafik/cihanduran.com**
 
 | Ayar | Değer |
