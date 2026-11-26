@@ -15,8 +15,8 @@ export const site = {
   // Cihan'ın beyanı (2026-11-26). Sitedeki bütün rakamlar buradan gelir; başka sayı uydurulmaz.
   stats: { software: '300+', shoots: '200+', years: '10+' },
   // Hero arka plan videosu (kendi drone çekimin): public/video/ altına koy. Boşken aurora tek başına kalır.
-  // Kaynak: Cihan'ın YouTube kanalındaki 'bodrum yachting' videosunun ilk 12 sn'si (sessiz döngü).
-  heroVideo: { mp4: '/video/bodrum-drone.mp4', webm: '/video/bodrum-drone.webm', poster: '/video/bodrum-drone.jpg' },
+  // Kaynak: Cihan'ın Axopar çekimi (Portfolyo/02 Yatlar & Tekneler/Axopar), ilk 12 sn: Bodrum Kalesi önü + yukarıdan dönüş. Sessiz döngü.
+  heroVideo: { mp4: '/video/hero-drone.mp4', webm: '', poster: '/video/hero-drone.jpg' },
   // TODO(cihan): Cloudflare Web Analytics token'ı (panel → Analytics & Logs → Web Analytics). Boşken beacon eklenmez.
   cfAnalyticsToken: '',
 };

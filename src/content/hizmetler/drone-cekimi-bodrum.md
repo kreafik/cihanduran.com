@@ -6,7 +6,7 @@ seoTitle: Bodrum Drone Çekimi | Cihan Duran
 description: Bodrum ve Muğla'da villa, tekne, otel ve etkinlikler için drone ile 4K hava fotoğrafı ve video. Uçuş izni süreci benden. WhatsApp'tan teklif alın.
 lead: Bir villanın denize uzaklığını, bir koyun rengini ya da otelin bahçesini yerden anlatmak zor. Havadan tek kare yetiyor. Bodrum yarımadasında ve Muğla'da 4K hava fotoğrafı ve video çekiyorum.
 tagline: Villa, tekne, otel ve etkinlik
-heroImage: ../../assets/drone/bodrum-panorama.jpg
+heroImage: ../../assets/drone/bodrum-kale-drone.jpg
 heroPlaceholder: drone — Bodrum koyu ya da deniz manzaralı villa, gün batımı, yatay
 proof:
   - value: 4K
