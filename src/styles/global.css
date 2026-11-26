@@ -1,0 +1,158 @@
+/* Tasarım değişkenleri — macOS koyu görünümü. Renk yükünü fotoğraflar taşır. */
+:root {
+  color-scheme: dark;
+
+  --c-bg: #1c1c1e;          /* zemin (macOS systemGray6 dark) */
+  --c-surface: #2c2c2e;     /* pencere / yüzey */
+  --c-surface-2: #3a3a3c;   /* yükseltilmiş yüzey, ayırıcı */
+  --c-line: rgb(255 255 255 / 0.1);
+  --c-text: #f5f5f7;
+  --c-muted: #a1a1a6;       /* AA: #1c1c1e üzerinde 7.2:1 */
+  --c-accent: #0a84ff;      /* macOS sistem mavisi */
+  --c-accent-text: #4da3ff; /* koyu zeminde bağlantı metni */
+  --c-whatsapp: #25d366;
+  --c-close: #ff5f57;
+  --c-min: #febc2e;
+  --c-max: #28c840;
+  --c-terminal: rgb(40 254 14);
+
+  --font-ui: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI Variable Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI Variable Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Hack', ui-monospace, Menlo, Consolas, monospace;
+
+  /* Ölçek: 1.25 oranı, 17px taban (Apple gövde boyutu) */
+  --fs-sm: 0.875rem;
+  --fs-base: 1.0625rem;
+  --fs-md: 1.25rem;
+  --fs-lg: clamp(1.5rem, 1.2rem + 1.2vw, 1.95rem);
+  --fs-xl: clamp(1.95rem, 1.4rem + 2.4vw, 3rem);
+  --fs-hero: clamp(2.4rem, 1.5rem + 4.4vw, 4.6rem);
+
+  --measure: 64ch;
+  --container: 1120px;
+  --gutter: clamp(1.25rem, 0.8rem + 2vw, 2rem);
+  --space-section: clamp(4rem, 3rem + 4vw, 7rem);
+
+  --r-window: 12px;
+  --r-control: 8px;
+  --r-pill: 980px;
+
+  --menubar-h: 28px;
+  --tabbar-h: 64px;
+  --shadow-window: 0 0 0 0.5px rgb(0 0 0 / 0.6), 0 22px 70px 4px rgb(0 0 0 / 0.56);
+}
+
+@font-face {
+  font-family: 'Hack';
+  src: url('/fonts/hack-regular-subset.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hack';
+  src: url('/fonts/hack-bold-subset.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--menubar-h) + 1rem);
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video, picture { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+a { color: var(--c-accent-text); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--c-text); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-xl); font-weight: 700; }
+h2 { font-size: var(--fs-lg); font-weight: 650; }
+h3 { font-size: var(--fs-md); font-weight: 600; letter-spacing: -0.012em; }
+p { text-wrap: pretty; }
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.prose { max-width: var(--measure); }
+.prose > * + * { margin-top: 1em; }
+.prose h2 { margin-top: 2.2em; }
+.prose h3 { margin-top: 1.6em; }
+.prose ul, .prose ol { padding-left: 1.2em; }
+.prose li + li { margin-top: 0.4em; }
+
+.muted { color: var(--c-muted); }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 1rem; top: -3rem; z-index: 1000;
+  background: var(--c-accent); color: #fff; padding: 0.6rem 1rem; border-radius: var(--r-control);
+}
+.skip-link:focus { top: 0.5rem; }
+
+/* Düğmeler: Apple'ın hap düğme dili */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 44px; padding: 0.6rem 1.25rem;
+  border-radius: var(--r-pill); border: 1px solid transparent;
+  font-size: var(--fs-base); font-weight: 600; line-height: 1;
+  text-decoration: none; white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn svg { width: 1.15em; height: 1.15em; flex: none; }
+.btn-primary { background: var(--c-accent); color: #fff; }
+.btn-primary:hover { background: #2d95ff; color: #fff; }
+.btn-whatsapp { background: var(--c-whatsapp); color: #052e16; }
+.btn-whatsapp:hover { background: #3be07a; color: #052e16; }
+.btn-ghost { border-color: rgb(255 255 255 / 0.28); color: var(--c-text); }
+.btn-ghost:hover { border-color: rgb(255 255 255 / 0.6); color: var(--c-text); }
+
+.section { padding-block: var(--space-section); }
+.section-head { max-width: var(--measure); margin-bottom: 2rem; }
+.section-head p { margin-top: 0.75rem; color: var(--c-muted); font-size: var(--fs-md); line-height: 1.45; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

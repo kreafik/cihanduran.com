@@ -1,0 +1,47 @@
+---
+import { t } from '../i18n';
+import { mainNav } from '../lib/nav';
+import { site } from '../site.config.mjs';
+
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-name">{site.name}</p>
+      <p class="muted">{t('footer.location')}</p>
+      <p class="footer-contact">
+        <a href={site.phoneHref}>{site.phone}</a>
+        {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
+        <a href={site.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
+      </p>
+    </div>
+    <nav aria-label="Alt gezinme">
+      <ul>
+        {mainNav.map((item) => <li><a href={item.href}>{t(item.key)}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <div class="container footer-base muted">© {year} {site.name}. {t('footer.rights')}</div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: var(--space-section);
+    padding: 3rem 0 calc(7rem + env(safe-area-inset-bottom));
+    border-top: 0.5px solid var(--c-line);
+    font-size: var(--fs-sm);
+  }
+  .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; }
+  .footer-name { font-weight: 650; font-size: var(--fs-base); }
+  .footer-contact { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 0.75rem; }
+  .footer-contact a, nav a { color: var(--c-text); text-decoration: none; }
+  .footer-contact a:hover, nav a:hover { color: var(--c-accent-text); }
+  nav ul { list-style: none; padding: 0; columns: 2; column-gap: 2.5rem; }
+  nav li { padding: 0.25rem 0; }
+  .footer-base { margin-top: 2.5rem; }
+  @media (max-width: 899px) {
+    .footer { padding-bottom: calc(var(--tabbar-h) + 2.5rem + env(safe-area-inset-bottom)); }
+    nav li a { display: inline-block; padding: 0.35rem 0; }
+  }
+</style>

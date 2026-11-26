@@ -1,0 +1,22 @@
+---
+// macOS kabuğu: menü çubuğu + içerik + dock (masaüstü) / sekme çubuğu (telefon) + WhatsApp + footer.
+import Base from './Base.astro';
+import MenuBar from '../components/MenuBar.astro';
+import Dock from '../components/Dock.astro';
+import MobileTabBar from '../components/MobileTabBar.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Footer from '../components/Footer.astro';
+
+type Props = import('./Base.astro').Props & { footer?: boolean };
+const { footer = true, ...base } = Astro.props;
+---
+<Base {...base}>
+  <MenuBar path={base.path} />
+  <main id="icerik">
+    <slot />
+  </main>
+  {footer && <Footer />}
+  <Dock path={base.path} />
+  <MobileTabBar path={base.path} />
+  <WhatsAppButton />
+</Base>

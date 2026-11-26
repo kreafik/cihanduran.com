@@ -1,6 +1,15 @@
 ---
+// Geçici: kabuk kontrolü (Task 6'da gerçek ana sayfa).
+import Desktop from '../layouts/Desktop.astro';
+import Window from '../components/Window.astro';
+import Placeholder from '../components/Placeholder.astro';
 ---
-<html lang="tr">
-  <head><meta charset="utf-8" /><title>Cihan Duran</title></head>
-  <body><h1>Cihan Duran</h1></body>
-</html>
+<Desktop title="Cihan Duran" description="Kabuk kontrolü" path="/">
+  <section class="section container">
+    <h1>Drone çekimi ve yapay zeka destekli yazılım.</h1>
+    <p class="muted" style="margin-top:1rem;max-width:50ch">Kabuk kontrol sayfası.</p>
+    <div style="margin-top:2rem;max-width:560px">
+      <Window title="narinmermer.com"><Placeholder label="ekran görüntüsü" /></Window>
+    </div>
+  </section>
+</Desktop>

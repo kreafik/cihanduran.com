@@ -1,0 +1,94 @@
+---
+// Masaüstü dock'u (≥ 900px). Açık sayfanın altında macOS'taki "çalışıyor" noktası.
+import { t } from '../i18n';
+import { mainNav, dockExtras, isActive } from '../lib/nav';
+import AppIcon from './AppIcon.astro';
+
+interface Props { path: string }
+const { path } = Astro.props;
+const groups = [
+  [{ key: 'dock.terminal' as const, href: '/', app: 'terminal' as const }, ...mainNav],
+  dockExtras,
+];
+---
+<nav class="dock" aria-label="Dock">
+  {groups.map((items, gi) => (
+    <>
+      {gi > 0 && <span class="dock-sep" aria-hidden="true" />}
+      <ul>
+        {items.map((item) => {
+          const active = item.href === '/' ? path === '/' : isActive(path, item.href);
+          return (
+            <li>
+              <a href={item.href} aria-current={active ? 'page' : undefined} data-tip={t(item.key)}>
+                <AppIcon app={item.app} size={46} />
+                <span class="visually-hidden">{t(item.key)}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  ))}
+</nav>
+
+<style>
+  .dock {
+    position: fixed;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 6px 8px;
+    background: rgb(52 52 56 / 0.5);
+    backdrop-filter: saturate(160%) blur(24px);
+    -webkit-backdrop-filter: saturate(160%) blur(24px);
+    border: 0.5px solid rgb(255 255 255 / 0.18);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  }
+  ul { display: flex; gap: 0.4rem; list-style: none; padding: 0; }
+  a {
+    position: relative;
+    display: block;
+    padding-bottom: 6px;
+    transform-origin: bottom center;
+    transition: transform 0.18s ease;
+  }
+  a:hover, a:focus-visible { transform: translateY(-6px) scale(1.12); }
+  a[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: rgb(245 245 247 / 0.85);
+  }
+  a::before {
+    content: attr(data-tip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: rgb(44 44 46 / 0.95);
+    border: 0.5px solid rgb(255 255 255 / 0.15);
+    color: var(--c-text);
+    font-size: 0.8125rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease;
+  }
+  a:hover::before, a:focus-visible::before { opacity: 1; }
+  .dock-sep { width: 1px; align-self: stretch; margin: 4px 2px 10px; background: rgb(255 255 255 / 0.2); }
+
+  @media (max-width: 899px) { .dock { display: none; } }
+</style>

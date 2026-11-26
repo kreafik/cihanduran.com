@@ -1,0 +1,29 @@
+---
+// Eksik görsel için görünür yer tutucu. Cihan gerçek görseli verince değiştirilir (npm run check:placeholders).
+import { t } from '../i18n';
+interface Props { label: string; ratio?: string; class?: string }
+const { label, ratio = '16 / 9', class: cls } = Astro.props;
+---
+<div class:list={['placeholder', cls]} style={`aspect-ratio:${ratio}`} data-todo="cihan" role="img" aria-label={`${t('placeholder.image')}: ${label}`}>
+  <span><strong>{t('placeholder.image')}</strong>{label}</span>
+</div>
+
+<style>
+  .placeholder {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    padding: 1rem;
+    border: 1.5px dashed rgb(255 255 255 / 0.28);
+    border-radius: inherit;
+    background:
+      repeating-linear-gradient(135deg, rgb(255 255 255 / 0.025) 0 12px, transparent 12px 24px),
+      #252527;
+    color: var(--c-muted);
+    text-align: center;
+    font-size: var(--fs-sm);
+    line-height: 1.4;
+  }
+  span { max-width: 32ch; }
+  strong { display: block; color: var(--c-text); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 0.2rem; }
+</style>

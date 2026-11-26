@@ -1,0 +1,49 @@
+---
+// macOS pencere çerçevesi: trafik ışıkları + başlık çubuğu. İş ekran görüntülerini ve terminali taşır.
+interface Props { title?: string; class?: string; as?: 'div' | 'figure' }
+const { title, class: cls, as: Tag = 'div' } = Astro.props;
+---
+<Tag class:list={['window', cls]}>
+  <div class="window-bar">
+    <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+    {title && <span class="window-title">{title}</span>}
+  </div>
+  <div class="window-body"><slot /></div>
+  <slot name="caption" />
+</Tag>
+
+<style>
+  .window {
+    background: var(--c-surface);
+    border-radius: var(--r-window);
+    box-shadow: var(--shadow-window);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .window-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding-inline: 12px;
+    background: linear-gradient(#3a3a3c, #323234);
+    border-bottom: 0.5px solid rgb(0 0 0 / 0.5);
+  }
+  .lights { display: flex; gap: 8px; }
+  .lights i { width: 12px; height: 12px; border-radius: 50%; background: var(--c-close); box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.25); }
+  .lights i:nth-child(2) { background: var(--c-min); }
+  .lights i:nth-child(3) { background: var(--c-max); }
+  .window-title {
+    position: absolute;
+    inset: 0 70px;
+    display: grid;
+    place-items: center;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgb(245 245 247 / 0.7);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .window-body { position: relative; }
+</style>

@@ -1,0 +1,127 @@
+---
+import { t } from '../i18n';
+import { mainNav, isActive } from '../lib/nav';
+import Icon from './Icon.astro';
+import { site } from '../site.config.mjs';
+
+interface Props { path: string }
+const { path } = Astro.props;
+---
+<header class="menubar">
+  <a class="skip-link" href="#icerik">İçeriğe geç</a>
+  <div class="menubar-inner">
+    <a class="brand" href="/" aria-current={path === '/' ? 'page' : undefined}>
+      <span class="brand-mark" aria-hidden="true"></span>
+      {site.name}
+    </a>
+
+    <nav class="menubar-nav" aria-label={t('nav.main')}>
+      <ul>
+        {mainNav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActive(path, item.href) ? 'page' : undefined}>{t(item.key)}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="menubar-right">
+      <a class="menubar-wa" href={site.whatsapp} target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={15} />
+        <span>WhatsApp</span>
+      </a>
+      <time class="menubar-clock" data-clock aria-hidden="true"></time>
+    </div>
+
+    <details class="menu-sheet">
+      <summary aria-label={t('nav.menu')}>
+        <Icon name="menu" size={22} class="i-open" />
+        <Icon name="close" size={22} class="i-close" />
+      </summary>
+      <nav aria-label={t('nav.main')}>
+        <ul>
+          <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>{t('nav.home')}</a></li>
+          {mainNav.map((item) => (
+            <li><a href={item.href} aria-current={isActive(path, item.href) ? 'page' : undefined}>{t(item.key)}</a></li>
+          ))}
+        </ul>
+        <a class="btn btn-whatsapp sheet-wa" href={site.whatsapp} target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> {t('cta.whatsapp')}
+        </a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<script>
+  // Saat yalnız istemcide çizilir (HTML'de yok; önbellek ve hydration sorunsuz).
+  const el = document.querySelector<HTMLElement>('[data-clock]');
+  if (el) {
+    const fmt = new Intl.DateTimeFormat('tr-TR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Istanbul' });
+    const tick = () => { el.textContent = fmt.format(new Date()); };
+    tick();
+    setInterval(tick, 30_000);
+  }
+</script>
+
+<style>
+  .menubar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgb(28 28 30 / 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 0.5px solid var(--c-line);
+  }
+  .menubar-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    height: var(--menubar-h);
+    padding-inline: 0.9rem;
+    font-size: 0.8125rem;
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-weight: 700; color: var(--c-text); text-decoration: none; white-space: nowrap;
+  }
+  .brand-mark {
+    width: 0.8rem; height: 0.8rem; border-radius: 50%;
+    background: conic-gradient(from 210deg, var(--c-close), var(--c-min), var(--c-max), var(--c-accent), var(--c-close));
+  }
+  .menubar-nav ul { display: flex; gap: 1.1rem; list-style: none; padding: 0; }
+  .menubar-nav a, .menubar-wa { color: rgb(245 245 247 / 0.86); text-decoration: none; }
+  .menubar-nav a:hover, .menubar-wa:hover { color: #fff; }
+  .menubar-nav a[aria-current='page'] { color: #fff; font-weight: 600; }
+  .menubar-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; white-space: nowrap; }
+  .menubar-wa { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .menubar-clock { color: rgb(245 245 247 / 0.86); font-variant-numeric: tabular-nums; min-width: 9.5em; text-align: right; }
+
+  .menu-sheet { display: none; }
+
+  @media (max-width: 899px) {
+    .menubar-inner { height: 52px; padding-inline: var(--gutter); font-size: 1rem; }
+    .menubar-nav, .menubar-right { display: none; }
+    .menu-sheet { display: block; margin-left: auto; }
+    .menu-sheet summary {
+      list-style: none; display: grid; place-items: center;
+      width: 44px; height: 44px; margin-right: -10px; cursor: pointer; border-radius: var(--r-control);
+    }
+    .menu-sheet summary::-webkit-details-marker { display: none; }
+    .menu-sheet :global(.i-close), .menu-sheet[open] :global(.i-open) { display: none; }
+    .menu-sheet[open] :global(.i-close) { display: block; }
+    .menu-sheet nav {
+      position: fixed; inset: 52px 0 0; overflow-y: auto;
+      padding: 1rem var(--gutter) calc(2rem + env(safe-area-inset-bottom));
+      background: var(--c-bg);
+    }
+    .menu-sheet ul { list-style: none; padding: 0; }
+    .menu-sheet li a {
+      display: block; padding: 0.9rem 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em;
+      color: var(--c-text); text-decoration: none; border-bottom: 0.5px solid var(--c-line);
+    }
+    .menu-sheet li a[aria-current='page'] { color: var(--c-accent-text); }
+    .sheet-wa { margin-top: 1.5rem; width: 100%; }
+  }
+</style>

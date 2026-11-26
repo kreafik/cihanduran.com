@@ -1,0 +1,30 @@
+---
+import { t } from '../i18n';
+import { site } from '../site.config.mjs';
+import Icon from './Icon.astro';
+---
+<a class="wa-fab" href={site.whatsapp} target="_blank" rel="noopener" aria-label={t('cta.whatsappAria')}>
+  <Icon name="whatsapp" size={28} />
+</a>
+
+<style>
+  .wa-fab {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 95;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--c-whatsapp);
+    color: #fff;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.4);
+    transition: transform 0.15s ease;
+  }
+  .wa-fab:hover { transform: scale(1.06); color: #fff; }
+  @media (max-width: 899px) {
+    .wa-fab { right: 1rem; bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 0.85rem); width: 52px; height: 52px; }
+  }
+</style>

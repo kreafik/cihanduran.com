@@ -1,0 +1,65 @@
+---
+// Her sayfanın <head>'i: başlık, açıklama, canonical, hreflang, OG/Twitter, JSON-LD, analitik.
+import '../styles/global.css';
+import { site } from '../site.config.mjs';
+import { alternates, DEFAULT_LANG, type Lang } from '../i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  noindex?: boolean;
+  ogImage?: string;
+  jsonLd?: object[];
+  lang?: Lang;
+  alternateMap?: Partial<Record<Lang, string>>;
+}
+const { title, description, path, noindex = false, ogImage, jsonLd = [], lang = DEFAULT_LANG, alternateMap } = Astro.props;
+
+const abs = (p: string) => (p === '/' ? `${site.origin}/` : `${site.origin}${p}`);
+const canonical = abs(path);
+const og = ogImage ? new URL(ogImage, site.origin).href : `${site.origin}/og-default.png`;
+const langs = alternates(path, alternateMap);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex
+      ? <meta name="robots" content="noindex, nofollow" />
+      : <link rel="canonical" href={canonical} />}
+    {!noindex && langs.map((a) => <link rel="alternate" hreflang={a.lang} href={abs(a.path)} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={abs(langs[0].path)} />}
+
+    <meta name="theme-color" content="#1c1c1e" />
+    <meta name="author" content={site.name} />
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/manifest/manifest.json" />
+    <link rel="preload" href="/fonts/hack-regular-subset.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
+
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+    {site.cfAnalyticsToken && (
+      <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: site.cfAnalyticsToken })}></script>
+    )}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
