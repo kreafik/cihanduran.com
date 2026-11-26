@@ -33,6 +33,12 @@ export const LEGACY_REDIRECTS = {
   '/resume': '/hakkimda',
 };
 
+/** Eski dosya adresleri (büyük/küçük harf duyarlı, birebir eşleşme). Search Console'daki eski site haritası kayıtları. */
+export const LEGACY_FILE_REDIRECTS = {
+  '/sitemap.xml': '/sitemap-index.xml',
+  '/sitemap_index.xml': '/sitemap-index.xml',
+};
+
 /** Sayfa yolu mu? Uzantılı dosyalar ve Astro varlıkları büyük/küçük harf duyarlıdır, dokunulmaz. */
 function isPagePath(path) {
   if (path.startsWith('/_astro/')) return false;
@@ -41,7 +47,7 @@ function isPagePath(path) {
 }
 
 function normalizePath(path) {
-  if (!isPagePath(path)) return path;
+  if (!isPagePath(path)) return LEGACY_FILE_REDIRECTS[path] ?? path;
   let p = path.toLowerCase();
   if (p.length > 1) p = p.replace(/\/+$/, '') || '/';
   return LEGACY_REDIRECTS[p] ?? p;

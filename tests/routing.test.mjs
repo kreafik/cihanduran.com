@@ -46,6 +46,12 @@ test('eski İngilizce adresler ve sorgu dizesi korunur', () => {
   assert.deepEqual(r('https://cihanduran.com/resume'), redirect('https://cihanduran.com/hakkimda'));
 });
 
+test('eski site haritası adresleri yenisine 301 (Search Console kayıtları)', () => {
+  assert.deepEqual(r('https://cihanduran.com/sitemap.xml'), redirect('https://cihanduran.com/sitemap-index.xml'));
+  assert.deepEqual(r('https://cihanduran.com/sitemap_index.xml'), redirect('https://cihanduran.com/sitemap-index.xml'));
+  assert.deepEqual(r('https://www.cihanduran.com/sitemap.xml'), redirect('https://cihanduran.com/sitemap-index.xml'));
+});
+
 test('tablo 12 lokasyon × 4 hizmet + 4 sayfa içerir', () => {
   assert.equal(Object.keys(LEGACY_REDIRECTS).length, 12 * 4 + 4);
 });
