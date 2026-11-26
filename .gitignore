@@ -133,3 +133,8 @@ dist
 
 # Ham video kaynakları (sıkıştırılmış halleri public/video/ altında)
 /video/
+
+# Optimize edilmiş medya (R2'ye yüklenir) ve ham portfolyo arşivi
+/media/
+/Portfolyo/
+/media-optimize.log
