@@ -23,14 +23,19 @@
   background: linear-gradient(#3a3a3c, #323234);
   border-bottom: 0.5px solid rgb(0 0 0 / 0.5);
 }
-.term-lights { display: flex; gap: 8px; position: relative; z-index: 1; }
+.term-lights { display: flex; gap: 0; margin-left: -6px; position: relative; z-index: 1; }
 .term-lights button {
-  width: 12px; height: 12px; padding: 0; border: 0; border-radius: 50%;
-  background: var(--c-close); box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.25);
-  cursor: pointer;
+  --dot: var(--c-close);
+  display: grid; place-items: center;
+  width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%;
+  background: transparent; cursor: pointer;
 }
-.term-lights .l-min { background: var(--c-min); }
-.term-lights .l-max { background: var(--c-max); }
+.term-lights button::before {
+  content: ''; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--dot); box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.25);
+}
+.term-lights .l-min { --dot: var(--c-min); }
+.term-lights .l-max { --dot: var(--c-max); }
 .term-lights button:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
 .term-title {
   position: absolute; inset: 0 90px; display: grid; place-items: center;

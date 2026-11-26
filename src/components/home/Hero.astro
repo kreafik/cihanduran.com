@@ -42,6 +42,15 @@ import { t } from '../../i18n';
     padding: clamp(3rem, 2rem + 5vw, 7rem) 0 clamp(3rem, 2rem + 4vw, 6rem);
     background: #07070a;
   }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 35%;
+    z-index: -1;
+    background: linear-gradient(transparent, var(--c-bg));
+    pointer-events: none;
+  }
   .aurora { position: absolute; inset: -20%; z-index: -2; filter: blur(60px); }
   .aurora i { position: absolute; border-radius: 50%; opacity: 0.55; animation: drift 22s ease-in-out infinite alternate; }
   .aurora i:nth-child(1) { width: 55%; height: 60%; right: 5%; top: 5%; background: radial-gradient(closest-side, rgb(64 120 255 / 0.75), transparent); }

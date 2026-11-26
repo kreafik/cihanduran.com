@@ -3,13 +3,15 @@
 // Duvar dekoratif (aria-hidden); erişilebilir bağlantı başlıkta.
 import { getCollection } from 'astro:content';
 import { getImage } from 'astro:assets';
+import { site } from '../../site.config.mjs';
 
 const work = (await getCollection('isler')).filter((w) => w.data.desktopShot).sort((a, b) => a.data.order - b.data.order);
 const shots = await Promise.all(
   work.map(async (w) => ({ id: w.id, src: (await getImage({ src: w.data.desktopShot!, width: 520, format: 'webp', quality: 70 })).src })),
 );
 const rows = [0, 1, 2].map((r) => shots.filter((_, i) => i % 3 === r));
-const liveSites = work.filter((w) => w.data.url).length;
+// Cihan'ın beyanı: stats.software ('300+') → "300'den fazla".
+const manySites = `${site.stats.software.replace('+', '')}'den fazla`;
 ---
 <section class="wall" id="isler-duvari" aria-labelledby="duvar-baslik">
   <div class="wall-stage" aria-hidden="true">
@@ -22,9 +24,9 @@ const liveSites = work.filter((w) => w.data.url).length;
     </div>
   </div>
   <div class="wall-cap container">
-    <h2 id="duvar-baslik">{liveSites} site, hepsi şu an yayında.</h2>
-    <p>Otel, gulet, hukuk, inşaat, sağlık, güzellik. Hepsini açıp gezebilirsiniz.</p>
-    <a class="btn btn-ghost" href="/isler">Tüm işleri gör</a>
+    <h2 id="duvar-baslik">{manySites} site, hepsi şu an yayında.</h2>
+    <p>Otel, gulet, hukuk, inşaat, sağlık, güzellik. Bir seçkisini açıp gezebilirsiniz.</p>
+    <a class="btn btn-ghost" href="/isler">Seçkiyi gör</a>
   </div>
 </section>
 
@@ -35,9 +37,12 @@ const liveSites = work.filter((w) => w.data.url).length;
     height: clamp(300px, 22vw + 140px, 520px);
     perspective: 1200px;
     overflow: hidden;
-    mask-image: linear-gradient(transparent, #000 18%, #000 70%, transparent), linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    --fade-y: linear-gradient(transparent 0%, #000 32%, #000 68%, transparent 100%);
+    --fade-x: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: var(--fade-y), var(--fade-x);
     mask-composite: intersect;
-    -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 70%, transparent);
+    -webkit-mask-image: var(--fade-y), var(--fade-x);
+    -webkit-mask-composite: source-in;
   }
   .wall-tilt {
     position: absolute;
