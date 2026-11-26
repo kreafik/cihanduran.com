@@ -129,8 +129,8 @@ test('robots.txt sitemap\'i gösterir, varsayılan OG görseli var', () => {
 test('dock: ayrı Ana sayfa ve Terminal (#terminal) girişleri', () => {
   const home = pages.find((p) => p.path === '/').html;
   const dock = home.slice(home.indexOf('class="dock"'));
-  assert.match(dock, /href="\/"[^>]*data-tip="Ana sayfa"/);
-  assert.match(dock, /href="\/#terminal"[^>]*data-tip="Terminal"/);
+  assert.match(dock, /href="\/"[^>]*data-dock-item[^>]*><span class="tip"[^>]*>Ana sayfa</);
+  assert.match(dock, /href="\/#terminal"[^>]*data-dock-item[^>]*><span class="tip"[^>]*>Terminal</);
 });
 
 test('rakamlar sitede: 300+, 200+, 10+; yer tutucu sayı kalmadı', () => {

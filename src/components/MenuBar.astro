@@ -6,12 +6,13 @@ import { site } from '../site.config.mjs';
 
 interface Props { path: string }
 const { path } = Astro.props;
+import Logo from './Logo.astro';
 ---
 <header class="menubar">
   <a class="skip-link" href="#icerik">İçeriğe geç</a>
   <div class="menubar-inner">
     <a class="brand" href="/" aria-current={path === '/' ? 'page' : undefined}>
-      <span class="brand-mark" aria-hidden="true"></span>
+      <Logo size={15} class="brand-mark" />
       {site.name}
     </a>
 
@@ -86,10 +87,7 @@ const { path } = Astro.props;
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-weight: 700; color: var(--c-text); text-decoration: none; white-space: nowrap;
   }
-  .brand-mark {
-    width: 0.8rem; height: 0.8rem; border-radius: 50%;
-    background: conic-gradient(from 210deg, var(--c-close), var(--c-min), var(--c-max), var(--c-accent), var(--c-close));
-  }
+  .brand :global(.brand-mark) { flex: none; color: #fff; }
   .menubar-nav ul { display: flex; gap: 1.1rem; list-style: none; padding: 0; }
   .menubar-nav a, .menubar-wa { color: rgb(245 245 247 / 0.86); text-decoration: none; }
   .menubar-nav a:hover, .menubar-wa:hover { color: #fff; }
