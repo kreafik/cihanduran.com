@@ -12,6 +12,7 @@ featured: false
 order: 7
 desktopShot: "../../assets/isler/lets-dance-yacht/desktop.jpg"
 mobileShot: "../../assets/isler/lets-dance-yacht/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -24,6 +25,5 @@ Lets Dance, Bodrum limanından özel mavi yolculuklara çıkan 30 metrelik ahşa
 - Cloudflare Workers üzerinde yayında.
 - İngilizce, Türkçe sürümleri var; diller arası bağlantılar Google için işaretli.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [letsdanceyacht.com](https://letsdanceyacht.com)

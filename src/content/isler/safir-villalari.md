@@ -12,6 +12,7 @@ featured: false
 order: 10
 desktopShot: "../../assets/isler/safir-villalari/desktop.jpg"
 mobileShot: "../../assets/isler/safir-villalari/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -23,6 +24,5 @@ Safir Villaları, Bodrum Kadıkalesi'nde kademeli yerleşimle her biri denize ba
 - Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
 - Cloudflare Workers üzerinde yayında.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [safirvillalari.com](https://safirvillalari.com)

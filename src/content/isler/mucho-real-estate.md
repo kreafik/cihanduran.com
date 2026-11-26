@@ -12,6 +12,7 @@ featured: true
 order: 5
 desktopShot: "../../assets/isler/mucho-real-estate/desktop.jpg"
 mobileShot: "../../assets/isler/mucho-real-estate/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -24,6 +25,5 @@ Mucho Real Estate, Bodrum Yarımadası'nda kat karşılığı inşaat, tadilat, 
 - Cloudflare üzerinde yayında.
 - Türkçe, İngilizce sürümleri var; diller arası bağlantılar Google için işaretli.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [muchorealestate.com](https://muchorealestate.com)

@@ -12,6 +12,7 @@ featured: false
 order: 11
 desktopShot: "../../assets/isler/makel/desktop.jpg"
 mobileShot: "../../assets/isler/makel/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -23,6 +24,5 @@ Makel A.Ş., 1984'ten beri Bodrum'da otel, villa ve işletmeler için mekanik te
 - Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
 - Cloudflare Workers üzerinde yayında.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [mak-el.com.tr](https://mak-el.com.tr)

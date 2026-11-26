@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import { NOINDEX_PATHS } from './src/lib/routing.mjs';
 
 export default defineConfig({
   site: 'https://cihanduran.com',
@@ -13,7 +14,11 @@ export default defineConfig({
     locales: ['tr'],
     routing: { prefixDefaultLocale: false },
   },
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    // noindex sayfalar ve 404 site haritasına girmez.
+    sitemap({ filter: (page) => { const p = new URL(page).pathname.replace(/\/$/, '') || '/'; return p !== '/404' && !NOINDEX_PATHS.has(p); } }),
+  ],
   devToolbar: { enabled: false },
   prefetch: false,
 });

@@ -1,4 +1,5 @@
 ---
+import { buildHomeSchema } from '../lib/schema.mjs';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Desktop from '../layouts/Desktop.astro';
@@ -22,6 +23,7 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
   title="Cihan Duran | Bodrum Drone Çekimi ve AI Destekli Yazılım"
   description="Bodrum'da drone çekimi, emlak ve tekne fotoğrafçılığı, yapay zeka destekli web siteleri ve yazılımlar. 20 işletmenin sitesi yayında."
   path="/"
+  jsonLd={buildHomeSchema()}
 >
   <section class="desk">
     <Image src={wallpaper} alt="" class="desk-bg" widths={[800, 1440, 2048]} sizes="100vw" loading="eager" fetchpriority="high" />

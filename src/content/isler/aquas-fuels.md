@@ -12,6 +12,7 @@ featured: true
 order: 6
 desktopShot: "../../assets/isler/aquas-fuels/desktop.jpg"
 mobileShot: "../../assets/isler/aquas-fuels/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -23,6 +24,5 @@ Aquas Fuels, Türkiye'deki liman, tersane ve marinalarda gemi ve yatlara MGO ve 
 - Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
 - Cloudflare Workers üzerinde yayında.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [aquasfuels.com](https://aquasfuels.com)

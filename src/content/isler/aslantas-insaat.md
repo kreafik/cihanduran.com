@@ -12,6 +12,7 @@ featured: false
 order: 15
 desktopShot: "../../assets/isler/aslantas-insaat/desktop.jpg"
 mobileShot: "../../assets/isler/aslantas-insaat/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -23,6 +24,5 @@ Aslantaş İnşaat, Gündoğan'da konut yenileme ve tadilat, iç mekân tasarım
 - Statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor.
 - Cloudflare Workers üzerinde yayında.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [aslantasinsaat.com.tr](https://aslantasinsaat.com.tr)

@@ -1,4 +1,5 @@
 ---
+import { buildProjectSchema } from '../../lib/schema.mjs';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import Desktop from '../../layouts/Desktop.astro';
@@ -29,7 +30,7 @@ const related = (await getCollection('isler'))
   .slice(0, 3);
 const title = `${d.name} web sitesi | Cihan Duran`.length <= 60 ? `${d.name} web sitesi | Cihan Duran` : `${d.name} | Cihan Duran`;
 ---
-<Desktop title={title} description={`${d.summary} ${d.sector}, ${d.location}.`.slice(0, 155)} path={path} ogImage={og}>
+<Desktop title={title} description={`${d.summary} ${d.sector}, ${d.location}.`.slice(0, 155)} path={path} ogImage={og} jsonLd={buildProjectSchema(entry, og)}>
   <header class="container head">
     <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work'), path: '/isler' }, { name: d.name }]} />
     <h1>{d.name}</h1>

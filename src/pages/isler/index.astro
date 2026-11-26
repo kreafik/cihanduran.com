@@ -1,4 +1,5 @@
 ---
+import { buildPageSchema } from '../../lib/schema.mjs';
 import { getCollection } from 'astro:content';
 import Desktop from '../../layouts/Desktop.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
@@ -19,6 +20,7 @@ const counts = Object.fromEntries(filters.map((f) => [f.id, f.id === 'tumu' ? wo
   title="İşler | Cihan Duran"
   description={`Bodrum'da ve Türkiye'de işletmeler için yaptığım ${work.length} web sitesi; oteller, gulet kiralama, hukuk, inşaat ve daha fazlası. Hepsi yayında.`}
   path="/isler"
+  jsonLd={buildPageSchema('CollectionPage', 'İşler', '/isler')}
 >
   <header class="container head">
     <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work') }]} />

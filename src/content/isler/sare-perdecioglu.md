@@ -12,6 +12,7 @@ featured: true
 order: 4
 desktopShot: "../../assets/isler/sare-perdecioglu/desktop.jpg"
 mobileShot: "../../assets/isler/sare-perdecioglu/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -23,6 +24,5 @@ Av. Sare Perdecioğlu, Bodrum'da boşanma, miras, gayrimenkul, kira, iş, tazmin
 - Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
 - Cloudflare Workers üzerinde yayında.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [sareperdecioglu.av.tr](https://sareperdecioglu.av.tr)

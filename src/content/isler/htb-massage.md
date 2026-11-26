@@ -12,6 +12,7 @@ featured: false
 order: 12
 desktopShot: "../../assets/isler/htb-massage/desktop.jpg"
 mobileShot: "../../assets/isler/htb-massage/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -23,6 +24,5 @@ HTB, Yalıkavak'ta klasik, derin doku, Thai ve Lomi Lomi masajı, kupa ve hacama
 - Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
 - Cloudflare Workers üzerinde yayında.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [htbmassage.com](https://htbmassage.com)

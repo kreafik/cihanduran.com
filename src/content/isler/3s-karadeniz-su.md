@@ -12,6 +12,7 @@ featured: false
 order: 18
 desktopShot: "../../assets/isler/3s-karadeniz-su/desktop.jpg"
 mobileShot: "../../assets/isler/3s-karadeniz-su/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -23,6 +24,5 @@ mobileShot: "../../assets/isler/3s-karadeniz-su/mobile.jpg"
 - Statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor.
 - Cloudflare Workers üzerinde yayında.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [3skaradeniz.com](https://3skaradeniz.com)

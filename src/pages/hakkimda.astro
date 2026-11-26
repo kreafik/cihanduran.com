@@ -1,4 +1,5 @@
 ---
+import { buildPageSchema } from '../lib/schema.mjs';
 import { getCollection } from 'astro:content';
 import Desktop from '../layouts/Desktop.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
@@ -14,6 +15,7 @@ const workCount = (await getCollection('isler')).length;
   title="Hakkımda | Cihan Duran, Bodrum"
   description="Cihan Duran: Bodrum'da drone ve fotoğraf çekimi yapan, işletmelere yapay zeka destekli web siteleri ve yazılımlar geliştiren bağımsız üretici."
   path="/hakkimda"
+  jsonLd={buildPageSchema('ProfilePage', 'Hakkımda', '/hakkimda')}
 >
   <div class="container wrap">
     <header class="head">
@@ -44,10 +46,11 @@ const workCount = (await getCollection('isler')).length;
       </ul>
 
       <h2>Ekipman ve belgeler</h2>
+      {/* TODO(cihan): bu üç maddeyi gerçek bilgilerle değiştir (ekipman, lisans/sigorta, geçmiş). */}
       <ul class="todo-list" data-todo="cihan">
-        <li>TODO(cihan): drone modeli ve kamera ekipmanı</li>
-        <li>TODO(cihan): pilot lisansı / SHGM kaydı ve sigorta bilgisi</li>
-        <li>TODO(cihan): kısa geçmiş (kaç yıldır, nerelerde çalıştın)</li>
+        <li>Eklenecek: drone modeli ve kamera ekipmanı</li>
+        <li>Eklenecek: pilot lisansı, SHGM kaydı ve sigorta bilgisi</li>
+        <li>Eklenecek: kısa geçmiş (kaç yıldır, nerelerde çalıştın)</li>
       </ul>
 
       <h2>Hizmetler</h2>

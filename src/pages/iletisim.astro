@@ -1,4 +1,5 @@
 ---
+import { buildPageSchema } from '../lib/schema.mjs';
 import { getCollection } from 'astro:content';
 import Desktop from '../layouts/Desktop.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
@@ -12,6 +13,7 @@ const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order 
   title="İletişim | Cihan Duran, Bodrum"
   description="WhatsApp, telefon ya da e-posta ile Cihan Duran'a ulaşın. Drone çekimi, fotoğraf ve yapay zeka destekli yazılım projeleri için 24 saat içinde dönüş."
   path="/iletisim"
+  jsonLd={buildPageSchema('ContactPage', 'İletişim', '/iletisim')}
 >
   <div class="container wrap">
     <header>

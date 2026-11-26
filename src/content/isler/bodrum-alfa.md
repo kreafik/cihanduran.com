@@ -12,6 +12,7 @@ featured: false
 order: 9
 desktopShot: "../../assets/isler/bodrum-alfa/desktop.jpg"
 mobileShot: "../../assets/isler/bodrum-alfa/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -24,6 +25,5 @@ Bodrum Alfa; yat, gemi, marina ve kıyı tesisleri için profesyonel dalgıç hi
 - Cloudflare Workers üzerinde yayında.
 - Türkçe, İngilizce, Rusça sürümleri var; diller arası bağlantılar Google için işaretli.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [bodrumalfasualtihizmetleri.com.tr](https://bodrumalfasualtihizmetleri.com.tr)

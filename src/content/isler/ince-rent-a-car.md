@@ -12,6 +12,7 @@ featured: false
 order: 13
 desktopShot: "../../assets/isler/ince-rent-a-car/desktop.jpg"
 mobileShot: "../../assets/isler/ince-rent-a-car/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -24,6 +25,5 @@ mobileShot: "../../assets/isler/ince-rent-a-car/mobile.jpg"
 - Cloudflare Workers üzerinde yayında.
 - Türkçe, İngilizce sürümleri var; diller arası bağlantılar Google için işaretli.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [incerentacar.com](https://incerentacar.com)

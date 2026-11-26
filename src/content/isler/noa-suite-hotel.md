@@ -12,6 +12,7 @@ featured: true
 order: 3
 desktopShot: "../../assets/isler/noa-suite-hotel/desktop.jpg"
 mobileShot: "../../assets/isler/noa-suite-hotel/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -24,6 +25,5 @@ Noa Suite Hotel, Bodrum Kumbahçe'de yalnızca yetişkinlere hizmet veren bir bu
 - Cloudflare Workers üzerinde yayında.
 - Türkçe, İngilizce, Almanca sürümleri var; diller arası bağlantılar Google için işaretli.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [noasuitehotel.com](https://noasuitehotel.com)

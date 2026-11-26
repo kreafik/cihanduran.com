@@ -12,6 +12,7 @@ featured: false
 order: 8
 desktopShot: "../../assets/isler/dr-sword/desktop.jpg"
 mobileShot: "../../assets/isler/dr-sword/mobile.jpg"
+# TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
 ## Proje
@@ -24,6 +25,5 @@ Dr. Sword, Bodrum merkezli tıbbi danışmanlık firması; diş tedavisi, saç e
 - Cloudflare Workers üzerinde yayında.
 - Türkçe, İngilizce sürümleri var; diller arası bağlantılar Google için işaretli.
 
-<!-- TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak. -->
 
 Siteyi ziyaret edin: [drsword.com.tr](https://drsword.com.tr)

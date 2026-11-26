@@ -1,4 +1,5 @@
 ---
+import { buildServiceSchema } from '../lib/schema.mjs';
 // Üç hizmet sayfası: /drone-cekimi-bodrum, /fotograf-video-cekimi-bodrum, /yapay-zeka-yazilim
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
@@ -30,7 +31,7 @@ const work = (await getCollection('isler'))
 const isSoftware = d.workCategory === 'yazilim';
 const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.id).sort((a, b) => a.data.order - b.data.order);
 ---
-<Desktop title={d.seoTitle} description={d.description} path={path}>
+<Desktop title={d.seoTitle} description={d.description} path={path} jsonLd={buildServiceSchema(entry)}>
   <header class="hero container">
     <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: d.name }]} />
     <h1>{d.title}</h1>
