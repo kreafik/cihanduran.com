@@ -6,6 +6,7 @@ import StatStrip from '../components/home/StatStrip.astro';
 import TechMarquee from '../components/home/TechMarquee.astro';
 import WorkWall from '../components/home/WorkWall.astro';
 import Bento from '../components/home/Bento.astro';
+import DroneCinema from '../components/home/DroneCinema.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Placeholder from '../components/Placeholder.astro';
 import Icon from '../components/Icon.astro';
@@ -29,6 +30,7 @@ const liveSites = allWork.filter((w) => w.data.url).length;
   <StatStrip liveSites={liveSites} />
   <TechMarquee />
   <Bento />
+  <DroneCinema />
 
   <section class="section container" aria-labelledby="isler-baslik">
     <div class="section-head">
