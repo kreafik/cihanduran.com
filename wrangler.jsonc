@@ -15,11 +15,11 @@
   // workers.dev ve sürüm önizleme adresleri açık; Worker bu host'larda X-Robots-Tag: noindex ekler.
   "workers_dev": true,
   "preview_urls": true,
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
 
-  // ÖZEL ALAN ADLARI BİLEREK EKLENMEDİ — canlıya geçiş onayından sonra (README "Canlıya alma"):
-  // "routes": [
-  //   { "pattern": "cihanduran.com", "custom_domain": true },
-  //   { "pattern": "www.cihanduran.com", "custom_domain": true }
-  // ]
+  // Özel alan adları: apex kanonik; www Worker içinde 301 ile apex'e yönlenir (src/lib/routing.mjs).
+  "routes": [
+    { "pattern": "cihanduran.com", "custom_domain": true },
+    { "pattern": "www.cihanduran.com", "custom_domain": true }
+  ]
 }
