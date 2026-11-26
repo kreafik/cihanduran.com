@@ -13,8 +13,10 @@ interface Props {
   jsonLd?: object[];
   lang?: Lang;
   alternateMap?: Partial<Record<Lang, string>>;
+  /** İlk ekranın en büyük görseli (LCP) — erken keşif için ön yükleme */
+  preloadImage?: { href: string; srcset?: string; sizes?: string };
 }
-const { title, description, path, noindex = false, ogImage, jsonLd = [], lang = DEFAULT_LANG, alternateMap } = Astro.props;
+const { title, description, path, noindex = false, ogImage, jsonLd = [], lang = DEFAULT_LANG, alternateMap, preloadImage } = Astro.props;
 
 const abs = (p: string) => (p === '/' ? `${site.origin}/` : `${site.origin}${p}`);
 const canonical = abs(path);
@@ -41,6 +43,7 @@ const langs = alternates(path, alternateMap);
     <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="/assets/manifest/manifest.json" />
     <link rel="preload" href="/fonts/hack-regular-subset.woff2" as="font" type="font/woff2" crossorigin />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage.href} imagesrcset={preloadImage.srcset} imagesizes={preloadImage.sizes} fetchpriority="high" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />

@@ -2,10 +2,14 @@
 // Çekim kategorileri: kapak fotoğraflı büyük karolar → /isler#kategori
 import { media, shoots } from '../../lib/media';
 
+// Kategori kapağı için seçilen çekim (yoksa kategorinin ilk fotoğraflı çekimi).
+const COVER: Record<string, string> = { 'yatlar-tekneler': 'axopar', oteller: 'artunc-hotel' };
+
 const cats = shoots.reduce<Map<string, { label: string; slug: string; count: number; cover?: (typeof shoots)[number] }>>((m, s) => {
   const c = m.get(s.categorySlug) ?? { label: s.category, slug: s.categorySlug, count: 0 };
   c.count++;
-  if (!c.cover && s.photos.length) c.cover = s;
+  if (s.photos.length && (COVER[s.categorySlug] === s.slug || (!c.cover && !COVER[s.categorySlug]))) c.cover = s;
+  if (!c.cover && s.photos.length && COVER[s.categorySlug] && !shoots.some((x) => x.slug === COVER[s.categorySlug])) c.cover = s;
   m.set(s.categorySlug, c);
   return m;
 }, new Map());

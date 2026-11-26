@@ -54,6 +54,7 @@ const description = (
     : `${w.name} için ${shoot!.category.toLocaleLowerCase('tr-TR')} çekimi: ${photoCount} fotoğraf${videoCount ? `, ${videoCount} video` : ''}. Drone ve fotoğraf, Cihan Duran.`
 ).replace(/\s+/g, ' ').slice(0, 155);
 
+const preloadImage = hero.type === 'video' && hero.poster ? { href: hero.poster } : hero.type === 'image' ? { href: hero.src, srcset: hero.srcset, sizes: '100vw' } : undefined;
 const ogImage = cover ? media.photoSrc(shoot!, cover, 1600) : shotImg?.src;
 const photoUrls = shoot ? shoot.photos.map((p) => new URL(media.photoSrc(shoot, p, 1600), 'https://cihanduran.com').href) : [];
 
@@ -61,7 +62,7 @@ const all = await getAllWork();
 const related = all.filter((x) => x.slug !== w.slug && x.groups[0].slug === w.groups[0].slug).slice(0, 4);
 const quoteMsg = `Merhaba Cihan, ${w.name} işini gördüm; benzer bir proje için görüşmek istiyorum.`;
 ---
-<Desktop title={title} description={description} path={path} ogImage={ogImage} jsonLd={buildWorkSchema(w, ogImage, photoUrls)}>
+<Desktop title={title} description={description} path={path} ogImage={ogImage} preloadImage={preloadImage} jsonLd={buildWorkSchema(w, ogImage, photoUrls)}>
   <MediaCinema media={hero} first>
     <div slot="intro" class="intro">
       <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work'), path: '/isler' }, { name: w.name }]} />

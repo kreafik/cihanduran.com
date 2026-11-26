@@ -8,9 +8,12 @@ const groups = workGroups(all);
 const pick: Work[] = [];
 const add = (w?: Work) => { if (w && !pick.includes(w)) pick.push(w); };
 
-// Büyükler: videolu bir "çekim + site" ve videolu bir çekim; yoksa ilk uygunlar.
-add(all.find((w) => w.kind === 'both' && w.shoot?.videos.length) ?? all.find((w) => w.kind === 'both'));
-add(all.find((w) => w.kind === 'shoot' && w.shoot?.videos.length && w.groups[0].slug !== pick[0]?.groups[0].slug));
+// Büyükler: önce elle seçilenler, yoksa fotoğraf kapaklı ve videolu bir "çekim + site" ile bir çekim.
+const BIG = ['sunset-gulet', 'axopar'];
+const photoCover = (w: Work) => w.cover.kind === 'photo';
+for (const slug of BIG) add(all.find((w) => w.slug === slug && photoCover(w)));
+if (pick.length < 1) add(all.find((w) => w.kind === 'both' && photoCover(w) && w.shoot?.videos.length));
+if (pick.length < 2) add(all.find((w) => w.kind === 'shoot' && photoCover(w) && w.shoot?.videos.length && !pick.includes(w)));
 // Küçükler: her gruptan biri (yazılım dahil), sonra öne çıkanlar.
 for (const g of groups) add(all.find((w) => w.groups[0].slug === g.slug && !pick.includes(w)));
 for (const w of all) { if (pick.length >= 8) break; add(w); }
