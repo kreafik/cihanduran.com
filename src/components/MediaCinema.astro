@@ -40,6 +40,16 @@ const { media, words, first = false, open = false, class: cls } = Astro.props;
     )}
   </div>
   {open && <span id="icerik-devam" class="anchor" aria-hidden="true"></span>}
+  {open && (
+    <script is:inline>
+      (function () {
+        var el = document.currentScript && document.currentScript.parentElement;
+        if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        el.classList.add('is-intro');
+        el.style.setProperty('--p', '0');
+      })();
+    </script>
+  )}
 </section>
 
 <script>
@@ -49,6 +59,27 @@ const { media, words, first = false, open = false, class: cls } = Astro.props;
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   });
+  // Proje sayfası açılışı: medya küçük pencereden tam ekrana kendiliğinden açılır (kaydırma geçişinin aynısı).
+  document.querySelectorAll<HTMLElement>('.cinema.is-intro').forEach((root) => {
+    const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const DURATION = 1500;
+    const run = () => {
+      let start = 0;
+      const step = (now: number) => {
+        if (!start) start = now;
+        const t = Math.min(1, (now - start) / DURATION);
+        root.style.setProperty('--p', ease(t).toFixed(4));
+        if (t < 1) requestAnimationFrame(step);
+        else root.classList.add('is-done');
+      };
+      requestAnimationFrame(step);
+    };
+    // Görsel hazır olunca (en geç 600 ms) başla; kısa bir duraklama küçük hâlini fark ettirir.
+    const img = root.querySelector('img');
+    const ready = img && !img.complete ? new Promise((r) => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); }) : Promise.resolve();
+    Promise.race([ready, new Promise((r) => setTimeout(r, 600))]).then(() => setTimeout(run, 250));
+  });
+
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll<HTMLElement>('[data-cinema]').forEach((root) => {
     if (reduce) return;
@@ -156,6 +187,7 @@ const { media, words, first = false, open = false, class: cls } = Astro.props;
   }
   .scroll-hint:hover { color: #fff; }
   .scroll-hint.gone { opacity: 0; pointer-events: none; }
+  .is-intro:not(.is-done) .scroll-hint { opacity: 0; }
   .mouse { position: relative; width: 22px; height: 34px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px currentColor; }
   .mouse i { position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: currentColor; animation: wheel 1.6s ease-in-out infinite; }
   @keyframes wheel { 0% { opacity: 0; transform: translateY(-3px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(10px); } }
