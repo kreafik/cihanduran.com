@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createMedia } from '../src/lib/media-core.mjs';
+import { readFileSync } from 'node:fs';
 
 const shoot = { categorySlug: 'yatlar-tekneler', slug: 'axopar' };
 const photo = { name: 'axopar-01', w: 1600, h: 900 };
@@ -29,4 +30,11 @@ test('video ve kapak adresleri', () => {
 test('taban yoksa göreli /media', () => {
   const m = createMedia(undefined);
   assert.equal(m.photoSrc(shoot, photo, 1600), '/media/yatlar-tekneler/axopar/axopar-01-1600.webp');
+});
+
+test('hariç tutulan fotoğraflar manifestte yok (media-exclude.json)', () => {
+  const exclude = JSON.parse(readFileSync('src/data/media-exclude.json', 'utf8')).photos;
+  const manifest = JSON.parse(readFileSync('src/data/media-manifest.json', 'utf8'));
+  const present = new Set(manifest.flatMap((s) => s.photos.map((p) => `${s.categorySlug}/${s.slug}/${p.name}`)));
+  for (const key of exclude) assert.ok(!present.has(key), `${key} hâlâ manifest'te`);
 });

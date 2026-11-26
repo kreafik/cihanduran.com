@@ -1,0 +1,6 @@
+{
+  "_açıklama": "Sitede gösterilmeyecek medya: <kategori-slug>/<proje-slug>/<dosya-adı (uzantısız)>. scripts/optimize-media.mjs bunları üretmez; test manifest'te kalmadığını denetler.",
+  "photos": [
+    "yatlar-tekneler/axopar/axopar-20"
+  ]
+}

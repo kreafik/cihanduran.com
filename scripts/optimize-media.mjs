@@ -7,13 +7,15 @@
 import sharp from 'sharp';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { readdirSync, statSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readdirSync, statSync, existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { join, basename, extname } from 'node:path';
 import { homedir } from 'node:os';
 
 const run = promisify(execFile);
 const SRC = process.env.PORTFOLYO_DIR ?? join(homedir(), 'OneDrive', 'Masaüstü', 'Portfolyo');
 const OUT = 'media';
+// Sitede gösterilmeyecek fotoğraflar (src/data/media-exclude.json): üretilmez, manifest'e girmez.
+const EXCLUDE = new Set(JSON.parse(readFileSync('src/data/media-exclude.json', 'utf8')).photos);
 const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1] : null;
 
 const tr = { ç: 'c', ğ: 'g', ı: 'i', ö: 'o', ş: 's', ü: 'u', Ç: 'c', Ğ: 'g', İ: 'i', Ö: 'o', Ş: 's', Ü: 'u' };
@@ -75,7 +77,7 @@ for (const cat of dirs(SRC)) {
     for (const f of files) {
       const ext = extname(f).toLowerCase();
       const base = basename(f, ext);
-      if (ext === '.jpg' && !base.endsWith('-kapak')) {
+      if (ext === '.jpg' && !base.endsWith('-kapak') && !EXCLUDE.has(`${categorySlug}/${slug}/${base}`)) {
         photoJobs.push(async () => { entry.photos.push({ name: base, ...(await photo(join(inDir, f), join(outDir, base))) }); });
       } else if (ext === '.mp4') {
         const poster = files.find((x) => x === `${base}-kapak.jpg`);
