@@ -202,3 +202,28 @@ tests/                  node:test: yönlendirme tablosu, Worker davranışı, bu
 - Analitik: Cloudflare Web Analytics.
 - Ekran görüntüleri script'le alınıp repoya giriyor (build sırasında değil).
 - Yer tutucusu kalan sayfa canlıya engel değil; karar Cihan'ın.
+
+---
+
+## Ek A — Tasarım turu 2 (2026-11-26): "show"
+
+Cihan'ın geri bildirimi: ilk sürüm sade, boş ve sıkışık. İstek: tam genişlik, ilk bakışta "oha, neler yapmış" etkisi, 21st.dev bileşenlerinden esinlenme.
+
+**Seçilen yön: A (canlı masaüstü + iş duvarı), B'nin drone hero'su sayfanın aşağısında.**
+
+Ana sayfa sırası:
+1. **Hero (tam genişlik):** aurora ışıklı + ızgara dokulu arka plan, dev başlık ("Havadan çekiyorum. Yapay zekayla kodluyorum."), canlı "yeni projelere açık" rozeti, sağda küçük terminal.
+2. **İş duvarı:** müşteri sitelerinin eğik, sürekli akan 3 sıralı ekran görüntüsü duvarı (21st.dev "3D Marquee" esinli).
+3. **Rakam şeridi:** sayılar `src/site.config.mjs` → `stats` içinden; değerleri Cihan verir (bkz. aşağı).
+4. **Teknoloji şeridi:** gerçekten kullanılan teknolojilerin logolu, akan şeridi (GitHub repolarından: Astro, TypeScript, React, Next.js, Tailwind CSS, Cloudflare Workers, Hono, Supabase, Prisma, Zod, TanStack Query, Three.js, Python, Solidity, WordPress + AI araçları).
+5. **Bento pano:** dönen ışık kenarlı rakam kartı, drone video kutusu, Bodrum pinli noktalı küre, imleci takip eden parıltılı hizmet kartları, ek işler (CRM/panel/QR/oyun).
+6. **Drone sinema geçişi (B'nin hero'su):** kaydırdıkça ortadaki drone videosu/fotoğrafı tam ekrana büyür, "Havadan." / "Koddan." iki yana açılır.
+7. Hakkımda özeti, iletişim çağrısı.
+
+Genel: tüm sayfalarda tam genişlik düzen (içerik genişliği 1120 → ~1440px, hero ve duvarlar kenardan kenara). Dock'ta terminalden ayrı **Ana sayfa** ikonu. Terminal tıklanınca macOS "yakınlaştır" animasyonuyla tam ekrana büyür (Esc/yeşil düğme ile küçülür; telefonda tam ekran açılır). Hareket `prefers-reduced-motion`'a saygılı.
+
+**İşler kapsamı genişliyor:** Cloudflare'deki 20 siteye ek olarak WordPress'teki müşteri siteleri ve ekran görüntüsü alınabilen diğer işler.
+
+**Rakamlar ve iddialar (Ek A ile değişen kural):** Sayılar ve öne çıkan iddialar Cihan'ın beyanıdır; `site.config.mjs` → `stats` içinde tek yerde durur ve Cihan tarafından verilir. Claude kendi başına sayı uydurmaz.
+
+**Teknik karar (Claude'un kararı):** 21st.dev bileşenleri Tailwind ile yazılı; efektler kendi CSS değişkenlerimize ve küçük React adalarına çevrilir, Tailwind eklenmez (tek stil sistemi, sayfa başına daha az CSS).
