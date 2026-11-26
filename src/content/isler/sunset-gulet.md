@@ -10,6 +10,8 @@ languages: ["İngilizce","Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: true
 order: 2
+desktopShot: "../../assets/isler/sunset-gulet/desktop.jpg"
+mobileShot: "../../assets/isler/sunset-gulet/mobile.jpg"
 ---
 
 ## Proje

@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Cloudflare Workers"]
 featured: false
 order: 16
+desktopShot: "../../assets/isler/gundogan-suites/desktop.jpg"
+mobileShot: "../../assets/isler/gundogan-suites/mobile.jpg"
 ---
 
 ## Proje

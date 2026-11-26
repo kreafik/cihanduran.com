@@ -10,6 +10,8 @@ languages: ["İngilizce","Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 7
+desktopShot: "../../assets/isler/lets-dance-yacht/desktop.jpg"
+mobileShot: "../../assets/isler/lets-dance-yacht/mobile.jpg"
 ---
 
 ## Proje

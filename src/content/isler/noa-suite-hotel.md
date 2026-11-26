@@ -10,6 +10,8 @@ languages: ["Türkçe","İngilizce","Almanca"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: true
 order: 3
+desktopShot: "../../assets/isler/noa-suite-hotel/desktop.jpg"
+mobileShot: "../../assets/isler/noa-suite-hotel/mobile.jpg"
 ---
 
 ## Proje

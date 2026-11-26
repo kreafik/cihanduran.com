@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: true
 order: 1
+desktopShot: "../../assets/isler/narin-mermer/desktop.jpg"
+mobileShot: "../../assets/isler/narin-mermer/mobile.jpg"
 ---
 
 ## Proje

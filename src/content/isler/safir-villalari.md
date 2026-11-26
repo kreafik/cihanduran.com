@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 10
+desktopShot: "../../assets/isler/safir-villalari/desktop.jpg"
+mobileShot: "../../assets/isler/safir-villalari/mobile.jpg"
 ---
 
 ## Proje

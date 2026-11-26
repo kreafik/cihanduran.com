@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Cloudflare Workers"]
 featured: false
 order: 15
+desktopShot: "../../assets/isler/aslantas-insaat/desktop.jpg"
+mobileShot: "../../assets/isler/aslantas-insaat/mobile.jpg"
 ---
 
 ## Proje

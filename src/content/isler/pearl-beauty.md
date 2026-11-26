@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Cloudflare Workers"]
 featured: false
 order: 17
+desktopShot: "../../assets/isler/pearl-beauty/desktop.jpg"
+mobileShot: "../../assets/isler/pearl-beauty/mobile.jpg"
 ---
 
 ## Proje

@@ -10,6 +10,8 @@ languages: ["Türkçe","İngilizce"]
 stack: ["Astro (statik site)","Cloudflare"]
 featured: true
 order: 5
+desktopShot: "../../assets/isler/mucho-real-estate/desktop.jpg"
+mobileShot: "../../assets/isler/mucho-real-estate/mobile.jpg"
 ---
 
 ## Proje

@@ -10,6 +10,8 @@ languages: ["İngilizce"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 12
+desktopShot: "../../assets/isler/htb-massage/desktop.jpg"
+mobileShot: "../../assets/isler/htb-massage/mobile.jpg"
 ---
 
 ## Proje

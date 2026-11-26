@@ -10,6 +10,8 @@ languages: ["Türkçe","İngilizce"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 13
+desktopShot: "../../assets/isler/ince-rent-a-car/desktop.jpg"
+mobileShot: "../../assets/isler/ince-rent-a-car/mobile.jpg"
 ---
 
 ## Proje

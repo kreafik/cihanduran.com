@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: true
 order: 4
+desktopShot: "../../assets/isler/sare-perdecioglu/desktop.jpg"
+mobileShot: "../../assets/isler/sare-perdecioglu/mobile.jpg"
 ---
 
 ## Proje

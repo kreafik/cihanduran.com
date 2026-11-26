@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Cloudflare Workers"]
 featured: false
 order: 18
+desktopShot: "../../assets/isler/3s-karadeniz-su/desktop.jpg"
+mobileShot: "../../assets/isler/3s-karadeniz-su/mobile.jpg"
 ---
 
 ## Proje

@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 20
+desktopShot: "../../assets/isler/cc-insaat/desktop.jpg"
+mobileShot: "../../assets/isler/cc-insaat/mobile.jpg"
 ---
 
 ## Proje

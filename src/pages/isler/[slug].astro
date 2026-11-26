@@ -1,0 +1,115 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import Desktop from '../../layouts/Desktop.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Window from '../../components/Window.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import QuoteCta from '../../components/QuoteCta.astro';
+import Icon from '../../components/Icon.astro';
+import { t } from '../../i18n';
+
+export async function getStaticPaths() {
+  const work = await getCollection('isler');
+  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<'isler'> }
+const { entry } = Astro.props;
+const d = entry.data;
+const path = `/isler/${entry.id}`;
+const host = d.url ? new URL(d.url).host : d.name;
+const { Content } = await render(entry);
+
+const og = d.desktopShot ? (await getImage({ src: d.desktopShot, width: 1200, height: 750, format: 'jpg' })).src : undefined;
+const related = (await getCollection('isler'))
+  .filter((w) => w.id !== entry.id && w.data.category.some((c) => d.category.includes(c)))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+const title = `${d.name} web sitesi | Cihan Duran`.length <= 60 ? `${d.name} web sitesi | Cihan Duran` : `${d.name} | Cihan Duran`;
+---
+<Desktop title={title} description={`${d.summary} ${d.sector}, ${d.location}.`.slice(0, 155)} path={path} ogImage={og}>
+  <header class="container head">
+    <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work'), path: '/isler' }, { name: d.name }]} />
+    <h1>{d.name}</h1>
+    <p class="lead">{d.summary}</p>
+    <dl class="facts">
+      <div><dt>Sektör</dt><dd>{d.sector}</dd></div>
+      <div><dt>Konum</dt><dd>{d.location}</dd></div>
+      <div><dt>Diller</dt><dd>{d.languages.join(', ')}</dd></div>
+      <div><dt>Yıl</dt><dd>{d.year}</dd></div>
+    </dl>
+    {d.url && (
+      <a class="btn btn-primary visit" href={d.url} target="_blank" rel="noopener">{host} sitesini açın <Icon name="external" /></a>
+    )}
+  </header>
+
+  <div class="container shots">
+    <Window title={host} class="shot-desktop">
+      {d.desktopShot
+        ? <Image src={d.desktopShot} alt={`${d.name} sitesinin masaüstü görünümü`} widths={[640, 1000, 1440]} sizes="(max-width: 899px) 100vw, 800px" loading="eager" />
+        : <Placeholder label={`${host} masaüstü ekran görüntüsü`} ratio="16 / 10" />}
+    </Window>
+    <div class="phone">
+      {d.mobileShot
+        ? <Image src={d.mobileShot} alt={`${d.name} sitesinin telefon görünümü`} widths={[260, 390, 780]} sizes="260px" />
+        : <Placeholder label={`${host} telefon ekran görüntüsü`} ratio="390 / 844" />}
+    </div>
+  </div>
+
+  <article class="container body"><div class="prose"><Content /></div></article>
+
+  {related.length > 0 && (
+    <section class="section container" aria-labelledby="benzer">
+      <h2 id="benzer">Diğer işler</h2>
+      <ul class="grid">
+        {related.map((w) => <li><ProjectCard entry={w} /></li>)}
+      </ul>
+    </section>
+  )}
+
+  <QuoteCta title="Benzer bir siteye mi ihtiyacınız var?" message={`Merhaba Cihan, ${d.name} sitesini gördüm; benzer bir site için görüşmek istiyorum.`} />
+</Desktop>
+
+<style>
+  .head { padding-top: clamp(2rem, 1.5rem + 3vw, 4rem); }
+  .head h1 { margin-top: 1.25rem; }
+  .lead { margin-top: 1rem; max-width: 56ch; font-size: var(--fs-md); color: rgb(245 245 247 / 0.82); }
+  .facts { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin-top: 1.75rem; }
+  .facts dt { color: var(--c-muted); font-size: var(--fs-sm); }
+  .facts dd { margin: 0.1rem 0 0; font-weight: 600; }
+  .visit { margin-top: 1.75rem; }
+
+  .shots {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 2.5rem;
+    align-items: end;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  }
+  .shots :global(.shot-desktop img) { width: 100%; height: auto; }
+  .phone {
+    border-radius: 34px;
+    padding: 9px;
+    background: #0d0d0e;
+    box-shadow: 0 0 0 1.5px #3a3a3c, var(--shadow-window);
+  }
+  .phone > :global(*) { border-radius: 26px; overflow: hidden; width: 100%; height: auto; }
+
+  .body { margin-top: clamp(2.5rem, 2rem + 2vw, 4rem); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 3rem 2rem;
+    margin-top: 1.75rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  @media (max-width: 899px) {
+    .shots { grid-template-columns: minmax(0, 1fr); }
+    .phone { width: min(240px, 70%); justify-self: center; }
+  }
+</style>

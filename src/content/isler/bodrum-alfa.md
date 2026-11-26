@@ -10,6 +10,8 @@ languages: ["Türkçe","İngilizce","Rusça"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 9
+desktopShot: "../../assets/isler/bodrum-alfa/desktop.jpg"
+mobileShot: "../../assets/isler/bodrum-alfa/mobile.jpg"
 ---
 
 ## Proje

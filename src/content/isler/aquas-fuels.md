@@ -10,6 +10,8 @@ languages: ["İngilizce"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: true
 order: 6
+desktopShot: "../../assets/isler/aquas-fuels/desktop.jpg"
+mobileShot: "../../assets/isler/aquas-fuels/mobile.jpg"
 ---
 
 ## Proje

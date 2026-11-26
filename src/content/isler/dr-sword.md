@@ -10,6 +10,8 @@ languages: ["Türkçe","İngilizce"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 8
+desktopShot: "../../assets/isler/dr-sword/desktop.jpg"
+mobileShot: "../../assets/isler/dr-sword/mobile.jpg"
 ---
 
 ## Proje

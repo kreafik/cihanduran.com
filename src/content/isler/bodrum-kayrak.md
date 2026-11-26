@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 19
+desktopShot: "../../assets/isler/bodrum-kayrak/desktop.jpg"
+mobileShot: "../../assets/isler/bodrum-kayrak/mobile.jpg"
 ---
 
 ## Proje

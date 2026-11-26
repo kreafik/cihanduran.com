@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 14
+desktopShot: "../../assets/isler/yildiz-garage/desktop.jpg"
+mobileShot: "../../assets/isler/yildiz-garage/mobile.jpg"
 ---
 
 ## Proje

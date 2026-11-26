@@ -10,6 +10,8 @@ languages: ["Türkçe"]
 stack: ["Astro (statik site)","Cloudflare Workers"]
 featured: false
 order: 11
+desktopShot: "../../assets/isler/makel/desktop.jpg"
+mobileShot: "../../assets/isler/makel/mobile.jpg"
 ---
 
 ## Proje
