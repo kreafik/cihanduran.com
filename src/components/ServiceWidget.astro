@@ -1,0 +1,49 @@
+---
+// Ana sayfadaki hizmet kartı: macOS widget'ı dili (yarı saydam, büyük köşe, görsel üstte).
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Placeholder from './Placeholder.astro';
+import AppIcon, { type AppName } from './AppIcon.astro';
+
+interface Props { entry: CollectionEntry<'hizmetler'>; app: AppName }
+const { entry, app } = Astro.props;
+const d = entry.data;
+---
+<a class="widget" href={`/${entry.id}`}>
+  <div class="widget-media">
+    {d.heroImage
+      ? <Image src={d.heroImage} alt="" widths={[360, 560, 720]} sizes="(max-width: 899px) 100vw, 360px" />
+      : <Placeholder label={d.heroPlaceholder} ratio="16 / 10" />}
+  </div>
+  <div class="widget-body">
+    <AppIcon app={app} size={34} />
+    <div>
+      <h3>{d.name}</h3>
+      <p>{d.tagline}</p>
+    </div>
+  </div>
+</a>
+
+<style>
+  .widget {
+    display: block;
+    overflow: hidden;
+    border-radius: 22px;
+    background: rgb(44 44 46 / 0.72);
+    backdrop-filter: saturate(160%) blur(22px);
+    -webkit-backdrop-filter: saturate(160%) blur(22px);
+    border: 0.5px solid rgb(255 255 255 / 0.14);
+    color: var(--c-text);
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .widget:hover { transform: translateY(-3px); border-color: rgb(255 255 255 / 0.3); color: var(--c-text); }
+  .widget-media { aspect-ratio: 16 / 7; border-radius: 0; overflow: hidden; }
+  .widget-media :global(.placeholder) { aspect-ratio: auto !important; height: 100%; }
+  @media (max-width: 599px) { .widget-media { aspect-ratio: 16 / 9; } }
+  .widget-media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .widget-media :global(.placeholder) { border: 0; border-bottom: 1.5px dashed rgb(255 255 255 / 0.2); }
+  .widget-body { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem 1rem 1rem; }
+  h3 { font-size: 1.0625rem; }
+  p { color: var(--c-muted); font-size: var(--fs-sm); margin-top: 0.1rem; }
+</style>
