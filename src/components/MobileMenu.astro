@@ -75,9 +75,15 @@ const items: { label: string; href: string; app: AppName; active: boolean }[] = 
     padding: 0;
     border: 0;
     color: var(--c-text);
-    background: rgb(18 18 20 / 0.62);
-    backdrop-filter: saturate(170%) blur(34px);
-    -webkit-backdrop-filter: saturate(170%) blur(34px);
+    /* Kendi "duvar kâğıdı": koyu taban + sitenin renklerinden yumuşak ışıklar. Neredeyse opak;
+       arkadaki sayfa ikonların arasından görünüp üst üste binmiş gibi durmaz (blur desteklenmese de). */
+    background:
+      radial-gradient(70% 45% at 85% 8%, rgb(64 120 255 / 0.32), transparent 70%),
+      radial-gradient(60% 40% at 8% 55%, rgb(170 90 255 / 0.26), transparent 70%),
+      radial-gradient(70% 40% at 70% 100%, rgb(40 200 120 / 0.16), transparent 70%),
+      rgb(13 13 16 / 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     overflow-y: auto;
     overscroll-behavior: contain;
     /* kapanış: önce içerik, sonra katman */
