@@ -5,20 +5,17 @@ import Hero from '../components/home/Hero.astro';
 import StatStrip from '../components/home/StatStrip.astro';
 import TechMarquee from '../components/home/TechMarquee.astro';
 import WorkWall from '../components/home/WorkWall.astro';
-import ServiceWidget from '../components/ServiceWidget.astro';
+import Bento from '../components/home/Bento.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Placeholder from '../components/Placeholder.astro';
 import Icon from '../components/Icon.astro';
 import { site, whatsappLink } from '../site.config.mjs';
 import { t } from '../i18n';
 import { buildHomeSchema } from '../lib/schema.mjs';
-import type { AppName } from '../components/AppIcon.astro';
 
-const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order - b.data.order);
 const allWork = await getCollection('isler');
 const featured = allWork.filter((w) => w.data.featured).sort((a, b) => a.data.order - b.data.order);
 const liveSites = allWork.filter((w) => w.data.url).length;
-const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yazilim: 'ai' };
 ---
 <Desktop
   title="Cihan Duran | Bodrum Drone Çekimi ve AI Destekli Yazılım"
@@ -29,15 +26,9 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
   <Hero />
   <WorkWall />
 
-  <section class="section container" aria-labelledby="hizmetler-baslik">
-    <h2 id="hizmetler-baslik" class="visually-hidden">Hizmetler</h2>
-    <ul class="widgets">
-      {services.map((s) => <li><ServiceWidget entry={s} app={appFor[s.data.workCategory]} /></li>)}
-    </ul>
-  </section>
-
   <StatStrip liveSites={liveSites} />
   <TechMarquee />
+  <Bento />
 
   <section class="section container" aria-labelledby="isler-baslik">
     <div class="section-head">
@@ -78,13 +69,6 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
 </Desktop>
 
 <style>
-  .widgets {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.25rem;
-    list-style: none;
-    padding: 0;
-  }
   .work-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
@@ -104,8 +88,7 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
   .cta h2 { font-size: var(--fs-xl); max-width: 18ch; }
   .cta-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
   @media (max-width: 899px) {
-    .widgets { grid-template-columns: minmax(0, 1fr); }
-    .about { grid-template-columns: minmax(0, 1fr); }
+      .about { grid-template-columns: minmax(0, 1fr); }
     .about-photo { max-width: 320px; }
   }
 </style>

@@ -1,0 +1,179 @@
+---
+// Bento pano: rakam kartı (dönen ışık kenar), drone kutusu, küre, imleci izleyen parıltılı hizmet kartları, "siteden fazlası".
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Placeholder from '../Placeholder.astro';
+import Icon from '../Icon.astro';
+import AppIcon from '../AppIcon.astro';
+import Globe from '../../islands/Globe.jsx';
+import { site } from '../../site.config.mjs';
+
+const services = Object.fromEntries((await getCollection('hizmetler')).map((s) => [s.data.workCategory, s]));
+const drone = services.drone;
+---
+<section class="bento-wrap container section" aria-labelledby="pano-baslik">
+  <div class="section-head">
+    <h2 id="pano-baslik">Havadan da, koddan da</h2>
+    <p>Bodrum'dan çalışıyorum; iş nerede olursa oraya gidiyorum, yazılımda ise mesafe yok.</p>
+  </div>
+
+  <div class="bento">
+    <a class="tile t-stat shine" href="/yapay-zeka-yazilim">
+      <div class="shine-inner">
+        <p class="kicker">Teslim edilen yazılım projesi</p>
+        <p class="big">{site.stats.software}</p>
+        <p class="sub">{site.stats.years} yıldır web siteleri, paneller ve otomasyonlar.</p>
+        <ul class="chips">
+          <li>Astro</li><li>Next.js</li><li>Cloudflare</li><li>Supabase</li><li>Yapay zeka destekli</li><li>Çok dilli</li>
+        </ul>
+      </div>
+    </a>
+
+    <a class="tile t-drone media" href={`/${drone.id}`}>
+      {drone.data.heroImage
+        ? <Image src={drone.data.heroImage} alt="" widths={[480, 720]} sizes="(max-width: 899px) 100vw, 33vw" />
+        : <Placeholder label="drone video döngüsü — Bodrum koyu, gün batımı" ratio="auto" />}
+      <div class="media-cap">
+        <AppIcon app="drone" size={34} />
+        <div><h3>{drone.data.name}</h3><p>{site.stats.shoots} çekim teslim edildi</p></div>
+      </div>
+    </a>
+
+    <div class="tile t-globe spot">
+      <h3>Bodrum'dan Türkiye'ye</h3>
+      <p>Göcek, Marmaris, Yalıkavak, İstanbul, Antalya…</p>
+      <Globe client:visible />
+    </div>
+
+    <a class="tile t-photo spot" href="/fotograf-video-cekimi-bodrum">
+      <AppIcon app="photo" size={40} />
+      <h3>Fotoğraf & Video</h3>
+      <p>Emlak, tekne ve otel. İç, dış ve havadan aynı gün.</p>
+    </a>
+
+    <a class="tile t-ai spot" href="/yapay-zeka-yazilim">
+      <AppIcon app="ai" size={40} />
+      <h3>AI Destekli Yazılım</h3>
+      <p>Web siteleri, paneller, otomasyonlar ve AI asistanları.</p>
+    </a>
+
+    <div class="tile t-more spot">
+      <h3>Siteden fazlası</h3>
+      <ul class="more">
+        <li><Icon name="folder" size={18} /> İşletmeye özel CRM ve paneller</li>
+        <li><Icon name="code" size={18} /> Restoran ve otel QR menüleri</li>
+        <li><Icon name="terminal" size={18} /> Otomasyon ve AI asistanları</li>
+        <li><Icon name="drone" size={18} /> Three.js ile tarayıcı oyunu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  // İmleci izleyen parıltı: --mx / --my değişkenleri (dokunmatikte çalışmaz, gerekmez).
+  document.querySelectorAll<HTMLElement>('.bento .spot').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      el.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+</script>
+
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(170px, auto);
+    gap: 14px;
+  }
+  .tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #161618;
+    border: 0.5px solid rgb(255 255 255 / 0.09);
+    padding: 1.35rem;
+    color: var(--c-text);
+    text-decoration: none;
+  }
+  a.tile { transition: transform 0.2s ease, border-color 0.2s ease; }
+  a.tile:hover { transform: translateY(-3px); border-color: rgb(255 255 255 / 0.2); color: var(--c-text); }
+  .tile h3 { position: relative; font-size: 1.2rem; }
+  .tile p { position: relative; color: var(--c-muted); font-size: 0.9375rem; margin-top: 0.3rem; }
+
+  .t-stat { grid-column: span 2; grid-row: span 2; }
+  .t-drone { grid-column: span 2; grid-row: span 2; }
+  .t-globe { grid-column: span 2; grid-row: span 2; }
+  .t-photo, .t-ai, .t-more { grid-column: span 2; }
+
+  /* Dönen ışık kenar (21st.dev "Shine Border" esinli) */
+  .shine { padding: 1px; border: 0; background: #161618; isolation: isolate; }
+  .shine::before {
+    content: '';
+    position: absolute;
+    inset: -60%;
+    z-index: -1;
+    background: conic-gradient(from 0deg, transparent 0 55%, #0a84ff 65%, #b9a6ff 75%, #28c840 82%, transparent 92%);
+    animation: spin 6s linear infinite;
+  }
+  .shine-inner { height: 100%; border-radius: 21px; background: #161618; padding: 1.4rem; display: flex; flex-direction: column; }
+  @keyframes spin { to { transform: rotate(1turn); } }
+  .kicker { margin: 0 !important; }
+  .big {
+    margin-top: auto !important;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 2rem + 5vw, 7rem) !important;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.95;
+    color: var(--c-text) !important;
+  }
+  .sub { margin-top: 0.6rem !important; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; list-style: none; padding: 0; }
+  .chips li { font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: var(--r-pill); background: rgb(255 255 255 / 0.06); border: 0.5px solid rgb(255 255 255 / 0.12); color: rgb(245 245 247 / 0.85); }
+
+  .media { padding: 0; display: flex; }
+  .media :global(img), .media :global(.placeholder) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; aspect-ratio: auto !important; border: 0; border-radius: 0; }
+  .media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgb(0 0 0 / 0.8)); pointer-events: none; }
+  .media-cap { position: relative; z-index: 1; margin-top: auto; display: flex; align-items: center; gap: 0.75rem; padding: 1.25rem; }
+  .media-cap p { color: rgb(245 245 247 / 0.75); margin-top: 0.1rem; }
+
+  /* İmleci izleyen parıltı (21st.dev "Spotlight Card" esinli) */
+  .spot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(320px circle at var(--mx, 75%) var(--my, 15%), rgb(10 132 255 / 0.22), transparent 60%);
+    pointer-events: none;
+  }
+  .t-photo, .t-ai { display: flex; flex-direction: column; gap: 0.35rem; }
+  .t-photo h3, .t-ai h3 { margin-top: auto; padding-top: 1rem; }
+
+  .t-globe :global(.globe) { position: absolute; right: -12%; bottom: -22%; width: 82%; aspect-ratio: 1; }
+  .t-globe :global(.globe canvas) { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; }
+  .t-globe :global(.globe.is-ready canvas) { opacity: 1; }
+  .t-globe :global(.globe-fallback) {
+    position: absolute; inset: 8%; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #2b3a55, #0c1220 70%);
+    box-shadow: inset -20px -20px 50px rgb(0 0 0 / 0.6), 0 0 60px rgb(10 132 255 / 0.25);
+  }
+  .t-globe :global(.globe.is-ready .globe-fallback) { opacity: 0; transition: opacity 1s ease; }
+
+  .more { list-style: none; padding: 0; margin-top: 0.8rem; display: grid; gap: 0.55rem; position: relative; }
+  .more li { display: flex; align-items: center; gap: 0.6rem; color: rgb(245 245 247 / 0.85); font-size: 0.9375rem; }
+  .more :global(svg) { color: var(--c-accent-text); flex: none; }
+
+  @media (max-width: 1099px) {
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .t-stat, .t-drone, .t-globe { grid-column: span 2; grid-row: span 2; }
+    .t-photo, .t-ai { grid-column: span 1; }
+    .t-more { grid-column: span 2; }
+  }
+  @media (max-width: 599px) {
+    .bento { grid-template-columns: minmax(0, 1fr); grid-auto-rows: minmax(150px, auto); }
+    .t-stat, .t-drone, .t-globe, .t-photo, .t-ai, .t-more { grid-column: span 1; }
+    .t-globe { min-height: 320px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .shine::before { animation: none; } }
+</style>
