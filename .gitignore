@@ -130,3 +130,6 @@ dist
 .astro/
 .wrangler/
 .dev.vars
+
+# Ham video kaynakları (sıkıştırılmış halleri public/video/ altında)
+/video/

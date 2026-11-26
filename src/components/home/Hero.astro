@@ -6,7 +6,7 @@ import { site, whatsappLink } from '../../site.config.mjs';
 const v = site.heroVideo;
 import { t } from '../../i18n';
 ---
-<section class="hero" aria-labelledby="hero-baslik">
+<section class:list={['hero', { 'has-video': v.mp4 || v.webm }]} aria-labelledby="hero-baslik">
   {(v.mp4 || v.webm) && (
     <video class="bg-video" autoplay muted loop playsinline preload="metadata" poster={v.poster || undefined} aria-hidden="true">
       {v.webm && <source src={v.webm} type="video/webm" />}
@@ -59,7 +59,21 @@ import { t } from '../../i18n';
     pointer-events: none;
   }
   /* Drone videosu: düşük opaklık, aurora ve ızgara üstünde renk verir */
-  .bg-video { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; opacity: 0.32; filter: saturate(1.1); }
+  .bg-video { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; filter: saturate(1.15); }
+  .has-video .aurora i { opacity: 0.32; }
+  /* Metnin okunması için soldan koyu perde; sağda görüntü parlasın */
+  .has-video::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(90deg, rgb(7 7 10 / 0.88) 0%, rgb(7 7 10 / 0.7) 38%, rgb(7 7 10 / 0.25) 70%, rgb(7 7 10 / 0.1) 100%);
+    pointer-events: none;
+  }
+  @media (max-width: 899px) {
+    .has-video::before { background: linear-gradient(rgb(7 7 10 / 0.55), rgb(7 7 10 / 0.85) 45%, rgb(7 7 10 / 0.9)); }
+  }
+  .has-video .grid-bg { opacity: 0.6; }
   .aurora { position: absolute; inset: -20%; z-index: -2; filter: blur(60px); }
   .aurora i { position: absolute; border-radius: 50%; opacity: 0.55; animation: drift 22s ease-in-out infinite alternate; }
   .aurora i:nth-child(1) { width: 55%; height: 60%; right: 5%; top: 5%; background: radial-gradient(closest-side, rgb(64 120 255 / 0.75), transparent); }

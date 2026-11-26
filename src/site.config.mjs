@@ -15,8 +15,8 @@ export const site = {
   // Cihan'ın beyanı (2026-11-26). Sitedeki bütün rakamlar buradan gelir; başka sayı uydurulmaz.
   stats: { software: '300+', shoots: '200+', years: '10+' },
   // Hero arka plan videosu (kendi drone çekimin): public/video/ altına koy. Boşken aurora tek başına kalır.
-  // TODO(cihan): 10–20 sn sessiz döngü; mp4 (H.264) + webm, ~1080p, 3–5 MB; poster = ilk kare (jpg).
-  heroVideo: { mp4: '', webm: '', poster: '' },
+  // Kaynak: Cihan'ın YouTube kanalındaki 'bodrum yachting' videosunun ilk 12 sn'si (sessiz döngü).
+  heroVideo: { mp4: '/video/bodrum-drone.mp4', webm: '/video/bodrum-drone.webm', poster: '/video/bodrum-drone.jpg' },
   // TODO(cihan): Cloudflare Web Analytics token'ı (panel → Analytics & Logs → Web Analytics). Boşken beacon eklenmez.
   cfAnalyticsToken: '',
 };
