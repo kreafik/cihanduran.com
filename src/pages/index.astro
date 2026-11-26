@@ -39,10 +39,12 @@ const liveSites = allWork.filter((w) => w.data.url).length;
 
   <WorkShowcase />
 
-  <section class="section container about" aria-labelledby="hakkimda-baslik">
-    <div class="about-photo">
-      <Placeholder label="Cihan'ın portresi — sahada, drone ya da kamerayla, dikey" ratio="4 / 5" />
-    </div>
+  <section class:list={['section container about', { 'no-photo': !site.portrait }]} aria-labelledby="hakkimda-baslik">
+    {site.portrait && (
+      <div class="about-photo">
+        <Placeholder label="Cihan'ın portresi — sahada, drone ya da kamerayla, dikey" ratio="4 / 5" />
+      </div>
+    )}
     <div class="prose">
       <h2 id="hakkimda-baslik">Çekimden yayına tek muhatap</h2>
       <p>
@@ -74,6 +76,8 @@ const liveSites = allWork.filter((w) => w.data.url).length;
     gap: clamp(2rem, 1rem + 4vw, 5rem);
     align-items: center;
   }
+  .about.no-photo { grid-template-columns: minmax(0, 1fr); }
+  .about.no-photo .prose { max-width: var(--measure); }
   .about-photo { border-radius: var(--r-window); overflow: hidden; }
   .about .prose p { color: rgb(245 245 247 / 0.86); }
   :global(.home-cinema) { margin-top: var(--space-section); }

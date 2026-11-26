@@ -19,6 +19,10 @@ export const site = {
   heroVideo: { mp4: '/video/hero-drone.mp4', webm: '', poster: '/video/hero-drone.jpg' },
   // TODO(cihan): Cloudflare Web Analytics token'ı (panel → Analytics & Logs → Web Analytics). Boşken beacon eklenmez.
   cfAnalyticsToken: '',
+  // TODO(cihan): portre fotoğrafı eklenince src/assets/ altına koyup yolu yazın; boşken portre alanları gizli.
+  portrait: '',
+  // TODO(cihan): ekipman ve belge satırları (ör. 'DJI ...', 'SHGM İHA pilot lisansı ...'); boşken bölüm gizli.
+  equipment: [],
 };
 
 /** WhatsApp bağlantısı, isteğe bağlı ön dolu mesajla. */
