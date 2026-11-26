@@ -8,7 +8,7 @@ export default defineConfig({
   site: 'https://cihanduran.com',
   output: 'static',
   trailingSlash: 'never',
-  build: { format: 'file' },
+  build: { format: 'file', inlineStylesheets: 'always' },
   i18n: {
     defaultLocale: 'tr',
     locales: ['tr'],

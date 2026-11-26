@@ -45,7 +45,8 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
         <Terminal client:idle />
       </Window>
 
-      <ul class="desk-widgets" aria-label="Hizmetler">
+      <h2 id="hizmetler-baslik" class="visually-hidden">Hizmetler</h2>
+      <ul class="desk-widgets" aria-labelledby="hizmetler-baslik">
         {services.map((s) => <li><ServiceWidget entry={s} app={appFor[s.data.workCategory]} /></li>)}
       </ul>
     </div>

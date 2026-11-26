@@ -31,7 +31,9 @@ const Wrapper = styled.div`
 	justify-content: center;
 	gap: 1.25rem;
 	padding: 2rem 1.5rem;
+	min-width: 0;
 	border: 1px solid ${theme.bodyBorder};
+	@media (max-width: 480px) { padding: 1.25rem 0.75rem; }
 	border-radius: 0 0 0.6rem 0.6rem;
 	position: relative;
 	overflow: hidden;
@@ -57,6 +59,7 @@ const CardInner = styled.div`
 	border-radius: 1rem;
 	padding: 1.5rem 1.75rem;
 	height: 13.5rem;
+	@media (max-width: 480px) { padding: 1.25rem 1rem; }
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -163,8 +166,8 @@ const IBANLabel = styled.div`
 
 const IBANNumber = styled.div`
 	font-family: "Hack", monospace;
-	font-size: 0.82rem;
-	letter-spacing: 0.08em;
+	font-size: clamp(0.66rem, 3.1vw, 0.82rem);
+	letter-spacing: clamp(0.02em, 0.5vw, 0.08em);
 	color: ${props => props.$copied ? "#86efac" : "rgba(255,255,255,0.95)"};
 	transition: color 0.25s ease;
 	text-shadow: 0 1px 4px rgba(0,0,0,0.3);
