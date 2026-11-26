@@ -144,7 +144,7 @@ p { text-wrap: pretty; }
 .btn-ghost { border-color: rgb(255 255 255 / 0.28); color: var(--c-text); }
 .btn-ghost:hover { border-color: rgb(255 255 255 / 0.6); color: var(--c-text); }
 
-.section { padding-block: var(--space-section); }
+.section { padding-top: var(--space-section); }
 .section-head { max-width: var(--measure); margin-bottom: 2rem; }
 .section-head p { margin-top: 0.75rem; color: var(--c-muted); font-size: var(--fs-md); line-height: 1.45; }
 

@@ -1,0 +1,189 @@
+---
+// Üç hizmet sayfası: /drone-cekimi-bodrum, /fotograf-video-cekimi-bodrum, /yapay-zeka-yazilim
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Desktop from '../layouts/Desktop.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Placeholder from '../components/Placeholder.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Faq from '../components/Faq.astro';
+import QuoteCta from '../components/QuoteCta.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappLink } from '../site.config.mjs';
+import { t } from '../i18n';
+
+export async function getStaticPaths() {
+  const services = await getCollection('hizmetler');
+  return services.map((entry) => ({ params: { hizmet: entry.id }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<'hizmetler'> }
+const { entry } = Astro.props;
+const d = entry.data;
+const path = `/${entry.id}`;
+const { Content } = await render(entry);
+
+const work = (await getCollection('isler'))
+  .filter((w) => w.data.category.includes(d.workCategory))
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || a.data.order - b.data.order);
+const isSoftware = d.workCategory === 'yazilim';
+const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.id).sort((a, b) => a.data.order - b.data.order);
+---
+<Desktop title={d.seoTitle} description={d.description} path={path}>
+  <header class="hero container">
+    <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: d.name }]} />
+    <h1>{d.title}</h1>
+    <p class="lead">{d.lead}</p>
+    <div class="actions">
+      <a class="btn btn-whatsapp" href={whatsappLink(d.whatsappMessage)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Teklif alın</a>
+      <a class="btn btn-ghost" href="#isler">{isSoftware ? 'Yaptığım siteler' : 'Örnek çekimler'}</a>
+    </div>
+  </header>
+
+  <div class="container hero-media">
+    {d.heroImage
+      ? <Image src={d.heroImage} alt={d.title} widths={[640, 1120, 1680]} sizes="(max-width: 1120px) 100vw, 1120px" loading="eager" fetchpriority="high" />
+      : <Placeholder label={d.heroPlaceholder} ratio="21 / 9" />}
+  </div>
+
+  <div class="container proof-wrap"><ProofStrip items={d.proof} /></div>
+
+  <section class="section container" aria-labelledby="kapsam">
+    <h2 id="kapsam">{isSoftware ? 'Neler yapıyorum' : 'Neler çekiyorum'}</h2>
+    <ul class="scope">
+      {d.scope.map((s) => (
+        <li>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section container" id="isler" aria-labelledby="isler-baslik">
+    <div class="section-head">
+      <h2 id="isler-baslik">{isSoftware ? 'Yaptığım siteler' : 'Örnek çekimler'}</h2>
+      {isSoftware
+        ? <p>Hepsi şu an yayında; tıklayıp ne istendiğini ve ne yaptığımı okuyabilirsiniz.</p>
+        : <p>Çekimlerden bir seçki. Daha fazlasını WhatsApp'tan isteyebilirsiniz.</p>}
+    </div>
+    {work.length > 0 ? (
+      <ul class="work-grid">
+        {work.slice(0, 6).map((w) => <li><ProjectCard entry={w} /></li>)}
+      </ul>
+    ) : (
+      <ul class="gallery">
+        {[1, 2, 3, 4, 5, 6].map((n) => (
+          <li><Placeholder label={`${d.name.toLocaleLowerCase('tr-TR')} örnek ${n}`} ratio="4 / 3" /></li>
+        ))}
+      </ul>
+    )}
+    {isSoftware && work.length > 6 && <p class="more"><a class="btn btn-ghost" href="/isler">{work.length} işin tamamı</a></p>}
+  </section>
+
+  <section class="section container" aria-labelledby="surec">
+    <h2 id="surec">Nasıl çalışıyorum</h2>
+    <ol class="process">
+      {d.process.map((p) => (
+        <li>
+          <h3>{p.title}</h3>
+          <p>{p.desc}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  {entry.body?.trim() && (
+    <section class="section container"><div class="prose"><Content /></div></section>
+  )}
+
+  <section class="section container"><Faq items={d.faq} /></section>
+
+  <section class="section container" aria-labelledby="diger">
+    <h2 id="diger">Diğer hizmetler</h2>
+    <ul class="others">
+      {others.map((s) => (
+        <li><a href={`/${s.id}`}><strong>{s.data.name}</strong><span>{s.data.tagline}</span></a></li>
+      ))}
+    </ul>
+  </section>
+
+  <QuoteCta title={`${d.name} için teklif alın`} message={d.whatsappMessage} />
+</Desktop>
+
+<style>
+  .hero { padding-top: clamp(2rem, 1.5rem + 3vw, 4rem); }
+  .hero h1 { margin-top: 1.25rem; max-width: 20ch; }
+  .lead { margin-top: 1.1rem; max-width: 58ch; font-size: var(--fs-md); line-height: 1.5; color: rgb(245 245 247 / 0.82); }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+
+  .hero-media { margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
+  .hero-media > :global(*) { border-radius: var(--r-window); overflow: hidden; }
+  .hero-media :global(img) { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+
+  .proof-wrap { margin-top: 2.5rem; }
+
+  .scope {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 0 3rem;
+    margin-top: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+  .scope li { padding: 1.4rem 0; border-top: 0.5px solid var(--c-line); }
+  .scope p, .process p { margin-top: 0.4rem; color: rgb(245 245 247 / 0.78); max-width: 52ch; }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 3rem 2rem;
+    list-style: none;
+    padding: 0;
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+  .gallery :global(.placeholder) { border-radius: var(--r-control); }
+  .more { margin-top: 2.5rem; }
+
+  .process {
+    counter-reset: step;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 2rem;
+    margin-top: 1.75rem;
+    list-style: none;
+    padding: 0;
+  }
+  .process li { counter-increment: step; }
+  .process li::before {
+    content: counter(step);
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.9rem;
+    border-radius: 50%;
+    background: var(--c-surface-2);
+    font-weight: 700;
+    font-size: var(--fs-sm);
+  }
+
+  .others { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; margin-top: 1.5rem; list-style: none; padding: 0; }
+  .others a {
+    display: flex; flex-direction: column; gap: 0.2rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: var(--r-window);
+    background: var(--c-surface);
+    color: var(--c-text);
+    text-decoration: none;
+  }
+  .others a:hover strong { color: var(--c-accent-text); }
+  .others span { color: var(--c-muted); font-size: var(--fs-sm); }
+</style>

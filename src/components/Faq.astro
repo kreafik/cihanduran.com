@@ -1,0 +1,39 @@
+---
+// Sık sorulan sorular — <details>: JS'siz açılıp kapanır, metin HTML'de hep var (Google okur).
+interface Props { items: { q: string; a: string }[]; id?: string }
+const { items, id = 'sss' } = Astro.props;
+---
+<div class="faq">
+  <h2 id={id}>Sık sorulan sorular</h2>
+  <div class="faq-list">
+    {items.map((f) => (
+      <details>
+        <summary><span>{f.q}</span></summary>
+        <p>{f.a}</p>
+      </details>
+    ))}
+  </div>
+</div>
+
+<style>
+  .faq { max-width: var(--measure); }
+  .faq-list { margin-top: 1.5rem; border-top: 0.5px solid var(--c-line); }
+  details { border-bottom: 0.5px solid var(--c-line); }
+  summary {
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    min-height: 44px; padding: 1rem 0;
+    font-weight: 600; font-size: 1.0625rem; cursor: pointer; list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '';
+    flex: none;
+    width: 0.55rem; height: 0.55rem;
+    border-right: 1.6px solid var(--c-muted);
+    border-bottom: 1.6px solid var(--c-muted);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+  details[open] summary::after { transform: rotate(225deg) translateY(-2px); }
+  details p { padding: 0 0 1.2rem; color: rgb(245 245 247 / 0.82); }
+</style>
