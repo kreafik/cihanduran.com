@@ -44,6 +44,14 @@ test('beklenen sayfalar üretildi', () => {
   assert.ok(pages.filter((p) => p.path.startsWith('/isler/')).length >= 20);
 });
 
+test('yayın derlemesinde yerel adres yok (medya R2 adresinden gelir)', () => {
+  for (const p of pages) {
+    assert.ok(!/127\.0\.0\.1|localhost:\d/.test(p.html), `${p.path}: yerel adres`);
+  }
+  const home = pages.find((p) => p.path === '/').html;
+  assert.ok(home.includes('https://media.cihanduran.com/'), 'medya R2 adresinden gelmeli');
+});
+
 test('her indekslenen sayfada tek <h1>', () => {
   for (const p of indexable) assert.equal((p.html.match(/<h1[\s>]/g) ?? []).length, 1, p.path);
 });
