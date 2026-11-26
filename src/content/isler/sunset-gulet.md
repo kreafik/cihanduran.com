@@ -25,6 +25,3 @@ Sunset Gulet, Göcek'ten kalkan 22,5 metrelik ahşap bir gulet: 3 kabin, en fazl
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
 - İngilizce, Türkçe sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
-
-
-Canlı site: [sunsetgulet.com](https://sunsetgulet.com)

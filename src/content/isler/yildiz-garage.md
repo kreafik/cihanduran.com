@@ -24,6 +24,3 @@ Yıldız Garage (Volkan Usta), Bodrum Konacık Sanayi Sitesi'nde oto tamir, peri
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [yildizgarage.com](https://yildizgarage.com)

@@ -25,6 +25,3 @@ Mucho Real Estate, Bodrum Yarımadası'nda kat karşılığı inşaat, tadilat, 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare altyapısında yayınlanır.
 - Türkçe, İngilizce sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
-
-
-Canlı site: [muchorealestate.com](https://muchorealestate.com)

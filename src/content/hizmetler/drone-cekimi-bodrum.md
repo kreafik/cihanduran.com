@@ -17,12 +17,20 @@ proof:
     label: teslim edilen fotoğraf ve video çekimi
 scope:
   - title: Villa ve gayrimenkul
+    icon: building
+    shoot: dodo-villas
     desc: Satış ve kiralama ilanları için mülkün konumunu, manzarasını ve çevresini tek karede gösteren hava çekimleri. İlan portalları ve sosyal medya formatlarında teslim.
   - title: Yat ve tekne
+    icon: boat
+    shoot: axopar
     desc: Marinada, açık denizde ve koylarda gulet, motoryat ve yelkenli çekimleri. Kiralama sayfaları, broşürler ve satış ilanları için.
   - title: Otel ve tesis
+    icon: home
+    shoot: artunc-hotel
     desc: Havuz, plaj, peyzaj ve tesisin bütününü gösteren tanıtım filmleri ve fotoğraf paketleri.
   - title: Etkinlik ve organizasyon
+    icon: sparkle
+    shoot: bodrum-emniyet-179-yil
     desc: Düğün, lansman ve kurumsal organizasyonlar için sinematik hava görüntüleri.
 process:
   - title: Keşif ve planlama

@@ -24,6 +24,3 @@ Pearl Beauty, Bodrum Yeniköy'de cilt bakımı, Hydrafacial, lazer epilasyon, b�
 
 - Statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [pearlbeautybodrum.com](https://pearlbeautybodrum.com)

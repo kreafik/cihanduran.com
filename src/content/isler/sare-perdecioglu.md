@@ -23,6 +23,3 @@ Av. Sare Perdecioğlu, Bodrum'da boşanma, miras, gayrimenkul, kira, iş, tazmin
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [sareperdecioglu.av.tr](https://sareperdecioglu.av.tr)

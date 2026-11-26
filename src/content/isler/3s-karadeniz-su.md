@@ -23,6 +23,3 @@ mobileShot: "../../assets/isler/3s-karadeniz-su/mobile.jpg"
 
 - Statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [3skaradeniz.com](https://3skaradeniz.com)

@@ -22,5 +22,3 @@ Artunç, Bodrum'da hizmet veren bir butik otel.
 ## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
-
-Canlı site: [artuncotel.com](https://artuncotel.com)

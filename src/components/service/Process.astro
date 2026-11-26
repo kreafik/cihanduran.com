@@ -1,0 +1,104 @@
+---
+// Çalışma süreci: bölüm görünür olunca çizgi dolar, adımlar sırayla yanar (masaüstünde yatay, mobilde dikey).
+// JS yoksa veya azaltılmış harekette tüm adımlar baştan açık.
+interface Props { title: string; steps: { title: string; desc: string }[] }
+const { title, steps } = Astro.props;
+---
+<section class="section container" aria-labelledby="surec">
+  <h2 id="surec">{title}</h2>
+  <ol class="process" data-process style={`--n:${steps.length}`}>
+    <li class="track" aria-hidden="true"><span class="fill"></span></li>
+    {steps.map((s, i) => (
+      <li class="step" style={`--i:${i}`}>
+        <span class="node" aria-hidden="true"><span class="num">{i + 1}</span></span>
+        <div class="body">
+          <h3>{s.title}</h3>
+          <p class="desc">{s.desc}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('[data-process]').forEach((el) => {
+    if (reduce || !('IntersectionObserver' in window)) return;
+    el.classList.add('is-anim');
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { el.classList.add('is-play'); io.disconnect(); }
+    }, { threshold: 0.35 });
+    io.observe(el);
+  });
+</script>
+
+<style>
+  .process {
+    --step: 0.7s;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+  /* Bağlantı çizgisi: ilk düğümün ortasından son düğümün ortasına */
+  .track {
+    position: absolute;
+    top: 21px;
+    left: 22px;
+    right: calc((100% - (var(--n) - 1) * 1.5rem) / var(--n) - 22px);
+    height: 2px;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 0.1);
+    overflow: hidden;
+  }
+  .fill { position: absolute; inset: 0; transform-origin: left; background: linear-gradient(90deg, #0a84ff, #8e7bff, #30d158); }
+
+  .step { position: relative; }
+  .node {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #0a84ff;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 0 0 6px var(--c-bg), 0 0 24px rgb(10 132 255 / 0.45);
+  }
+  .body { margin-top: 1.1rem; padding: 1.1rem 1.2rem 1.25rem; border-radius: 16px; background: #19191b; box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.08); }
+  h3 { font-size: 1.1rem; }
+  .desc { margin-top: 0.45rem; color: rgb(245 245 247 / 0.76); font-size: 0.9375rem; line-height: 1.5; }
+
+  /* Animasyon: başlangıç durumu (yalnız JS varsa) */
+  .is-anim .fill { transform: scaleX(0); }
+  .is-anim .node { background: #2c2c2e; color: var(--c-muted); box-shadow: 0 0 0 6px var(--c-bg); }
+  .is-anim .body { opacity: 0.25; transform: translateY(10px); }
+  .is-anim .node, .is-anim .body { transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, opacity 0.5s ease, transform 0.5s ease; }
+
+  .is-play .fill { transform: scaleX(1); transition: transform calc(var(--step) * (var(--n) - 1)) linear calc(var(--step) * 0.3); }
+  .is-play .step .node, .is-play .step .body { transition-delay: calc(var(--i) * var(--step) + var(--step) * 0.3); }
+  .is-play .node { background: #0a84ff; color: #fff; box-shadow: 0 0 0 6px var(--c-bg), 0 0 24px rgb(10 132 255 / 0.45); }
+  .is-play .body { opacity: 1; transform: none; }
+  .is-play .node::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    box-shadow: 0 0 0 2px rgb(10 132 255 / 0.7);
+    animation: ping 0.9s ease-out both;
+    animation-delay: calc(var(--i) * var(--step) + var(--step) * 0.3);
+  }
+  @keyframes ping { from { transform: scale(1); opacity: 1; } to { transform: scale(1.7); opacity: 0; } }
+
+  @media (max-width: 899px) {
+    .process { grid-template-columns: 1fr; gap: 1.25rem; }
+    .track { top: 22px; bottom: 22px; left: 21px; right: auto; width: 2px; height: auto; }
+    .fill { transform-origin: top; background: linear-gradient(180deg, #0a84ff, #8e7bff, #30d158); }
+    .is-anim .fill { transform: scaleY(0); }
+    .is-play .fill { transform: scaleY(1); }
+    .step { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 1rem; align-items: start; }
+    .body { margin-top: 0; }
+  }
+</style>

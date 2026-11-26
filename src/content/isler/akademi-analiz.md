@@ -21,5 +21,3 @@ Akademi Analiz, Bodrum'da su analizi yapan bir laboratuvar.
 ## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
-
-Canlı site: [akademianaliz.com.tr](https://akademianaliz.com.tr)

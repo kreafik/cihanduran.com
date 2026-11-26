@@ -23,6 +23,3 @@ HTB, Yalıkavak'ta klasik, derin doku, Thai ve Lomi Lomi masajı, kupa ve hacama
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [htbmassage.com](https://htbmassage.com)

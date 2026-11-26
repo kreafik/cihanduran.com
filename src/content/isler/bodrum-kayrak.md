@@ -23,6 +23,3 @@ Bodrum Kayrak, kendi kayrak taşı ocağından üretim, kesim ve uygulama yapıy
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [bodrumkayrak.com](https://bodrumkayrak.com)

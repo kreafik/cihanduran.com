@@ -24,6 +24,3 @@ Dr. Sword, Bodrum merkezli tıbbi danışmanlık firması; diş tedavisi, saç e
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
 - Türkçe, İngilizce sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
-
-
-Canlı site: [drsword.com.tr](https://drsword.com.tr)

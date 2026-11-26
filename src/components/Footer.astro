@@ -1,47 +1,169 @@
 ---
+// Alt bilgi: logo ve kısa tanım, üç sütun bağlantı, rakamlar ve sayfa genişliğinde silik imza.
+import { getCollection } from 'astro:content';
 import { t } from '../i18n';
-import { mainNav } from '../lib/nav';
 import { site } from '../site.config.mjs';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
 
 const year = new Date().getFullYear();
+const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order - b.data.order);
+const pages = [
+  { href: '/isler', label: t('nav.work') },
+  { href: '/hakkimda', label: t('nav.about') },
+  { href: '/iletisim', label: t('nav.contact') },
+  { href: '/iban', label: t('dock.iban') },
+];
+const stats = [
+  { n: site.stats.software, l: 'yazılım projesi' },
+  { n: site.stats.shoots, l: 'fotoğraf ve video çekimi' },
+  { n: site.stats.years, l: 'yıl deneyim' },
+];
 ---
 <footer class="footer">
-  <div class="container footer-grid">
-    <div>
-      <p class="footer-name">{site.name}</p>
-      <p class="muted">{t('footer.location')}</p>
-      <p class="footer-contact">
-        <a href={site.phoneHref}>{site.phone}</a>
-        {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
-        <a href={site.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
-      </p>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="top">
+      <div class="id">
+        <a class="id-brand" href="/" aria-label={`${site.name}, ${t('nav.home')}`}>
+          <span class="id-mark"><Logo size={22} /></span>
+          <span class="id-name">{site.name}</span>
+        </a>
+        <p class="id-text">Drone çekimi, fotoğraf ve video prodüksiyonu, yapay zeka destekli yazılım. {t('footer.location')}.</p>
+      </div>
+
+      <nav class="cols" aria-label="Alt gezinme">
+        <div>
+          <p class="col-title">Hizmetler</p>
+          <ul>{services.map((s) => <li><a href={`/${s.id}`}>{s.data.name}</a></li>)}</ul>
+        </div>
+        <div>
+          <p class="col-title">Site</p>
+          <ul>{pages.map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul>
+        </div>
+        <div>
+          <p class="col-title">İletişim</p>
+          <ul>
+            <li><a href={site.whatsapp} target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href={site.phoneHref}>Telefon</a></li>
+            {site.email && <li><a href={`mailto:${site.email}`}>E-posta</a></li>}
+            <li><a href={site.github} target="_blank" rel="me noopener">GitHub</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
-    <nav aria-label="Alt gezinme">
-      <ul>
-        {mainNav.map((item) => <li><a href={item.href}>{t(item.key)}</a></li>)}
-      </ul>
-    </nav>
+
+    <ul class="stats">
+      {stats.map((s) => <li><strong>{s.n}</strong><span>{s.l}</span></li>)}
+    </ul>
+
+    <div class="base">
+      <span>© {year} {site.name}. {t('footer.rights')}</span>
+      <span class="loc"><Icon name="pin" size={15} /> {site.locality}, {site.region}</span>
+    </div>
   </div>
-  <div class="container footer-base muted">© {year} {site.name}. {t('footer.rights')}</div>
+  <p class="sign" aria-hidden="true">{site.name}</p>
 </footer>
 
 <style>
   .footer {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     margin-top: var(--space-section);
-    padding: 3rem 0 calc(7rem + env(safe-area-inset-bottom));
-    border-top: 0.5px solid var(--c-line);
+    padding-top: clamp(3rem, 2rem + 3vw, 5rem);
+    background: linear-gradient(180deg, var(--c-bg), #121214 40%);
     font-size: var(--fs-sm);
   }
-  .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; }
-  .footer-name { font-weight: 650; font-size: var(--fs-base); }
-  .footer-contact { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 0.75rem; }
-  .footer-contact a, nav a { color: var(--c-text); text-decoration: none; }
-  .footer-contact a:hover, nav a:hover { color: var(--c-accent-text); }
-  nav ul { list-style: none; padding: 0; columns: 2; column-gap: 2.5rem; }
-  nav li { padding: 0.25rem 0; }
-  .footer-base { margin-top: 2.5rem; }
+  /* Üst kenarda ince renkli ışık çizgisi + yumuşak parıltı */
+  .footer::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(10 132 255 / 0.7) 30%, rgb(191 90 242 / 0.7) 55%, rgb(48 209 88 / 0.5) 75%, transparent);
+  }
+  .glow {
+    position: absolute;
+    left: 50%;
+    top: -180px;
+    z-index: -1;
+    width: min(900px, 90%);
+    height: 320px;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgb(10 132 255 / 0.16), rgb(191 90 242 / 0.08) 55%, transparent);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  .top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr); gap: clamp(2rem, 1rem + 4vw, 5rem); }
+  .id-brand { display: inline-flex; align-items: center; gap: 0.75rem; color: var(--c-text); text-decoration: none; }
+  .id-mark {
+    display: inline-grid; place-items: center;
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(180deg, #3a3a3e, #1f1f22);
+    color: #fff;
+    box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.22), 0 6px 18px rgb(0 0 0 / 0.4);
+  }
+  .id-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 750; letter-spacing: -0.03em; }
+  .id-text { margin-top: 1rem; max-width: 40ch; color: rgb(245 245 247 / 0.72); font-size: var(--fs-base); line-height: 1.5; }
+
+  .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  .col-title { color: var(--c-muted); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; }
+  .cols ul { list-style: none; padding: 0; margin-top: 0.75rem; }
+  .cols a {
+    display: inline-flex; align-items: center; min-height: 36px;
+    color: rgb(245 245 247 / 0.88); text-decoration: none;
+    transition: color 0.15s ease, transform 0.2s ease;
+  }
+  .cols a:hover { color: #fff; transform: translateX(3px); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding: 0;
+    list-style: none;
+    border-radius: 18px;
+    background: rgb(255 255 255 / 0.03);
+    box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.09);
+  }
+  .stats li { display: flex; align-items: baseline; gap: 0.6rem; padding: 1.1rem 1.4rem; }
+  .stats li + li { border-left: 0.5px solid rgb(255 255 255 / 0.09); }
+  .stats strong { font-family: var(--font-display); font-size: clamp(1.4rem, 1rem + 1.2vw, 2rem); font-weight: 800; letter-spacing: -0.04em; }
+  .stats span { color: var(--c-muted); }
+
+  .base {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem;
+    margin-top: 1.75rem; color: var(--c-muted);
+  }
+  .loc { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+  /* Sayfa genişliğinde silik imza: alt kenarda kesilir */
+  .sign {
+    margin: clamp(1.5rem, 1rem + 2vw, 3rem) 0 0;
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 1rem + 13.5vw, 15rem);
+    font-weight: 800;
+    line-height: 0.78;
+    letter-spacing: -0.06em;
+    text-align: center;
+    white-space: nowrap;
+    color: transparent;
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.13), rgb(255 255 255 / 0.015) 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    user-select: none;
+  }
+
   @media (max-width: 899px) {
-    .footer { padding-bottom: calc(var(--tabbar-h) + 2.5rem + env(safe-area-inset-bottom)); }
-    nav li a { display: inline-block; padding: 0.35rem 0; }
+    .top { grid-template-columns: 1fr; }
+    .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cols > div:last-child { grid-column: 1 / -1; }
+    .cols a { min-height: 44px; }
+    .stats { grid-template-columns: 1fr; }
+    .stats li + li { border-left: 0; border-top: 0.5px solid rgb(255 255 255 / 0.09); }
+    .sign { padding-bottom: calc(var(--tabbar-h) + 1.5rem + env(safe-area-inset-bottom)); }
   }
 </style>

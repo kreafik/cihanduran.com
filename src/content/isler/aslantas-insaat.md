@@ -23,6 +23,3 @@ Aslantaş İnşaat, Gündoğan'da konut yenileme ve tadilat, iç mekân tasarım
 
 - Statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [aslantasinsaat.com.tr](https://aslantasinsaat.com.tr)

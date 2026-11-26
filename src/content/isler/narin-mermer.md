@@ -24,6 +24,3 @@ Narin Mermer, 2010'dan beri Bodrum Gündoğan'da villa ve işletmeler için merm
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [narinmermer.com](https://narinmermer.com)

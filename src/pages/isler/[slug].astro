@@ -63,7 +63,7 @@ const related = all.filter((x) => x.slug !== w.slug && x.groups[0].slug === w.gr
 const quoteMsg = `Merhaba Cihan Bey, ${w.name} projesini inceledim; benzer bir proje için görüşmek istiyorum.`;
 ---
 <Desktop title={title} description={description} path={path} ogImage={ogImage} preloadImage={preloadImage} jsonLd={buildWorkSchema(w, ogImage, photoUrls)}>
-  <MediaCinema media={hero} first>
+  <MediaCinema media={hero} first open>
     <div slot="intro" class="intro">
       <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work'), path: '/isler' }, { name: w.name }]} />
       <h1>{w.name}</h1>
@@ -112,7 +112,10 @@ const quoteMsg = `Merhaba Cihan Bey, ${w.name} projesini inceledim; benzer bir p
 
   {site && (
     <section class="section container" aria-labelledby="site">
-      <h2 id="site">Web sitesi</h2>
+      <div class="related-head">
+        <h2 id="site">Web sitesi</h2>
+        {d?.url && <a class="link-arrow" href={d.url} target="_blank" rel="noopener">{host} adresini ziyaret edin<span class="la-icon"><Icon name="external" size={14} /></span></a>}
+      </div>
       <div class="shots block">
         <Window title={host ?? w.name} class="shot-desktop">
           {d!.desktopShot
@@ -133,7 +136,7 @@ const quoteMsg = `Merhaba Cihan Bey, ${w.name} projesini inceledim; benzer bir p
     <section class="section container" aria-labelledby="benzer">
       <div class="related-head">
         <h2 id="benzer">Benzer projeler</h2>
-        <a href={`/isler#${w.groups[0].slug}`}>{w.groups[0].label} kategorisindeki tüm projeler</a>
+        <a class="link-arrow" href={`/isler#${w.groups[0].slug}`}>Tüm {w.groups[0].label.toLocaleLowerCase('tr-TR')} projeleri<span class="la-icon"><Icon name="arrow" size={14} /></span></a>
       </div>
       <ul class="related">
         {related.map((x) => <li><WorkCard work={x} /></li>)}
@@ -167,7 +170,7 @@ const quoteMsg = `Merhaba Cihan Bey, ${w.name} projesini inceledim; benzer bir p
   .phone > :global(*) { border-radius: 26px; overflow: hidden; width: 100%; height: auto; }
   .site-body { margin-top: 2.5rem; }
 
-  .related-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; }
+  .related-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 2rem; }
   .related { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 2rem 1.25rem; margin-top: 1.5rem; list-style: none; padding: 0; }
 
   @media (max-width: 899px) {

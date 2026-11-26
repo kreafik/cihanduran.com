@@ -11,13 +11,14 @@ import Logo from './Logo.astro';
 <header class="menubar">
   <a class="skip-link" href="#icerik">İçeriğe geç</a>
   <div class="menubar-inner">
-    <a class="brand" href="/" aria-current={path === '/' ? 'page' : undefined}>
+    <a class="brand" href="/" aria-label={`${site.name}, ${t('nav.home')}`}>
       <Logo size={15} class="brand-mark" />
       {site.name}
     </a>
 
     <nav class="menubar-nav" aria-label={t('nav.main')}>
       <ul>
+        <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>{t('nav.home')}</a></li>
         {mainNav.map((item) => (
           <li>
             <a href={item.href} aria-current={isActive(path, item.href) ? 'page' : undefined}>{t(item.key)}</a>

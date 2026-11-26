@@ -23,6 +23,3 @@ CC İnşaat, Bodrum'da kendi kayrak ocağından kayrak taşı, doğal taş ve ka
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [ccinsaat.com](https://ccinsaat.com)

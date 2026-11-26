@@ -147,6 +147,26 @@ p { text-wrap: pretty; }
 
 .section { padding-top: var(--space-section); }
 .section-head { max-width: var(--measure); margin-bottom: 2rem; }
+/* Metin bağlantısı (bölüm başlığı yanı, "tümünü gör" türü): hap + daire içinde ok */
+.link-arrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  min-height: 44px; padding: 0.35rem 0.4rem 0.35rem 1rem;
+  border-radius: var(--r-pill);
+  background: rgb(255 255 255 / 0.06);
+  box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.14);
+  color: var(--c-text); font-size: var(--fs-sm); font-weight: 600; text-decoration: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.link-arrow .la-icon {
+  display: inline-grid; place-items: center; flex: none;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--c-text); color: var(--c-bg);
+  transition: transform 0.25s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+.link-arrow:hover { background: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.3); color: var(--c-text); }
+.link-arrow:hover .la-icon { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) { .link-arrow .la-icon { transition: none; } }
+
 .section-head p { margin-top: 0.75rem; color: var(--c-muted); font-size: var(--fs-md); line-height: 1.45; }
 
 @media (prefers-reduced-motion: reduce) {

@@ -21,5 +21,3 @@ Halikarya Hotel, Bodrum'da konaklama hizmeti veren bir otel.
 ## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
-
-Canlı site: [halikaryahotel.com](https://halikaryahotel.com)

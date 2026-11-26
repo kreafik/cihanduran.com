@@ -16,12 +16,16 @@ proof:
     label: hızlı ve güvenli altyapı
 scope:
   - title: Kurumsal web siteleri
+    icon: building
     desc: Otel, tekne kiralama, klinik, hukuk bürosu, inşaat ve yerel işletmeler için hızlı açılan, mobil uyumlu ve arama motorlarına hazır siteler.
   - title: Çok dilli siteler
+    icon: globe
     desc: Yabancı misafir ve alıcılara hitap eden işletmeler için Türkçe, İngilizce, Almanca ve Rusça sürümler; her dilin arama motorlarında doğru eşleşmesi için gerekli yapılandırmayla.
   - title: Panel ve CRM
+    icon: grid
     desc: Müşteri, randevu ve iş takibi için işletmeye özel yönetim panelleri.
   - title: Otomasyon ve yapay zeka asistanları
+    icon: sparkle
     desc: Teklif hazırlama, mesaj yanıtlama ve raporlama gibi tekrarlanan işleri hızlandıran araçlar.
 process:
   - title: İhtiyaç analizi

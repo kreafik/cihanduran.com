@@ -28,7 +28,7 @@ const hizmetler = defineCollection({
       /** Hero görseli için portfolyo çekimi (media manifest slug'ı) */
       heroShoot: z.string().optional(),
       proof: z.array(z.object({ value: z.string(), label: z.string() })),
-      scope: z.array(z.object({ title: z.string(), desc: z.string() })),
+      scope: z.array(z.object({ title: z.string(), desc: z.string(), icon: z.string().optional(), shoot: z.string().optional() })),
       process: z.array(z.object({ title: z.string(), desc: z.string() })),
       faq: z.array(z.object({ q: z.string(), a: z.string() })),
       workCategory: category,

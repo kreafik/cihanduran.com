@@ -21,5 +21,3 @@ Dr. İsmet Hisar, Bodrum'da kalp ve damar hastalıkları alanında hizmet veren 
 ## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
-
-Canlı site: [drismethisar.com](https://drismethisar.com)

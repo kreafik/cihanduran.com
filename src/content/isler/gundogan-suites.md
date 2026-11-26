@@ -24,6 +24,3 @@ Gündoğan Suites, Gündoğan koyunda denize sıfır iki butik otelden oluşuyor
 
 - Statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [gundogansuites.com](https://gundogansuites.com)

@@ -23,6 +23,3 @@ Safir Villaları, Bodrum Kadıkalesi'nde kademeli yerleşimle her biri denize ba
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [safirvillalari.com](https://safirvillalari.com)

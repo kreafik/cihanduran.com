@@ -25,6 +25,3 @@ Lets Dance, Bodrum limanından özel mavi yolculuklara çıkan 30 metrelik ahşa
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
 - İngilizce, Türkçe sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
-
-
-Canlı site: [letsdanceyacht.com](https://letsdanceyacht.com)

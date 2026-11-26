@@ -23,6 +23,3 @@ Makel A.Ş., 1984'ten beri Bodrum'da otel, villa ve işletmeler için mekanik te
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [mak-el.com.tr](https://mak-el.com.tr)

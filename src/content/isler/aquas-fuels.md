@@ -24,6 +24,3 @@ Aquas Fuels, Türkiye'deki liman, tersane ve marinalarda gemi ve yatlara MGO ve 
 
 - Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
 - Cloudflare Workers altyapısında yayınlanır.
-
-
-Canlı site: [aquasfuels.com](https://aquasfuels.com)

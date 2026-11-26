@@ -2,15 +2,16 @@
 // Sinema geçişi (21st.dev "Scroll media expansion hero" esinli): kaydırdıkça ortadaki medya tam ekrana açılır.
 // Slotlar: "intro" (üstte, hep görünür — ör. h1), "caption" (sonda belirir). İsteğe bağlı iki yana kayan kelimeler.
 // JS yoksa veya azaltılmış harekette: --p = 1 (tam açık, statik).
+// open: medya baştan tam açık gelir (proje sayfaları); altta aşağı kaydırma ipucu gösterilir.
 export type CinemaMedia =
   | { type: 'video'; src: string; webm?: string; poster?: string | null; label: string }
   | { type: 'image'; src: string; srcset?: string; sizes?: string; alt: string; width: number; height: number }
   | { type: 'placeholder'; label: string };
 
-interface Props { media: CinemaMedia; words?: [string, string]; first?: boolean; class?: string }
-const { media, words, first = false, class: cls } = Astro.props;
+interface Props { media: CinemaMedia; words?: [string, string]; first?: boolean; open?: boolean; class?: string }
+const { media, words, first = false, open = false, class: cls } = Astro.props;
 ---
-<section class:list={['cinema', cls, { first }]} data-cinema>
+<section class:list={['cinema', cls, { first, open }]} data-cinema={open ? undefined : ''}>
   <div class="stage">
     <div class="media">
       {media.type === 'video' && (
@@ -31,10 +32,23 @@ const { media, words, first = false, class: cls } = Astro.props;
     {words && <p class="word w-right" aria-hidden="true">{words[1]}</p>}
     {Astro.slots.has('intro') && <div class="intro"><slot name="intro" /></div>}
     {Astro.slots.has('caption') && <div class="cap"><slot name="caption" /></div>}
+    {open && (
+      <a class="scroll-hint" href="#icerik-devam" data-scroll-hint>
+        <span class="mouse" aria-hidden="true"><i></i></span>
+        <span>Aşağı kaydırın</span>
+      </a>
+    )}
   </div>
+  {open && <span id="icerik-devam" class="anchor" aria-hidden="true"></span>}
 </section>
 
 <script>
+  // Kaydırma ipucu: sayfa biraz kaydırılınca kaybolur.
+  document.querySelectorAll<HTMLElement>('[data-scroll-hint]').forEach((hint) => {
+    const onScroll = () => hint.classList.toggle('gone', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  });
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll<HTMLElement>('[data-cinema]').forEach((root) => {
     if (reduce) return;
@@ -122,7 +136,35 @@ const { media, words, first = false, class: cls } = Astro.props;
     transform: translateY(calc((1 - var(--p)) * 30px));
   }
 
+  .anchor { display: block; scroll-margin-top: var(--menubar-h); }
+  .scroll-hint {
+    position: absolute;
+    right: max(var(--gutter), (100% - var(--container)) / 2);
+    bottom: clamp(5rem, 4rem + 4vw, 7rem);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.25rem 0.5rem;
+    color: rgb(255 255 255 / 0.85);
+    font-size: var(--fs-sm);
+    text-decoration: none;
+    text-shadow: 0 1px 8px rgb(0 0 0 / 0.6);
+    transition: opacity 0.3s ease;
+  }
+  .scroll-hint:hover { color: #fff; }
+  .scroll-hint.gone { opacity: 0; pointer-events: none; }
+  .mouse { position: relative; width: 22px; height: 34px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px currentColor; }
+  .mouse i { position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: currentColor; animation: wheel 1.6s ease-in-out infinite; }
+  @keyframes wheel { 0% { opacity: 0; transform: translateY(-3px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(10px); } }
+  @media (prefers-reduced-motion: reduce) { .mouse i { animation: none; } }
+
   @media (max-width: 899px) {
+    .scroll-hint { right: auto; left: 50%; bottom: calc(var(--tabbar-h, 64px) + 0.25rem); transform: translateX(-50%); }
+    .scroll-hint span:last-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .open .cap { padding-bottom: calc(var(--tabbar-h, 64px) + 3.5rem); }
     .w-left { left: var(--gutter); }
     .w-right { right: var(--gutter); }
     .cinema.is-anim { height: 210vh; }

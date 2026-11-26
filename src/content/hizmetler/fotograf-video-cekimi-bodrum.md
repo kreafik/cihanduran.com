@@ -17,12 +17,20 @@ proof:
     label: teslim edilen fotoğraf ve video çekimi
 scope:
   - title: Villa ve daire
+    icon: building
+    shoot: elysium-lalin-evleri
     desc: Satış ve kiralama ilanları için iç mekân, dış cephe ve bahçe çekimleri. Düz çizgiler, doğru perspektif ve gerçek renkler.
   - title: Yat ve gulet
+    icon: boat
+    shoot: azimut-atlantis-51
     desc: Kabin, güverte ve seyir halindeki tekne çekimleri. Kiralama platformları ve broşürler için.
   - title: Otel ve kısa dönem kiralık
+    icon: home
+    shoot: noa-suite-hotel
     desc: Oda, havuz ve ortak alan çekimleri. Booking, Airbnb ve otelin kendi rezervasyon sitesi için uygun boyutlarda.
   - title: Tanıtım videosu
+    icon: video
+    shoot: gundogan-suites
     desc: Mülkü ya da tekneyi baştan sona gezdiren kısa film; sosyal medya için dikey kesimlerle birlikte.
 process:
   - title: Ön görüşme

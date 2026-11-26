@@ -6,6 +6,7 @@ import MediaCinema, { type CinemaMedia } from '../components/MediaCinema.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import BigStats from '../components/service/BigStats.astro';
 import ScopeCards from '../components/service/ScopeCards.astro';
+import Process from '../components/service/Process.astro';
 import CategoryTiles from '../components/service/CategoryTiles.astro';
 import WorkWall from '../components/home/WorkWall.astro';
 import TechMarquee from '../components/home/TechMarquee.astro';
@@ -90,7 +91,7 @@ const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.i
 
   <BigStats items={d.proof} />
 
-  <ScopeCards title={'Hizmet kapsamı'} items={d.scope} />
+  <ScopeCards title="Hizmet kapsamı" items={d.scope} service={d.name} />
 
   {isSoftware ? <TechMarquee /> : <CategoryTiles />}
 
@@ -105,17 +106,7 @@ const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.i
     <p class="more"><a class="btn btn-ghost" href={isSoftware ? '/isler#yazilim' : '/isler'}>Tüm projeler</a></p>
   </section>
 
-  <section class="section container" aria-labelledby="surec">
-    <h2 id="surec">Çalışma süreci</h2>
-    <ol class="process">
-      {d.process.map((p) => (
-        <li>
-          <h3>{p.title}</h3>
-          <p>{p.desc}</p>
-        </li>
-      ))}
-    </ol>
-  </section>
+  <Process title="Çalışma süreci" steps={d.process} />
 
   {entry.body?.trim() && (
     <section class="section container"><div class="prose"><Content /></div></section>
@@ -154,11 +145,6 @@ const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.i
 
   .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 2.25rem 1.25rem; list-style: none; padding: 0; }
   .more { margin-top: 2.25rem; }
-
-  .process { counter-reset: step; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 2rem; margin-top: 1.75rem; list-style: none; padding: 0; }
-  .process li { counter-increment: step; }
-  .process li::before { content: counter(step); display: grid; place-items: center; width: 2rem; height: 2rem; margin-bottom: 0.9rem; border-radius: 50%; background: var(--c-surface-2); font-weight: 700; font-size: var(--fs-sm); }
-  .process p { margin-top: 0.4rem; color: rgb(245 245 247 / 0.78); max-width: 52ch; }
 
   .others { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; margin-top: 1.5rem; list-style: none; padding: 0; }
   .others a { display: flex; flex-direction: column; gap: 0.2rem; padding: 1.1rem 1.25rem; border-radius: var(--r-window); background: var(--c-surface); color: var(--c-text); text-decoration: none; }
