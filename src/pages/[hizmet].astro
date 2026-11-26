@@ -33,7 +33,7 @@ const { Content } = await render(entry);
 const kind = d.workCategory;
 const isSoftware = kind === 'yazilim';
 
-// Hero medyası: drone → Bodrum videosu; fotoğraf → seçilen çekimin kapağı.
+// Hero medyası: drone → hero videosu; fotoğraf → seçilen çekimin kapağı; yazılım → aurora başlık (medya yok).
 const v = site.heroVideo;
 const heroShoot = d.heroShoot ? shoots.find((s) => s.slug === d.heroShoot) : undefined;
 const heroMedia: CinemaMedia | undefined =
@@ -59,7 +59,7 @@ const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.i
 ---
 <Desktop title={d.seoTitle} description={d.description} path={path} jsonLd={buildServiceSchema(entry)}>
   {heroMedia ? (
-    <MediaCinema media={heroMedia} first words={kind === 'drone' ? ['Havadan.', 'Bodrum.'] : undefined}>
+    <MediaCinema media={heroMedia} first open>
       <div slot="intro" class="intro">
         <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: d.name }]} />
         <h1>{d.title}</h1>
