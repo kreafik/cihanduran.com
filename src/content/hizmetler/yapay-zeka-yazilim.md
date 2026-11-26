@@ -3,8 +3,8 @@ order: 3
 name: AI Destekli Yazılım
 title: Yapay zeka destekli web siteleri ve yazılımlar
 seoTitle: Yapay Zeka Destekli Web Sitesi ve Yazılım | Cihan Duran
-description: İşletmeler için hızlı, çok dilli ve Google'da bulunabilen web siteleri, paneller ve otomasyonlar. Yapay zekayı geliştirmenin her adımında kullanıyorum.
-lead: Yapay zekayı tasarımdan koda, içerikten teste kadar geliştirmenin her adımında kullanıyorum. Sonuç, daha kısa sürede yayına giren, hızlı açılan ve Google'ın okuyabildiği siteler ve yazılımlar.
+description: İşletmeler için hızlı, çok dilli ve arama motorlarına hazır web siteleri, paneller ve otomasyonlar. Geliştirme sürecinin her adımında yapay zeka.
+lead: Yapay zekayı tasarımdan koda, içerikten teste kadar geliştirme sürecinin her adımında kullanıyorum. Bu sayede projeler daha kısa sürede yayına giriyor; siteler hızlı açılıyor ve arama motorları tarafından doğru okunuyor.
 tagline: Web sitesi, panel, otomasyon
 heroPlaceholder: ekran — müşteri sitelerinden kolaj ya da kod editörü, yatay
 proof:
@@ -15,32 +15,32 @@ proof:
   - value: Cloudflare
     label: hızlı ve güvenli altyapı
 scope:
-  - title: Web siteleri
-    desc: Otel, tekne kiralama, klinik, hukuk bürosu, inşaat ve yerel işletmeler için hızlı açılan, mobil uyumlu, arama motorlarına hazır siteler.
+  - title: Kurumsal web siteleri
+    desc: Otel, tekne kiralama, klinik, hukuk bürosu, inşaat ve yerel işletmeler için hızlı açılan, mobil uyumlu ve arama motorlarına hazır siteler.
   - title: Çok dilli siteler
-    desc: Yabancı misafire ve alıcıya hitap eden işletmeler için Türkçe, İngilizce, Almanca ve Rusça sürümler; Google'ın her dili doğru eşleştirmesi için gereken kurulumla.
+    desc: Yabancı misafir ve alıcılara hitap eden işletmeler için Türkçe, İngilizce, Almanca ve Rusça sürümler; her dilin arama motorlarında doğru eşleşmesi için gerekli yapılandırmayla.
   - title: Panel ve CRM
-    desc: Müşterileri, randevuları ya da işleri takip etmek için işletmeye özel paneller.
-  - title: Otomasyon ve AI asistanları
-    desc: Tekrarlanan işleri (teklif hazırlama, mesaj yanıtlama, raporlama) yapay zekayla hızlandıran araçlar.
+    desc: Müşteri, randevu ve iş takibi için işletmeye özel yönetim panelleri.
+  - title: Otomasyon ve yapay zeka asistanları
+    desc: Teklif hazırlama, mesaj yanıtlama ve raporlama gibi tekrarlanan işleri hızlandıran araçlar.
 process:
-  - title: İhtiyaç görüşmesi
-    desc: Ne satıyorsunuz, müşteriniz sizi nasıl buluyor, sitenin ne yapması gerekiyor? Kısa bir görüşmeyle netleştiriyoruz.
+  - title: İhtiyaç analizi
+    desc: İşletmenin hedefleri, müşterilerin sizi nasıl bulduğu ve sitenin üstlenmesi gereken görevler kısa bir görüşmeyle netleştirilir.
   - title: Önizleme
-    desc: Tasarım ve içerik size özel bir önizleme adresinde canlı olarak gelişiyor; değişiklikleri doğrudan orada görüyorsunuz.
+    desc: Tasarım ve içerik, size özel bir önizleme adresinde canlı olarak gelişir; değişiklikleri doğrudan bu adreste takip edersiniz.
   - title: Yayın
-    desc: Alan adı, güvenlik ve yönlendirmeler kuruluyor; eski siteniz varsa adresler kaybolmadan taşınıyor.
-  - title: Google kurulumu
-    desc: Search Console, site haritası ve yapılandırılmış veriyle Google'ın sitenizi doğru okuması sağlanıyor.
+    desc: Alan adı, güvenlik ve yönlendirmeler yapılandırılır. Mevcut bir site varsa adresler kaybolmadan yeni altyapıya taşınır.
+  - title: Arama motoru kurulumu
+    desc: Search Console, site haritası ve yapılandırılmış veri ile sitenin Google tarafından doğru okunması sağlanır.
 faq:
-  - q: Yapay zeka destekli ne demek?
-    a: Siteyi bir yapay zeka aracına tek tıkla ürettirmek değil. Tasarım kararlarını ve kalite kontrolünü ben veriyorum; yapay zekayı yazım, kodlama ve test işlerini hızlandırmak için kullanıyorum.
+  - q: Yapay zeka destekli geliştirme ne anlama geliyor?
+    a: Sitenin bir yapay zeka aracına otomatik olarak ürettirilmesi anlamına gelmez. Tasarım kararları ve kalite kontrolü tarafımdan yürütülür; yapay zeka metin, kod ve test süreçlerini hızlandırmak için kullanılır.
   - q: Mevcut sitemi yenileyebilir misiniz?
-    a: Evet. Eski WordPress sitelerini yeni altyapıya taşıdım; eski adresler yönlendirildiği için Google'daki yeriniz korunuyor.
+    a: Evet. WordPress tabanlı siteler yeni altyapıya taşınabilir; eski adresler yönlendirildiği için arama motorlarındaki konumunuz korunur.
   - q: Google'da üst sıralara çıkacak mıyım?
-    a: Teknik altyapıyı (hız, site haritası, yapılandırılmış veri, doğru yönlendirmeler) ben kuruyorum. Sıralama ise zamanla, içerikle ve Google İşletme Profili gibi site dışı çalışmalarla gelir; bunlarda da yol gösteriyorum.
+    a: Hız, site haritası, yapılandırılmış veri ve doğru yönlendirmeler gibi teknik altyapı eksiksiz kurulur. Sıralama ise zamanla; içerik ve Google İşletme Profili gibi site dışı çalışmalarla birlikte gelişir. Bu süreçte de yol gösterilir.
   - q: Bodrum dışındaki işletmelerle çalışıyor musunuz?
-    a: Evet. Göcek'ten kiralanan bir gulet ve Türkiye genelinde yakıt tedarik eden bir firma da müşterilerim arasında; çalışma tamamen uzaktan yürüyebiliyor.
+    a: Evet. Göcek'te hizmet veren bir gulet ve Türkiye genelinde yakıt tedariki yapan bir firma da referanslar arasındadır; çalışma tamamen uzaktan yürütülebilir.
 workCategory: yazilim
-whatsappMessage: Merhaba Cihan, web sitesi ya da yazılım projesi için görüşmek istiyorum.
+whatsappMessage: Merhaba Cihan Bey, web sitesi ya da yazılım projesi için görüşmek istiyorum.
 ---

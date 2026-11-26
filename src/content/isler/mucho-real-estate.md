@@ -16,15 +16,15 @@ mobileShot: "../../assets/isler/mucho-real-estate/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Mucho Real Estate, Bodrum Yarımadası'nda kat karşılığı inşaat, tadilat, mülk satışı, kiralama, mülk yönetimi ve yabancı alıcılara rehberlik hizmeti veriyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare üzerinde yayında.
-- Türkçe, İngilizce sürümleri var; diller arası bağlantılar Google için işaretli.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare altyapısında yayınlanır.
+- Türkçe, İngilizce sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
 
 
-Siteyi ziyaret edin: [muchorealestate.com](https://muchorealestate.com)
+Canlı site: [muchorealestate.com](https://muchorealestate.com)

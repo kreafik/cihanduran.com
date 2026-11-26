@@ -11,19 +11,19 @@ const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order 
 ---
 <Desktop
   title="İletişim | Cihan Duran, Bodrum"
-  description="WhatsApp, telefon ya da e-posta ile Cihan Duran'a ulaşın. Drone çekimi, fotoğraf ve yapay zeka destekli yazılım projeleri için 24 saat içinde dönüş."
+  description="WhatsApp, telefon ya da e-posta ile Cihan Duran'a ulaşın. Drone, fotoğraf ve yazılım projeleri için talepler 24 saat içinde yanıtlanır."
   path="/iletisim"
   jsonLd={buildPageSchema('ContactPage', 'İletişim', '/iletisim')}
 >
   <div class="container wrap">
     <header>
       <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.contact') }]} />
-      <h1>Projenizi anlatın.</h1>
-      <p class="lead">En hızlı yol WhatsApp. Birkaç cümle yeter; 24 saat içinde dönüş yapıyorum.</p>
+      <h1>İletişim</h1>
+      <p class="lead">En hızlı iletişim kanalı WhatsApp'tır. Projenizi kısaca anlatmanız yeterlidir; talepler 24 saat içinde yanıtlanır.</p>
 
       <ul class="channels">
         <li>
-          <a href={whatsappLink('Merhaba Cihan,')} target="_blank" rel="noopener">
+          <a href={whatsappLink('Merhaba Cihan Bey,')} target="_blank" rel="noopener">
             <span class="ch-icon wa"><Icon name="whatsapp" /></span>
             <span><strong>WhatsApp</strong><small>{site.phone}</small></span>
           </a>
@@ -44,14 +44,14 @@ const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order 
         )}
         <li class="static">
           <span class="ch-icon"><Icon name="pin" /></span>
-          <span><strong>Konum</strong><small>{site.locality}, {site.region}. Çekim için yerinize geliyorum.</small></span>
+          <span><strong>Konum</strong><small>{site.locality}, {site.region}. Çekimler yerinde yapılır.</small></span>
         </li>
       </ul>
     </header>
 
     <form class="wa-form" id="wa-form" action={site.whatsapp} method="get" target="_blank">
-      <h2>WhatsApp mesajı hazırlayın</h2>
-      <p class="muted">Formu doldurun; mesaj WhatsApp'ta hazır açılır, siz gönderirsiniz.</p>
+      <h2>Teklif talebi</h2>
+      <p class="muted">Form, mesajınızı WhatsApp'ta hazır olarak açar; göndermeden önce düzenleyebilirsiniz.</p>
       <label>
         <span>Adınız</span>
         <input name="ad" autocomplete="name" required maxlength="80" />
@@ -65,10 +65,10 @@ const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order 
       </label>
       <label>
         <span>Mesajınız</span>
-        <textarea name="mesaj" rows="5" required maxlength="1200" placeholder="Ne, nerede, ne zaman? Kısaca yazın."></textarea>
+        <textarea name="mesaj" rows="5" required maxlength="1200" placeholder="Proje türü, konum ve planlanan tarih"></textarea>
       </label>
       <input type="hidden" name="text" />
-      <button class="btn btn-whatsapp" type="submit"><Icon name="whatsapp" /> WhatsApp'ta aç</button>
+      <button class="btn btn-whatsapp" type="submit"><Icon name="whatsapp" /> Mesajı WhatsApp'ta açın</button>
     </form>
   </div>
 </Desktop>
@@ -79,7 +79,7 @@ const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(form);
-    const text = `Merhaba Cihan, ben ${data.get('ad')}.\nKonu: ${data.get('konu')}\n\n${data.get('mesaj')}`;
+    const text = `Merhaba Cihan Bey, ben ${data.get('ad')}.\nKonu: ${data.get('konu')}\n\n${data.get('mesaj')}`;
     window.open(`${form.action}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
 </script>

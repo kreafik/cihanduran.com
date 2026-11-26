@@ -53,7 +53,7 @@ const work = isSoftware
         .concat(all.filter((w) => w.shoot?.photos.length))
         .filter((w, i, arr) => arr.findIndex((x) => x.slug === w.slug) === i)
         .slice(0, 8);
-const workTitle = isSoftware ? 'Yaptığım siteler' : kind === 'drone' ? 'Videolu çekimler' : 'Son çekimler';
+const workTitle = isSoftware ? 'Referans projeler' : kind === 'drone' ? 'Referans drone çekimleri' : 'Referans çekimler';
 const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.id).sort((a, b) => a.data.order - b.data.order);
 ---
 <Desktop title={d.seoTitle} description={d.description} path={path} jsonLd={buildServiceSchema(entry)}>
@@ -90,23 +90,23 @@ const others = (await getCollection('hizmetler')).filter((s) => s.id !== entry.i
 
   <BigStats items={d.proof} />
 
-  <ScopeCards title={isSoftware ? 'Neler yapıyorum' : 'Neler çekiyorum'} items={d.scope} />
+  <ScopeCards title={'Hizmet kapsamı'} items={d.scope} />
 
   {isSoftware ? <TechMarquee /> : <CategoryTiles />}
 
   <section class="section container" id="isler" aria-labelledby="isler-baslik">
     <div class="section-head">
       <h2 id="isler-baslik">{workTitle}</h2>
-      <p>{isSoftware ? 'Hepsi şu an yayında; tıklayıp ne yaptığımı okuyabilirsiniz.' : 'Tıklayın, çekimin tamamını ve videolarını görün.'}</p>
+      <p>{isSoftware ? 'Yayındaki projelerden bir seçki. Her projenin ayrıntılarını ve canlı sitesini inceleyebilirsiniz.' : 'Her çekimin tüm fotoğraflarını ve videolarını proje sayfasında inceleyebilirsiniz.'}</p>
     </div>
     <ul class="work-grid">
       {work.map((w) => <li><WorkCard work={w} /></li>)}
     </ul>
-    <p class="more"><a class="btn btn-ghost" href={isSoftware ? '/isler#yazilim' : '/isler'}>Tüm işler</a></p>
+    <p class="more"><a class="btn btn-ghost" href={isSoftware ? '/isler#yazilim' : '/isler'}>Tüm projeler</a></p>
   </section>
 
   <section class="section container" aria-labelledby="surec">
-    <h2 id="surec">Nasıl çalışıyorum</h2>
+    <h2 id="surec">Çalışma süreci</h2>
     <ol class="process">
       {d.process.map((p) => (
         <li>

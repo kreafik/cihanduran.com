@@ -14,21 +14,21 @@ const shootCount = all.filter((w) => w.shoot).length;
 const siteCount = all.filter((w) => w.site).length;
 ---
 <Desktop
-  title="İşler: çekimler ve web siteleri | Cihan Duran"
-  description={`Otel, yat, villa, restoran ve marka çekimleri ile web siteleri: ${all.length} iş tek sayfada. Bodrum'dan drone, fotoğraf ve yazılım.`}
+  title="Projeler: çekimler ve web siteleri | Cihan Duran"
+  description={`Otel, yat, villa, restoran ve marka çekimleri ile web siteleri: ${all.length} proje. Bodrum merkezli drone, fotoğraf ve yazılım.`}
   path="/isler"
-  jsonLd={buildPageSchema('CollectionPage', 'İşler', '/isler')}
+  jsonLd={buildPageSchema('CollectionPage', 'Projeler', '/isler')}
 >
   <header class="container head">
     <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work') }]} />
-    <h1>İşler</h1>
+    <h1>Projeler</h1>
     <p class="lead">
-      {shootCount} çekim ve {siteCount} web sitesinden bir seçki. {site.stats.years} yılda {site.stats.software} yazılım projesi ve {site.stats.shoots} çekim teslim ettim.
+      {shootCount} çekim ve {siteCount} web sitesinden oluşan bir seçki. {site.stats.years} yıl içinde {site.stats.software} yazılım projesi ve {site.stats.shoots} fotoğraf ve video çekimi teslim edildi.
     </p>
   </header>
 
   <div class="container">
-    <form class="filters" aria-label="Kategoriye göre süz" data-filters>
+    <form class="filters" aria-label="Kategoriye göre filtrele" data-filters>
       <label><input type="radio" name="kategori" value="tumu" checked /><span>Tümü <small>{all.length}</small></span></label>
       {groups.map((g) => (
         <label><input type="radio" name="kategori" value={g.slug} /><span>{g.label} <small>{g.count}</small></span></label>
@@ -44,7 +44,7 @@ const siteCount = all.filter((w) => w.site).length;
     </ul>
   </div>
 
-  <QuoteCta title="Sıradaki iş sizinki olsun." message="Merhaba Cihan, bir proje için görüşmek istiyorum." />
+  <QuoteCta title="Projeniz için teklif alın" message="Merhaba Cihan Bey, bir proje için görüşmek istiyorum." />
 </Desktop>
 
 <script>

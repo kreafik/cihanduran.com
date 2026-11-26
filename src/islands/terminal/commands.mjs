@@ -14,7 +14,7 @@ const PAGES = [
   { aliases: ['drone', 'hava', 'aerial'], path: '/drone-cekimi-bodrum', desc: 'drone çekimi' },
   { aliases: ['foto', 'fotograf', 'photo', 'video', 'emlak', 'tekne'], path: '/fotograf-video-cekimi-bodrum', desc: 'fotoğraf ve video çekimi' },
   { aliases: ['yazilim', 'web', 'software', 'website', 'grafik', 'design'], path: '/yapay-zeka-yazilim', desc: 'yapay zeka destekli yazılım' },
-  { aliases: ['isler', 'projects', 'portfolio', 'work', 'proje'], path: '/isler', desc: 'yaptığım işler' },
+  { aliases: ['isler', 'projects', 'portfolio', 'work', 'proje'], path: '/isler', desc: 'projeler' },
   { aliases: ['hakkimda', 'about', 'resume', 'cv', 'ozgecmis'], path: '/hakkimda', desc: 'hakkımda' },
   { aliases: ['iletisim', 'contact', 'whatsapp', 'mesaj'], path: '/iletisim', desc: 'iletişim' },
   { aliases: ['iban', 'banka', 'bank'], path: '/iban', desc: 'banka hesapları' },

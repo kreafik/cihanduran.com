@@ -14,12 +14,12 @@ desktopShot: "../../assets/isler/akademi-analiz/desktop.jpg"
 mobileShot: "../../assets/isler/akademi-analiz/mobile.jpg"
 ---
 
-## Proje
+## Proje hakkında
 
 Akademi Analiz, Bodrum'da su analizi yapan bir laboratuvar.
 
-## Ne yaptım
+## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
 
-Siteyi ziyaret edin: [akademianaliz.com.tr](https://akademianaliz.com.tr)
+Canlı site: [akademianaliz.com.tr](https://akademianaliz.com.tr)

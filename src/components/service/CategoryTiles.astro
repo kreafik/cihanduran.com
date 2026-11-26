@@ -16,8 +16,8 @@ const cats = shoots.reduce<Map<string, { label: string; slug: string; count: num
 ---
 <section class="section container" aria-labelledby="kategoriler">
   <div class="section-head">
-    <h2 id="kategoriler">Ne çekiyorum</h2>
-    <p>Kategoriye tıklayın, o alandaki bütün çekimleri görün.</p>
+    <h2 id="kategoriler">Çekim kategorileri</h2>
+    <p>Her kategoride tamamlanmış çekimleri inceleyebilirsiniz.</p>
   </div>
   <ul class="tiles">
     {[...cats.values()].map((c) => (

@@ -15,15 +15,15 @@ mobileShot: "../../assets/isler/bodrum-alfa/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Bodrum Alfa; yat, gemi, marina ve kıyı tesisleri için profesyonel dalgıç hizmeti veriyor: sörvey, kaynak, kesim, kurtarma ve deniz tabanı işleri.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare Workers üzerinde yayında.
-- Türkçe, İngilizce, Rusça sürümleri var; diller arası bağlantılar Google için işaretli.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare Workers altyapısında yayınlanır.
+- Türkçe, İngilizce, Rusça sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
 
 
-Siteyi ziyaret edin: [bodrumalfasualtihizmetleri.com.tr](https://bodrumalfasualtihizmetleri.com.tr)
+Canlı site: [bodrumalfasualtihizmetleri.com.tr](https://bodrumalfasualtihizmetleri.com.tr)

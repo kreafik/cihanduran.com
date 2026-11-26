@@ -16,14 +16,14 @@ mobileShot: "../../assets/isler/aquas-fuels/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Aquas Fuels, Türkiye'deki liman, tersane ve marinalarda gemi ve yatlara MGO ve EN 590 dizel tedarik ediyor; barç ve tankerle teslimat yapıyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare Workers üzerinde yayında.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare Workers altyapısında yayınlanır.
 
 
-Siteyi ziyaret edin: [aquasfuels.com](https://aquasfuels.com)
+Canlı site: [aquasfuels.com](https://aquasfuels.com)

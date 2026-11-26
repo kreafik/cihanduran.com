@@ -14,12 +14,12 @@ desktopShot: "../../assets/isler/dr-ismet-hisar/desktop.jpg"
 mobileShot: "../../assets/isler/dr-ismet-hisar/mobile.jpg"
 ---
 
-## Proje
+## Proje hakkında
 
 Dr. İsmet Hisar, Bodrum'da kalp ve damar hastalıkları alanında hizmet veren bir hekim.
 
-## Ne yaptım
+## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
 
-Siteyi ziyaret edin: [drismethisar.com](https://drismethisar.com)
+Canlı site: [drismethisar.com](https://drismethisar.com)

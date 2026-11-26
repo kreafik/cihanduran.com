@@ -9,20 +9,19 @@ import { site } from '../site.config.mjs';
 import { t } from '../i18n';
 
 const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order - b.data.order);
-const workCount = (await getCollection('isler')).length;
 ---
 <Desktop
   title="Hakkımda | Cihan Duran, Bodrum"
-  description="Cihan Duran: Bodrum'da drone ve fotoğraf çekimi yapan, işletmelere yapay zeka destekli web siteleri ve yazılımlar geliştiren bağımsız üretici."
+  description="Cihan Duran: Bodrum merkezli drone, fotoğraf ve video prodüksiyonu ile yapay zeka destekli web sitesi ve yazılım geliştirme."
   path="/hakkimda"
   jsonLd={buildPageSchema('ProfilePage', 'Hakkımda', '/hakkimda')}
 >
   <div class="container wrap">
     <header class="head">
       <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.about') }]} />
-      <h1>Merhaba, ben Cihan.</h1>
+      <h1>Cihan Duran</h1>
       <p class="lead">
-        Bodrum'da yaşıyor ve çalışıyorum. {site.stats.years} yıldır iki işi birlikte yapıyorum: havadan ve yerden görüntü üretmek, işletmeler için yazılım geliştirmek. Bugüne kadar {site.stats.software} yazılım projesi ve {site.stats.shoots} fotoğraf ve video çekimi teslim ettim.
+        Bodrum merkezli olarak {site.stats.years} yıldır fotoğraf ve video prodüksiyonu ile yazılım geliştirme alanlarında çalışıyorum. Bugüne kadar {site.stats.software} yazılım projesi ve {site.stats.shoots} fotoğraf ve video çekimi teslim ettim.
       </p>
     </header>
     <div class="portrait">
@@ -30,19 +29,19 @@ const workCount = (await getCollection('isler')).length;
     </div>
 
     <div class="prose story">
-      <h2>Ne yapıyorum</h2>
+      <h2>Uzmanlık alanları</h2>
       <p>
-        Villa, tekne ve otelleri drone ile ve yerden çekiyorum; ilan sitelerinde, rezervasyon sayfalarında ve sosyal medyada işe yarayan görüntüler hazırlıyorum.
+        <strong>Fotoğraf ve video prodüksiyonu.</strong> Villa, yat ve oteller için drone ve yer çekimleri. Görseller ilan portallarında, rezervasyon sayfalarında ve sosyal medyada kullanılmak üzere hazırlanır.
       </p>
       <p>
-        Yazılım tarafında işletmelere hızlı açılan, çok dilli ve Google'ın okuyabildiği web siteleri, paneller ve otomasyonlar geliştiriyorum. Şu an <a href="/isler">{workCount} işletmenin sitesi</a> yayında.
+        <strong>Yapay zeka destekli yazılım.</strong> İşletmeler için hızlı, çok dilli ve arama motorlarına hazır web siteleri, yönetim panelleri ve otomasyonlar. Seçili çalışmalar <a href="/isler">projeler</a> sayfasında yer alır.
       </p>
 
-      <h2>Nasıl çalışıyorum</h2>
+      <h2>Çalışma prensipleri</h2>
       <ul>
-        <li><strong>Doğrudan benimle.</strong> İlk görüşmeden teslime kadar aynı kişiyle konuşuyorsunuz.</li>
-        <li><strong>Görerek ilerliyoruz.</strong> Siteler size özel bir önizleme adresinde gelişiyor; çekimlerde ham görüntüleri aynı gün paylaşıyorum.</li>
-        <li><strong>Yapay zeka bir araç.</strong> Kodu, metni ve testleri hızlandırmak için kullanıyorum; kararları ve kaliteyi ben veriyorum.</li>
+        <li><strong>Tek muhatap.</strong> İlk görüşmeden teslime kadar proje tarafımdan yürütülür; talepleriniz aracısız iletilir.</li>
+        <li><strong>Şeffaf süreç.</strong> Web projeleri size özel bir önizleme adresinde gelişir; çekimlerde ham görüntüler aynı gün paylaşılır.</li>
+        <li><strong>Yapay zeka ile verimlilik.</strong> Yapay zeka kod, metin ve test süreçlerini hızlandırır; tasarım kararları ve kalite kontrolü insan denetiminde kalır.</li>
       </ul>
 
       <h2>Ekipman ve belgeler</h2>
@@ -57,11 +56,11 @@ const workCount = (await getCollection('isler')).length;
         {services.map((s) => <li><a href={`/${s.id}`}>{s.data.name}</a>: {s.data.tagline.toLocaleLowerCase('tr-TR')}</li>)}
       </ul>
 
-      <p class="muted">Kodlarımın bir kısmı açık: <a href={site.github} rel="me noopener" target="_blank">GitHub</a>.</p>
+      <p class="muted">Açık kaynak çalışmalar: <a href={site.github} rel="me noopener" target="_blank">GitHub</a></p>
     </div>
   </div>
 
-  <QuoteCta title="Bir proje mi düşünüyorsunuz?" message="Merhaba Cihan, bir proje için görüşmek istiyorum." />
+  <QuoteCta title="Projeniz için teklif alın" message="Merhaba Cihan Bey, bir proje için görüşmek istiyorum." />
 </Desktop>
 
 <style>

@@ -31,9 +31,9 @@ const liveSites = allWork.filter((w) => w.data.url).length;
   <Bento />
   <MediaCinema class="home-cinema" media={site.heroVideo.mp4 ? { type: 'video', src: site.heroVideo.mp4, webm: site.heroVideo.webm, poster: site.heroVideo.poster, label: "Bodrum'un drone ile havadan görüntüsü" } : { type: 'placeholder', label: 'drone videosu' }} words={['Havadan.', 'Koddan.']}>
     <div slot="caption" class="cinema-cap">
-      <h2>Bodrum'u yukarıdan görün.</h2>
-      <p>Villa, tekne, otel ve etkinlik için 4K hava çekimi. {site.stats.shoots} çekim teslim edildi.</p>
-      <a class="btn btn-primary" href="/drone-cekimi-bodrum">Drone çekimi</a>
+      <h2>Drone ile fotoğraf ve video çekimi</h2>
+      <p>Villa, yat, otel ve etkinlikler için 4K hava çekimi. Bugüne kadar {site.stats.shoots} çekim teslim edildi.</p>
+      <a class="btn btn-primary" href="/drone-cekimi-bodrum">Drone çekimi hizmeti</a>
     </div>
   </MediaCinema>
 
@@ -44,21 +44,22 @@ const liveSites = allWork.filter((w) => w.data.url).length;
       <Placeholder label="Cihan'ın portresi — sahada, drone ya da kamerayla, dikey" ratio="4 / 5" />
     </div>
     <div class="prose">
-      <h2 id="hakkimda-baslik">İşi baştan sona ben yapıyorum</h2>
+      <h2 id="hakkimda-baslik">Çekimden yayına tek muhatap</h2>
       <p>
-        {site.stats.years} yıldır çekimi de, kurguyu da, sitenin kodunu da ben yapıyorum. Aradaki aracıları ortadan kaldırınca iş hem daha hızlı ilerliyor hem de ne istediğinizi ilk konuştuğunuz kişi sonuna kadar takip ediyor.
+        {site.stats.years} yıldır çekim, kurgu ve yazılım geliştirme süreçlerini bizzat yürütüyorum. Projeniz boyunca tek bir muhatapla çalışırsınız; ilk görüşmede belirlenen hedefler teslime kadar aynı kişi tarafından takip edilir.
       </p>
       <p>
-        Yapay zekayı bir kestirme olarak değil, bir ekip arkadaşı gibi kullanıyorum: kodu, metni ve testleri hızlandırıyor; kararları ve kaliteyi ben veriyorum.
+        Yapay zeka; kod, metin ve test süreçlerini hızlandırmak için kullanılır. Tasarım kararları ve kalite kontrolü her aşamada insan denetimindedir.
       </p>
-      <p><a href="/hakkimda">Hakkımda daha fazlası</a></p>
+      <p><a href="/hakkimda">Hakkımda</a></p>
     </div>
   </section>
 
   <section class="section container cta" aria-labelledby="cta-baslik">
-    <h2 id="cta-baslik">Projenizi anlatın, 24 saat içinde dönüş yapayım.</h2>
+    <h2 id="cta-baslik">Projeniz için teklif alın</h2>
+    <p class="cta-text">Talepler 24 saat içinde yanıtlanır.</p>
     <div class="cta-actions">
-      <a class="btn btn-whatsapp" href={whatsappLink('Merhaba Cihan, bir proje için görüşmek istiyorum.')} target="_blank" rel="noopener">
+      <a class="btn btn-whatsapp" href={whatsappLink('Merhaba Cihan Bey, bir proje için görüşmek istiyorum.')} target="_blank" rel="noopener">
         <Icon name="whatsapp" /> {t('cta.whatsapp')}
       </a>
       <a class="btn btn-ghost" href={site.phoneHref}><Icon name="phone" /> {site.phone}</a>
@@ -80,6 +81,7 @@ const liveSites = allWork.filter((w) => w.data.url).length;
   .cinema-cap p { margin-top: 0.6rem; max-width: 46ch; color: rgb(245 245 247 / 0.85); font-size: var(--fs-md); }
   .cinema-cap .btn { margin-top: 1.4rem; }
   .cta h2 { font-size: var(--fs-xl); max-width: 18ch; }
+  .cta-text { margin-top: 0.75rem; color: var(--c-muted); font-size: var(--fs-md); }
   .cta-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
   @media (max-width: 899px) {
       .about { grid-template-columns: minmax(0, 1fr); }

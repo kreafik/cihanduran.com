@@ -14,12 +14,12 @@ desktopShot: "../../assets/isler/halikarya-hotel/desktop.jpg"
 mobileShot: "../../assets/isler/halikarya-hotel/mobile.jpg"
 ---
 
-## Proje
+## Proje hakkında
 
 Halikarya Hotel, Bodrum'da konaklama hizmeti veren bir otel.
 
-## Ne yaptım
+## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
 
-Siteyi ziyaret edin: [halikaryahotel.com](https://halikaryahotel.com)
+Canlı site: [halikaryahotel.com](https://halikaryahotel.com)

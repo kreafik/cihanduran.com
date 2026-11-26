@@ -15,14 +15,14 @@ mobileShot: "../../assets/isler/bodrum-kayrak/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Bodrum Kayrak, kendi kayrak taşı ocağından üretim, kesim ve uygulama yapıyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare Workers üzerinde yayında.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare Workers altyapısında yayınlanır.
 
 
-Siteyi ziyaret edin: [bodrumkayrak.com](https://bodrumkayrak.com)
+Canlı site: [bodrumkayrak.com](https://bodrumkayrak.com)

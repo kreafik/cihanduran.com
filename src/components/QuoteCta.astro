@@ -4,7 +4,7 @@ import { site, whatsappLink } from '../site.config.mjs';
 import { t } from '../i18n';
 
 interface Props { title: string; text?: string; message: string }
-const { title, text = 'WhatsApp\'tan yazın ya da arayın; 24 saat içinde dönüş yapıyorum.', message } = Astro.props;
+const { title, text = 'WhatsApp veya telefon üzerinden ulaşabilirsiniz; talepler 24 saat içinde yanıtlanır.', message } = Astro.props;
 ---
 <section class="quote container" aria-labelledby="teklif-baslik">
   <h2 id="teklif-baslik">{title}</h2>

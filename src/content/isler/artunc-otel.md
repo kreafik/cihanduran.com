@@ -15,12 +15,12 @@ mobileShot: "../../assets/isler/artunc-otel/mobile.jpg"
 desktopShot: "../../assets/isler/artunc-otel/desktop.jpg"
 ---
 
-## Proje
+## Proje hakkında
 
 Artunç, Bodrum'da hizmet veren bir butik otel.
 
-## Ne yaptım
+## Yapılan çalışma
 
 - WordPress üzerinde kurumsal site.
 
-Siteyi ziyaret edin: [artuncotel.com](https://artuncotel.com)
+Canlı site: [artuncotel.com](https://artuncotel.com)

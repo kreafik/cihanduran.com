@@ -60,7 +60,7 @@ const photoUrls = shoot ? shoot.photos.map((p) => new URL(media.photoSrc(shoot, 
 
 const all = await getAllWork();
 const related = all.filter((x) => x.slug !== w.slug && x.groups[0].slug === w.groups[0].slug).slice(0, 4);
-const quoteMsg = `Merhaba Cihan, ${w.name} işini gördüm; benzer bir proje için görüşmek istiyorum.`;
+const quoteMsg = `Merhaba Cihan Bey, ${w.name} projesini inceledim; benzer bir proje için görüşmek istiyorum.`;
 ---
 <Desktop title={title} description={description} path={path} ogImage={ogImage} preloadImage={preloadImage} jsonLd={buildWorkSchema(w, ogImage, photoUrls)}>
   <MediaCinema media={hero} first>
@@ -72,7 +72,7 @@ const quoteMsg = `Merhaba Cihan, ${w.name} işini gördüm; benzer bir proje iç
     <div slot="caption" class="caption">
       {w.summary && <p class="cap-text">{w.summary}</p>}
       <div class="cap-actions">
-        <a class="btn btn-whatsapp" href={whatsappLink(quoteMsg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Benzerini isteyin</a>
+        <a class="btn btn-whatsapp" href={whatsappLink(quoteMsg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Benzer bir proje için yazın</a>
         {d?.url && <a class="btn btn-ghost" href={d.url} target="_blank" rel="noopener">{host} <Icon name="external" /></a>}
       </div>
     </div>
@@ -112,7 +112,7 @@ const quoteMsg = `Merhaba Cihan, ${w.name} işini gördüm; benzer bir proje iç
 
   {site && (
     <section class="section container" aria-labelledby="site">
-      <h2 id="site">{w.kind === 'both' ? 'Web sitesi' : 'Site'}</h2>
+      <h2 id="site">Web sitesi</h2>
       <div class="shots block">
         <Window title={host ?? w.name} class="shot-desktop">
           {d!.desktopShot
@@ -132,8 +132,8 @@ const quoteMsg = `Merhaba Cihan, ${w.name} işini gördüm; benzer bir proje iç
   {related.length > 0 && (
     <section class="section container" aria-labelledby="benzer">
       <div class="related-head">
-        <h2 id="benzer">Benzer işler</h2>
-        <a href={`/isler#${w.groups[0].slug}`}>{w.groups[0].label}: tümü</a>
+        <h2 id="benzer">Benzer projeler</h2>
+        <a href={`/isler#${w.groups[0].slug}`}>{w.groups[0].label} kategorisindeki tüm projeler</a>
       </div>
       <ul class="related">
         {related.map((x) => <li><WorkCard work={x} /></li>)}

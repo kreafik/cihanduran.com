@@ -17,6 +17,14 @@ Mimari, komutlar ve yayın adımları: [README.md](README.md). Tasarım kararlar
 9. Her indekslenen sayfa: tek `<h1>`, benzersiz `<title>` ≤ 60, benzersiz description ≤ 155, JSON-LD. `npm test` bunları denetler.
 10. Değişiklikten sonra: `npm run build && npm test`.
 
+## Metin dili
+
+- Profesyonel ve sade. Okura "siz" diye hitap edilir; birinci tekil kişi ("ben") yalnız gerektiğinde ve ölçülü.
+- Başlıklar bilgi veren isim tamlamalarıdır: "Hizmet kapsamı", "Çekim kategorileri", "Çalışma süreci", "Referans projeler". "Ne çekiyorum", "Nerede çekiyorum", "Neler yapıyorum" gibi fiil/gündelik başlıklar kullanılmaz.
+- Slogan, ünlem, argo ve abartı yok ("oha", "sıradaki iş sizinki olsun" vb.). İddialar olgu ve `site.stats` rakamlarıyla sınırlı.
+- WhatsApp ön dolu mesajları "Merhaba Cihan Bey," ile başlar.
+- Marka cümleleri (hero başlığı, "Havadan. / Koddan.") Cihan'ın onayıyla korunur.
+
 ## Tasarım dili
 
 macOS koyu görünümü: menü çubuğu, dock, pencere çerçevesi (`Window.astro`), widget kartları. Değişkenler `src/styles/global.css` (`--c-*`, `--fs-*`). Renk yükünü fotoğraflar taşır; terminal yeşili yalnız terminalde. Beyaz metinli mavi düğme `#0071e3` (AA kontrast).

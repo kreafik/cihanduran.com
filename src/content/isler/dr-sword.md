@@ -15,15 +15,15 @@ mobileShot: "../../assets/isler/dr-sword/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Dr. Sword, Bodrum merkezli tıbbi danışmanlık firması; diş tedavisi, saç ekimi, estetik cerrahi ve obezite tedavisinde doktorlar ve sağlık merkezleriyle çalışıyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare Workers üzerinde yayında.
-- Türkçe, İngilizce sürümleri var; diller arası bağlantılar Google için işaretli.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare Workers altyapısında yayınlanır.
+- Türkçe, İngilizce sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
 
 
-Siteyi ziyaret edin: [drsword.com.tr](https://drsword.com.tr)
+Canlı site: [drsword.com.tr](https://drsword.com.tr)

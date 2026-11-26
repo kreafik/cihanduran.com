@@ -16,14 +16,14 @@ mobileShot: "../../assets/isler/yildiz-garage/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Yıldız Garage (Volkan Usta), Bodrum Konacık Sanayi Sitesi'nde oto tamir, periyodik bakım, fren, şanzıman, DSG ve havalı süspansiyon işleri yapıyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare Workers üzerinde yayında.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare Workers altyapısında yayınlanır.
 
 
-Siteyi ziyaret edin: [yildizgarage.com](https://yildizgarage.com)
+Canlı site: [yildizgarage.com](https://yildizgarage.com)

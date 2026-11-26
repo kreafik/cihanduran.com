@@ -148,7 +148,7 @@ export function buildWorkSchema(work, image, photoUrls = []) {
       ...(d?.languages && { inLanguage: d.languages }),
       about: { '@type': 'Organization', name: work.name, ...(d?.url && { url: d.url }) },
     },
-    buildBreadcrumb([{ name: 'Ana sayfa', path: '/' }, { name: 'İşler', path: '/isler' }, { name: work.name, path }]),
+    buildBreadcrumb([{ name: 'Ana sayfa', path: '/' }, { name: 'Projeler', path: '/isler' }, { name: work.name, path }]),
   ];
   if (photoUrls.length) {
     blocks.push({

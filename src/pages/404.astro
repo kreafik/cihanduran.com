@@ -11,7 +11,7 @@ import { t } from '../i18n';
       <div class="term">
         <p><span class="p">cihan@bodrum ~ %</span> open <span data-path>bu-sayfa</span></p>
         <p class="err">zsh: no such file or directory</p>
-        <p class="m">Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir. Şunlardan birini deneyin:</p>
+        <p class="m">Aradığınız sayfa taşınmış ya da kaldırılmış olabilir. Aşağıdaki bağlantılardan devam edebilirsiniz:</p>
         <ul>
           <li><a href="/">cd ~</a></li>
           {mainNav.map((n) => <li><a href={n.href}>{t(n.key).toLocaleLowerCase('tr-TR')}/</a></li>)}

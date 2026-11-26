@@ -16,15 +16,15 @@ mobileShot: "../../assets/isler/lets-dance-yacht/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Lets Dance, Bodrum limanından özel mavi yolculuklara çıkan 30 metrelik ahşap bir gulet: 6 kabin, 12 misafir, 5 kişilik mürettebat.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare Workers üzerinde yayında.
-- İngilizce, Türkçe sürümleri var; diller arası bağlantılar Google için işaretli.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare Workers altyapısında yayınlanır.
+- İngilizce, Türkçe sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
 
 
-Siteyi ziyaret edin: [letsdanceyacht.com](https://letsdanceyacht.com)
+Canlı site: [letsdanceyacht.com](https://letsdanceyacht.com)

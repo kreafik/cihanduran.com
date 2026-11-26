@@ -22,8 +22,8 @@ const [big1, big2, ...small] = pick.slice(0, 8);
 <section class="section container" aria-labelledby="isler-baslik">
   <div class="head">
     <div>
-      <h2 id="isler-baslik">Son işler</h2>
-      <p>Oteller, yatlar, villalar, markalar ve web siteleri. {all.length} iş bu sitede.</p>
+      <h2 id="isler-baslik">Seçili projeler</h2>
+      <p>Otel, yat, villa, marka ve web sitesi projelerinden bir seçki.</p>
     </div>
     <ul class="chips">
       {groups.map((g) => <li><a href={`/isler#${g.slug}`}>{g.label} <small>{g.count}</small></a></li>)}
@@ -37,7 +37,7 @@ const [big1, big2, ...small] = pick.slice(0, 8);
       {small.map((w) => <li><WorkCard work={w} /></li>)}
     </ul>
   </div>
-  <p class="more"><a class="btn btn-ghost" href="/isler">{all.length} işin tamamı</a></p>
+  <p class="more"><a class="btn btn-ghost" href="/isler">Tüm projeler ({all.length})</a></p>
 </section>
 
 <style>

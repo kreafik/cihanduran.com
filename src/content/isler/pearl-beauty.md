@@ -16,14 +16,14 @@ mobileShot: "../../assets/isler/pearl-beauty/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Pearl Beauty, Bodrum Yeniköy'de cilt bakımı, Hydrafacial, lazer epilasyon, bölgesel zayıflama, manikür ve pedikür hizmeti veriyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor.
-- Cloudflare Workers üzerinde yayında.
+- Statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulur.
+- Cloudflare Workers altyapısında yayınlanır.
 
 
-Siteyi ziyaret edin: [pearlbeautybodrum.com](https://pearlbeautybodrum.com)
+Canlı site: [pearlbeautybodrum.com](https://pearlbeautybodrum.com)

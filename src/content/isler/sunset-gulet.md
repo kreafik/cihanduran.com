@@ -16,15 +16,15 @@ mobileShot: "../../assets/isler/sunset-gulet/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Sunset Gulet, Göcek'ten kalkan 22,5 metrelik ahşap bir gulet: 3 kabin, en fazla 6 misafir. Günlük, hafta sonu ve haftalık özel turlar düzenliyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Astro ile statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor, bu yüzden hızlı açılıyor ve Google tarafından doğrudan okunuyor.
-- Cloudflare Workers üzerinde yayında.
-- İngilizce, Türkçe sürümleri var; diller arası bağlantılar Google için işaretli.
+- Astro ile statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulduğu için hızlı açılır ve arama motorlarınca doğrudan okunur.
+- Cloudflare Workers altyapısında yayınlanır.
+- İngilizce, Türkçe sürümleri bulunur; dil sürümleri arama motorları için birbirine bağlanmıştır.
 
 
-Siteyi ziyaret edin: [sunsetgulet.com](https://sunsetgulet.com)
+Canlı site: [sunsetgulet.com](https://sunsetgulet.com)

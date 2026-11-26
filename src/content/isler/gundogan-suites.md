@@ -16,14 +16,14 @@ mobileShot: "../../assets/isler/gundogan-suites/mobile.jpg"
 # TODO(cihan): müşterinin ihtiyacı ve sonuç (ör. "eski site mobilde açılmıyordu", "rezervasyonlar WhatsApp'tan gelmeye başladı"). Gerçek değilse boş bırak.
 ---
 
-## Proje
+## Proje hakkında
 
 Gündoğan Suites, Gündoğan koyunda denize sıfır iki butik otelden oluşuyor.
 
-## Ne yaptım
+## Yapılan çalışma
 
-- Statik site olarak geliştirildi; her sayfa hazır HTML olarak sunuluyor.
-- Cloudflare Workers üzerinde yayında.
+- Statik site olarak geliştirildi; sayfalar hazır HTML olarak sunulur.
+- Cloudflare Workers altyapısında yayınlanır.
 
 
-Siteyi ziyaret edin: [gundogansuites.com](https://gundogansuites.com)
+Canlı site: [gundogansuites.com](https://gundogansuites.com)
