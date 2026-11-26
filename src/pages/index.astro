@@ -1,22 +1,22 @@
 ---
-import { buildHomeSchema } from '../lib/schema.mjs';
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import Desktop from '../layouts/Desktop.astro';
-import Window from '../components/Window.astro';
+import Hero from '../components/home/Hero.astro';
+import StatStrip from '../components/home/StatStrip.astro';
+import TechMarquee from '../components/home/TechMarquee.astro';
 import ServiceWidget from '../components/ServiceWidget.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Placeholder from '../components/Placeholder.astro';
 import Icon from '../components/Icon.astro';
-import Terminal from '../islands/terminal/Terminal.jsx';
-import wallpaper from '../assets/desktop.jpeg';
 import { site, whatsappLink } from '../site.config.mjs';
 import { t } from '../i18n';
+import { buildHomeSchema } from '../lib/schema.mjs';
 import type { AppName } from '../components/AppIcon.astro';
 
 const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order - b.data.order);
 const allWork = await getCollection('isler');
 const featured = allWork.filter((w) => w.data.featured).sort((a, b) => a.data.order - b.data.order);
+const liveSites = allWork.filter((w) => w.data.url).length;
 const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yazilim: 'ai' };
 ---
 <Desktop
@@ -25,30 +25,17 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
   path="/"
   jsonLd={buildHomeSchema()}
 >
-  <section class="desk">
-    <Image src={wallpaper} alt="" class="desk-bg" widths={[800, 1440, 2048]} sizes="100vw" loading="eager" fetchpriority="high" />
-    <div class="container desk-grid">
-      <div class="desk-intro">
-        <h1>Drone çekimi ve yapay zeka destekli yazılım.</h1>
-        <p class="desk-lead">
-          Ben Cihan Duran, Bodrum'dayım. Villaları, tekneleri ve otelleri havadan çekiyorum; işletmelere yapay zekayla daha hızlı geliştirdiğim web siteleri ve yazılımlar yapıyorum.
-        </p>
-        <div class="desk-actions">
-          <a class="btn btn-whatsapp" href={whatsappLink('Merhaba Cihan, bir proje için görüşmek istiyorum.')} target="_blank" rel="noopener">
-            <Icon name="whatsapp" /> {t('cta.whatsapp')}
-          </a>
-          <a class="btn btn-ghost" href="/isler">{t('cta.work')}</a>
-        </div>
-      </div>
+  <Hero />
 
-      <div class="desk-terminal"><Terminal client:idle /></div>
-
-      <h2 id="hizmetler-baslik" class="visually-hidden">Hizmetler</h2>
-      <ul class="desk-widgets" aria-labelledby="hizmetler-baslik">
-        {services.map((s) => <li><ServiceWidget entry={s} app={appFor[s.data.workCategory]} /></li>)}
-      </ul>
-    </div>
+  <section class="section container" id="isler-duvari" aria-labelledby="hizmetler-baslik">
+    <h2 id="hizmetler-baslik" class="visually-hidden">Hizmetler</h2>
+    <ul class="widgets">
+      {services.map((s) => <li><ServiceWidget entry={s} app={appFor[s.data.workCategory]} /></li>)}
+    </ul>
   </section>
+
+  <StatStrip liveSites={liveSites} />
+  <TechMarquee />
 
   <section class="section container" aria-labelledby="isler-baslik">
     <div class="section-head">
@@ -68,7 +55,7 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
     <div class="prose">
       <h2 id="hakkimda-baslik">İşi baştan sona ben yapıyorum</h2>
       <p>
-        Çekimi ben yapıyorum, kurguyu ben yapıyorum, sitenin kodunu ben yazıyorum. Aradaki aracıları ortadan kaldırınca iş hem daha hızlı ilerliyor hem de ne istediğinizi ilk konuştuğunuz kişi sonuna kadar takip ediyor.
+        {site.stats.years} yıldır çekimi de, kurguyu da, sitenin kodunu da ben yapıyorum. Aradaki aracıları ortadan kaldırınca iş hem daha hızlı ilerliyor hem de ne istediğinizi ilk konuştuğunuz kişi sonuna kadar takip ediyor.
       </p>
       <p>
         Yapay zekayı bir kestirme olarak değil, bir ekip arkadaşı gibi kullanıyorum: kodu, metni ve testleri hızlandırıyor; kararları ve kaliteyi ben veriyorum.
@@ -79,7 +66,7 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
 
   <section class="section container cta" aria-labelledby="cta-baslik">
     <h2 id="cta-baslik">Projenizi anlatın, 24 saat içinde dönüş yapayım.</h2>
-    <div class="desk-actions">
+    <div class="cta-actions">
       <a class="btn btn-whatsapp" href={whatsappLink('Merhaba Cihan, bir proje için görüşmek istiyorum.')} target="_blank" rel="noopener">
         <Icon name="whatsapp" /> {t('cta.whatsapp')}
       </a>
@@ -89,92 +76,34 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
 </Desktop>
 
 <style>
-  .desk {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    padding: clamp(2rem, 1rem + 3vw, 3.5rem) 0 clamp(5.5rem, 4rem + 4vw, 7.5rem);
-  }
-  .desk :global(.desk-bg) {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 62% 40%;
-  }
-  .desk::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0;
-    height: 30%;
-    z-index: -1;
-    background: linear-gradient(transparent, var(--c-bg));
-  }
-  .desk-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    grid-template-areas: 'intro terminal' 'widgets widgets';
-    gap: clamp(1.75rem, 1rem + 2vw, 2.5rem) clamp(2rem, 1rem + 3vw, 4rem);
-    align-items: center;
-  }
-  .desk-intro { grid-area: intro; }
-  .desk-intro h1 {
-    font-size: var(--fs-hero);
-    letter-spacing: -0.035em;
-    line-height: 1.02;
-    max-width: 13ch;
-  }
-  .desk-lead {
-    margin-top: 1.25rem;
-    max-width: 46ch;
-    font-size: var(--fs-md);
-    line-height: 1.5;
-    color: rgb(245 245 247 / 0.82);
-  }
-  .desk-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
-  .desk-grid :global(.desk-terminal) { grid-area: terminal; }
-  .desk-widgets {
-    grid-area: widgets;
+  .widgets {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
     list-style: none;
     padding: 0;
   }
-
   .work-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
     gap: 3rem 2rem;
     list-style: none;
     padding: 0;
   }
   .work-more { margin-top: 2.5rem; }
-
   .about {
     display: grid;
-    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
     gap: clamp(2rem, 1rem + 4vw, 5rem);
     align-items: center;
   }
   .about-photo { border-radius: var(--r-window); overflow: hidden; }
   .about .prose p { color: rgb(245 245 247 / 0.86); }
-
-  .cta { text-align: left; }
   .cta h2 { font-size: var(--fs-xl); max-width: 18ch; }
-
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
   @media (max-width: 899px) {
-    .desk-grid {
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: 'intro' 'widgets' 'terminal';
-    }
-    .desk-widgets { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+    .widgets { grid-template-columns: minmax(0, 1fr); }
     .about { grid-template-columns: minmax(0, 1fr); }
     .about-photo { max-width: 320px; }
-  }
-  @media (min-width: 600px) and (max-width: 899px) {
-    .desk-widgets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 </style>

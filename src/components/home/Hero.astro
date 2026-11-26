@@ -1,0 +1,112 @@
+---
+// Ana sayfa hero'su: tam genişlik, aurora + ızgara, dev başlık, küçük (büyütülebilir) terminal.
+import Icon from '../Icon.astro';
+import Terminal from '../../islands/terminal/Terminal.jsx';
+import { whatsappLink } from '../../site.config.mjs';
+import { t } from '../../i18n';
+---
+<section class="hero" aria-labelledby="hero-baslik">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <div class="hero-inner container">
+    <div class="hero-copy">
+      <p class="badge"><span class="pulse" aria-hidden="true"></span>Bodrum, yeni projelere açık</p>
+      <h1 id="hero-baslik">
+        <span class="line">Havadan çekiyorum.</span>
+        <span class="line grad">Yapay zekayla kodluyorum.</span>
+      </h1>
+      <p class="lead">
+        Villalar, tekneler ve oteller için drone ve fotoğraf çekimi; işletmeler için hızlı, çok dilli web siteleri ve yazılımlar.
+      </p>
+      <div class="actions">
+        <a class="btn btn-whatsapp" href={whatsappLink('Merhaba Cihan, bir proje için görüşmek istiyorum.')} target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> {t('cta.whatsapp')}
+        </a>
+        <a class="btn btn-ghost" href="#isler-duvari">{t('cta.work')}</a>
+      </div>
+    </div>
+
+    <div class="hero-term">
+      <Terminal client:idle />
+      <p class="term-hint" aria-hidden="true">Tıklayın, terminal büyüsün</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(3rem, 2rem + 5vw, 7rem) 0 clamp(3rem, 2rem + 4vw, 6rem);
+    background: #07070a;
+  }
+  .aurora { position: absolute; inset: -20%; z-index: -2; filter: blur(60px); }
+  .aurora i { position: absolute; border-radius: 50%; opacity: 0.55; animation: drift 22s ease-in-out infinite alternate; }
+  .aurora i:nth-child(1) { width: 55%; height: 60%; right: 5%; top: 5%; background: radial-gradient(closest-side, rgb(64 120 255 / 0.75), transparent); }
+  .aurora i:nth-child(2) { width: 45%; height: 50%; left: 40%; top: 35%; background: radial-gradient(closest-side, rgb(170 90 255 / 0.6), transparent); animation-duration: 28s; }
+  .aurora i:nth-child(3) { width: 40%; height: 45%; left: 0; bottom: 5%; background: radial-gradient(closest-side, rgb(40 200 120 / 0.28), transparent); animation-duration: 34s; }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(6%, -4%, 0) scale(1.15); }
+  }
+  .grid-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background-image: linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(75% 70% at 50% 35%, #000, transparent);
+    -webkit-mask-image: radial-gradient(75% 70% at 50% 35%, #000, transparent);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: center;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.35rem 0.85rem; border-radius: var(--r-pill);
+    background: rgb(255 255 255 / 0.06); border: 0.5px solid rgb(255 255 255 / 0.18);
+    font-size: var(--fs-sm); color: rgb(245 245 247 / 0.9);
+    backdrop-filter: blur(8px);
+  }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--c-max); box-shadow: 0 0 0 0 rgb(40 200 64 / 0.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgb(40 200 64 / 0); } 100% { box-shadow: 0 0 0 0 rgb(40 200 64 / 0); } }
+
+  h1 {
+    margin-top: 1.4rem;
+    font-size: clamp(2.9rem, 1.2rem + 6.4vw, 7.2rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.055em;
+  }
+  .line { display: block; }
+  .grad {
+    background: linear-gradient(90deg, #fff 0%, #9fd3ff 35%, #b9a6ff 70%, #fff 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: sheen 9s linear infinite;
+  }
+  @keyframes sheen { to { background-position: -200% 0; } }
+  .lead { margin-top: 1.6rem; max-width: 48ch; font-size: var(--fs-md); line-height: 1.5; color: rgb(245 245 247 / 0.78); }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+
+  .hero-term { transform: rotate(1.2deg); }
+  .term-hint {
+    margin-top: 0.85rem; display: inline-block;
+    padding: 0.25rem 0.7rem; border-radius: var(--r-pill);
+    background: rgb(10 132 255 / 0.18); border: 1px solid rgb(10 132 255 / 0.45);
+    font-size: 0.8125rem; color: #cfe6ff;
+  }
+
+  @media (max-width: 899px) {
+    .hero-inner { grid-template-columns: minmax(0, 1fr); }
+    .hero-term { transform: none; }
+    .aurora { filter: blur(40px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aurora i, .grad, .pulse { animation: none; }
+  }
+</style>

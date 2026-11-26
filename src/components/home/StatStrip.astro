@@ -1,0 +1,81 @@
+---
+// Rakam şeridi. Değerler yalnız site.stats'tan (Cihan'ın beyanı) ve koleksiyondan; HTML'de son değer yazılı.
+import { site } from '../../site.config.mjs';
+
+interface Props { liveSites: number }
+const { liveSites } = Astro.props;
+const items = [
+  { value: site.stats.years, label: 'yıllık deneyim' },
+  { value: site.stats.software, label: 'yazılım projesi teslim edildi' },
+  { value: site.stats.shoots, label: 'fotoğraf ve video çekimi teslim edildi' },
+  { value: String(liveSites), label: 'müşteri sitesi şu an yayında' },
+];
+---
+<section class="stats container" aria-label="Rakamlarla">
+  <dl>
+    {items.map((it) => (
+      <div class="stat">
+        <dt>{it.label}</dt>
+        <dd data-count={it.value}>{it.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<script>
+  // Görünür olunca bir kez sayar (azaltılmış harekette ve JS yoksa son değer zaten yazılı).
+  const els = document.querySelectorAll<HTMLElement>('[data-count]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        const el = e.target as HTMLElement;
+        const raw = el.dataset.count ?? '';
+        const n = parseInt(raw, 10);
+        const suffix = raw.replace(/^\d+/, '');
+        if (!Number.isFinite(n)) continue;
+        const start = performance.now();
+        const dur = 1400;
+        const step = (now: number) => {
+          const p = Math.min(1, (now - start) / dur);
+          el.textContent = `${Math.round(n * (1 - Math.pow(1 - p, 3)))}${suffix}`;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    }, { threshold: 0.6 });
+    els.forEach((el) => io.observe(el));
+  }
+</script>
+
+<style>
+  .stats { padding-top: clamp(3rem, 2rem + 3vw, 5rem); }
+  dl {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 0.5px solid var(--c-line);
+    border-bottom: 0.5px solid var(--c-line);
+  }
+  .stat { display: flex; flex-direction: column-reverse; gap: 0.35rem; padding: 1.75rem 1.5rem; }
+  .stat + .stat { border-left: 0.5px solid var(--c-line); }
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 1.6rem + 3vw, 4.6rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(180deg, #fff, rgb(245 245 247 / 0.55));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  dt { color: var(--c-muted); font-size: var(--fs-sm); max-width: 22ch; }
+  @media (max-width: 899px) {
+    dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stat:nth-child(3) { border-left: 0; }
+    .stat:nth-child(n + 3) { border-top: 0.5px solid var(--c-line); }
+    .stat { padding: 1.25rem 1rem; }
+  }
+</style>

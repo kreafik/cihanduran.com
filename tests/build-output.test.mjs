@@ -134,7 +134,7 @@ test('dock: ayrı Ana sayfa ve Terminal (#terminal) girişleri', () => {
 });
 
 test('rakamlar sitede: 300+, 200+, 10+; yer tutucu sayı kalmadı', () => {
-  for (const path of ['/hakkimda']) {
+  for (const path of ['/', '/hakkimda']) {
     const html = pages.find((p) => p.path === path).html;
     for (const n of ['300+', '200+', '10+']) assert.ok(html.includes(n), `${path}: ${n}`);
   }
