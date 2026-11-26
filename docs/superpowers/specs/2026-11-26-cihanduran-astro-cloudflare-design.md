@@ -229,3 +229,19 @@ Genel: tüm sayfalarda tam genişlik düzen (içerik genişliği 1120 → ~1440p
 **Teknik karar (Claude'un kararı):** 21st.dev bileşenleri Tailwind ile yazılı; efektler kendi CSS değişkenlerimize ve küçük React adalarına çevrilir, Tailwind eklenmez (tek stil sistemi, sayfa başına daha az CSS).
 
 **Rakamlar (Cihan'ın beyanı, 2026-11-26):** 300+ yazılım projesi teslim edildi · 200+ fotoğraf ve video çekimi teslim edildi · 10+ yıl deneyim. Bunlar `stats`'ta durur; hizmet sayfalarındaki "Sayı eklenecek" kutuları ve hakkımda sayfasındaki "kaç yıldır" maddesi bu değerlerle dolar. Yayında olan site sayısı (koleksiyondan hesaplanır) ayrıca gösterilebilir.
+
+---
+
+## Ek B — Tasarım turu 3 (2026-11-26): portfolyo, proje ve hizmet sayfaları
+
+Cihan'ın isteği: proje sayfası açılışta B'nin sinema hero'su (video varsa video, yoksa fotoğraf), altında galeri; hizmet sayfaları ana sayfa diline uyarlanır; ana sayfadaki "Son işler" baştan ele alınır. Önce her şey localde tamamlanır, sonra yayın.
+
+**Medya:** `Portfolyo/` (4,3 GB, 6 kategori, ~144 çekim) `scripts/optimize-media.mjs` ile küçültülür → `media/` (640/1600px WebP, 720p H.264). Medya git'e girmez; yayında Cloudflare R2 + `media.cihanduran.com`, localde `npm run media` yerel sunucusu. Site medya adresini `PUBLIC_MEDIA_BASE` ortam değişkeninden alır. Proje listesi ve boyutlar `src/data/media-manifest.json` (repoda).
+
+**İş modeli:** Yazılım işleri (`src/content/isler/*.md`) + çekimler (manifest). Aynı müşteri ikisinde de varsa tek sayfa (`shoot:` alanıyla bağlanır): önce çekim galerisi, sonra web sitesi. Her çekim kendi sayfası: `/isler/<ad>`. `/isler` filtresi: Yazılım + 6 çekim kategorisi.
+
+**Proje sayfası:** sinema hero (video > kapak fotoğrafı > site ekran görüntüsü) → kısa bilgi → galeri (masonry, tıklayınca tam ekran görüntüleyici) → video(lar) → web sitesi (varsa) → benzer işler → teklif.
+
+**Hizmet sayfaları:** ana sayfa dili: tam genişlik medya hero (drone: video; fotoğraf: çekimden fotoğraf; yazılım: iş duvarı), rakam şeridi, parıltılı kapsam kartları, ilgili işler (çekim kapakları / site ekranları), süreç, SSS, teklif.
+
+**Ana sayfa "Son işler":** yazılım + çekim karışık, büyük/küçük karolardan oluşan seçki ve kategori sayıları.
