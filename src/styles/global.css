@@ -29,7 +29,7 @@
   --fs-hero: clamp(2.4rem, 1.5rem + 4.4vw, 4.6rem);
 
   --measure: 64ch;
-  --container: 1120px;
+  --container: 1440px;
   --gutter: clamp(1.25rem, 0.8rem + 2vw, 2rem);
   --space-section: clamp(4rem, 3rem + 4vw, 7rem);
 

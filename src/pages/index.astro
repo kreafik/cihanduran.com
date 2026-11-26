@@ -21,7 +21,7 @@ const appFor: Record<string, AppName> = { drone: 'drone', fotograf: 'photo', yaz
 ---
 <Desktop
   title="Cihan Duran | Bodrum Drone Çekimi ve AI Destekli Yazılım"
-  description="Bodrum'da drone çekimi, emlak ve tekne fotoğrafçılığı, yapay zeka destekli web siteleri ve yazılımlar. 20 işletmenin sitesi yayında."
+  description={`Bodrum'da drone çekimi, emlak ve tekne fotoğrafçılığı, yapay zeka destekli web siteleri ve yazılımlar. ${site.stats.years} yıl, ${site.stats.software} yazılım projesi.`}
   path="/"
   jsonLd={buildHomeSchema()}
 >

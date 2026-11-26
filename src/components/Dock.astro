@@ -7,7 +7,11 @@ import AppIcon from './AppIcon.astro';
 interface Props { path: string }
 const { path } = Astro.props;
 const groups = [
-  [{ key: 'dock.terminal' as const, href: '/', app: 'terminal' as const }, ...mainNav],
+  [
+    { key: 'nav.home' as const, href: '/', app: 'home' as const },
+    { key: 'dock.terminal' as const, href: '/#terminal', app: 'terminal' as const },
+    ...mainNav,
+  ],
   dockExtras,
 ];
 ---
@@ -17,7 +21,7 @@ const groups = [
       {gi > 0 && <span class="dock-sep" aria-hidden="true" />}
       <ul>
         {items.map((item) => {
-          const active = item.href === '/' ? path === '/' : isActive(path, item.href);
+          const active = item.href === '/' ? path === '/' : item.href.startsWith('/#') ? false : isActive(path, item.href);
           return (
             <li>
               <a href={item.href} aria-current={active ? 'page' : undefined} data-tip={t(item.key)}>

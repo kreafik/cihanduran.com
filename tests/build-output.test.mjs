@@ -125,3 +125,18 @@ test('robots.txt sitemap\'i gösterir, varsayılan OG görseli var', () => {
   assert.match(robots, /^Sitemap: https:\/\/cihanduran\.com\/sitemap-index\.xml$/m);
   assert.ok(existsSync(join(DIST, 'og-default.png')));
 });
+
+test('dock: ayrı Ana sayfa ve Terminal (#terminal) girişleri', () => {
+  const home = pages.find((p) => p.path === '/').html;
+  const dock = home.slice(home.indexOf('class="dock"'));
+  assert.match(dock, /href="\/"[^>]*data-tip="Ana sayfa"/);
+  assert.match(dock, /href="\/#terminal"[^>]*data-tip="Terminal"/);
+});
+
+test('rakamlar sitede: 300+, 200+, 10+; yer tutucu sayı kalmadı', () => {
+  for (const path of ['/hakkimda']) {
+    const html = pages.find((p) => p.path === path).html;
+    for (const n of ['300+', '200+', '10+']) assert.ok(html.includes(n), `${path}: ${n}`);
+  }
+  for (const p of pages) assert.ok(!p.html.includes('Sayı eklenecek'), p.path);
+});

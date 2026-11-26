@@ -12,8 +12,8 @@ proof:
     label: tek çekim gününde
   - value: 2–5 iş günü
     label: düzenlenmiş teslim
-  - value: "TODO(cihan): sayı"
-    label: çekilen mülk ve tekne
+  - value: 200+
+    label: teslim edilen fotoğraf ve video çekimi
 scope:
   - title: Villa ve daire
     desc: Satış ve kiralama ilanları için iç mekân, dış cephe ve bahçe çekimleri. Geniş açı, düz çizgiler, gerçek renkler.

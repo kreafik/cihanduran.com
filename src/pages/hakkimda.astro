@@ -22,7 +22,7 @@ const workCount = (await getCollection('isler')).length;
       <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.about') }]} />
       <h1>Merhaba, ben Cihan.</h1>
       <p class="lead">
-        Bodrum'da yaşıyor ve çalışıyorum. İki işim var ve ikisini de severek yapıyorum: havadan ve yerden görüntü üretmek, işletmeler için yazılım geliştirmek.
+        Bodrum'da yaşıyor ve çalışıyorum. {site.stats.years} yıldır iki işi birlikte yapıyorum: havadan ve yerden görüntü üretmek, işletmeler için yazılım geliştirmek. Bugüne kadar {site.stats.software} yazılım projesi ve {site.stats.shoots} fotoğraf ve video çekimi teslim ettim.
       </p>
     </header>
     <div class="portrait">
@@ -46,11 +46,10 @@ const workCount = (await getCollection('isler')).length;
       </ul>
 
       <h2>Ekipman ve belgeler</h2>
-      {/* TODO(cihan): bu üç maddeyi gerçek bilgilerle değiştir (ekipman, lisans/sigorta, geçmiş). */}
+      {/* TODO(cihan): bu iki maddeyi gerçek bilgilerle değiştir (ekipman, lisans/sigorta). */}
       <ul class="todo-list" data-todo="cihan">
         <li>Eklenecek: drone modeli ve kamera ekipmanı</li>
         <li>Eklenecek: pilot lisansı, SHGM kaydı ve sigorta bilgisi</li>
-        <li>Eklenecek: kısa geçmiş (kaç yıldır, nerelerde çalıştın)</li>
       </ul>
 
       <h2>Hizmetler</h2>

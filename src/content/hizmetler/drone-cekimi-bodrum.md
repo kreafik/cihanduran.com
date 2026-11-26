@@ -12,8 +12,8 @@ proof:
     label: video, yüksek çözünürlüklü fotoğraf
   - value: 2–5 iş günü
     label: kurgulanmış teslim
-  - value: "TODO(cihan): sayı"
-    label: tamamlanan çekim
+  - value: 200+
+    label: teslim edilen fotoğraf ve video çekimi
 scope:
   - title: Villa ve emlak
     desc: Satılık ya da kiralık villa, daire ve arsalar için konumu, manzarayı ve çevreyi tek karede gösteren çekimler. İlan sitelerine ve sosyal medyaya uygun formatlarda.

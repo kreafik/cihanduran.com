@@ -8,8 +8,8 @@ lead: Yapay zekayı tasarımdan koda, içerikten teste kadar geliştirmenin her 
 tagline: Web sitesi, panel, otomasyon
 heroPlaceholder: ekran — müşteri sitelerinden kolaj ya da kod editörü, yatay
 proof:
-  - value: "20"
-    label: yayında olan müşteri sitesi
+  - value: 300+
+    label: teslim edilen yazılım projesi
   - value: 4 dil
     label: Türkçe, İngilizce, Almanca, Rusça
   - value: Cloudflare

@@ -12,6 +12,8 @@ export const site = {
   country: 'TR',
   geo: { lat: 37.0344, lng: 27.4305 },
   github: 'https://github.com/kreafik',
+  // Cihan'ın beyanı (2026-11-26). Sitedeki bütün rakamlar buradan gelir; başka sayı uydurulmaz.
+  stats: { software: '300+', shoots: '200+', years: '10+' },
   // TODO(cihan): Cloudflare Web Analytics token'ı (panel → Analytics & Logs → Web Analytics). Boşken beacon eklenmez.
   cfAnalyticsToken: '',
 };
