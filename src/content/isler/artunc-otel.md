@@ -4,6 +4,7 @@ sector: "Butik otel"
 location: "Bodrum"
 category: [yazilim]
 url: "https://artuncotel.com"
+shoot: "artunc-hotel"
 summary: "Bodrum'daki butik otel için İngilizce tanıtım sitesi."
 languages: ["İngilizce"]
 stack: ["WordPress"]

@@ -1,113 +1,173 @@
 ---
-import { buildProjectSchema } from '../../lib/schema.mjs';
-import { getCollection, render, type CollectionEntry } from 'astro:content';
+// İş sayfası: sinema hero (video > kapak fotoğrafı > site ekranı) → bilgi → galeri → videolar → web sitesi → benzer işler.
+import { render } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import Desktop from '../../layouts/Desktop.astro';
+import MediaCinema, { type CinemaMedia } from '../../components/MediaCinema.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import Gallery from '../../components/Gallery.astro';
 import Window from '../../components/Window.astro';
 import Placeholder from '../../components/Placeholder.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import WorkCard from '../../components/WorkCard.astro';
 import QuoteCta from '../../components/QuoteCta.astro';
 import Icon from '../../components/Icon.astro';
+import { getAllWork, type Work } from '../../lib/work';
+import { media } from '../../lib/media';
+import { buildWorkSchema } from '../../lib/schema.mjs';
+import { whatsappLink } from '../../site.config.mjs';
 import { t } from '../../i18n';
 
 export async function getStaticPaths() {
-  const work = await getCollection('isler');
-  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  const all = await getAllWork();
+  return all.map((work) => ({ params: { slug: work.slug }, props: { work } }));
 }
 
-interface Props { entry: CollectionEntry<'isler'> }
-const { entry } = Astro.props;
-const d = entry.data;
-const path = `/isler/${entry.id}`;
-const host = d.url ? new URL(d.url).host : d.name;
-const { Content } = await render(entry);
+interface Props { work: Work }
+const { work: w } = Astro.props;
+const path = `/isler/${w.slug}`;
+const shoot = w.shoot;
+const site = w.site;
+const d = site?.data;
+const host = d?.url ? new URL(d.url).host : undefined;
+const Content = site ? (await render(site)).Content : null;
+const firstVideo = shoot?.videos[0];
+const cover = shoot?.photos[0];
+const shotImg = d?.desktopShot ? await getImage({ src: d.desktopShot, width: 1600, format: 'webp' }) : undefined;
 
-const og = d.desktopShot ? (await getImage({ src: d.desktopShot, width: 1200, height: 750, format: 'jpg' })).src : undefined;
-const related = (await getCollection('isler'))
-  .filter((w) => w.id !== entry.id && w.data.category.some((c) => d.category.includes(c)))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
-const title = `${d.name} web sitesi | Cihan Duran`.length <= 60 ? `${d.name} web sitesi | Cihan Duran` : `${d.name} | Cihan Duran`;
+const hero: CinemaMedia = firstVideo
+  ? { type: 'video', src: media.videoSrc(shoot!, firstVideo), poster: media.posterSrc(shoot!, firstVideo), label: `${w.name} tanıtım videosu` }
+  : cover
+    ? { type: 'image', src: media.photoSrc(shoot!, cover, 1600), srcset: media.photoSrcset(shoot!, cover), alt: `${w.name}, kapak fotoğrafı`, width: cover.w, height: cover.h }
+    : shotImg
+      ? { type: 'image', src: shotImg.src, alt: `${w.name} web sitesi`, width: 1600, height: 1000 }
+      : { type: 'placeholder', label: `${w.name} görseli` };
+
+const groupLabel = w.groups.map((g) => g.label).join(' · ');
+const what = w.kind === 'site' ? 'web sitesi' : w.kind === 'shoot' ? 'çekimi' : 'çekimi ve web sitesi';
+const titleFull = `${w.name} ${what} | Cihan Duran`;
+const title = titleFull.length <= 60 ? titleFull : `${w.name} | Cihan Duran`.slice(0, 60);
+const photoCount = shoot?.photos.length ?? 0;
+const videoCount = shoot?.videos.length ?? 0;
+const description = (
+  w.summary
+    ? `${w.summary} ${d?.sector ?? ''}${d?.location ? `, ${d.location}` : ''}.`
+    : `${w.name} için ${shoot!.category.toLocaleLowerCase('tr-TR')} çekimi: ${photoCount} fotoğraf${videoCount ? `, ${videoCount} video` : ''}. Drone ve fotoğraf, Cihan Duran.`
+).replace(/\s+/g, ' ').slice(0, 155);
+
+const ogImage = cover ? media.photoSrc(shoot!, cover, 1600) : shotImg?.src;
+const photoUrls = shoot ? shoot.photos.map((p) => new URL(media.photoSrc(shoot, p, 1600), 'https://cihanduran.com').href) : [];
+
+const all = await getAllWork();
+const related = all.filter((x) => x.slug !== w.slug && x.groups[0].slug === w.groups[0].slug).slice(0, 4);
+const quoteMsg = `Merhaba Cihan, ${w.name} işini gördüm; benzer bir proje için görüşmek istiyorum.`;
 ---
-<Desktop title={title} description={`${d.summary} ${d.sector}, ${d.location}.`.slice(0, 155)} path={path} ogImage={og} jsonLd={buildProjectSchema(entry, og)}>
-  <header class="container head">
-    <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work'), path: '/isler' }, { name: d.name }]} />
-    <h1>{d.name}</h1>
-    <p class="lead">{d.summary}</p>
-    <dl class="facts">
-      <div><dt>Sektör</dt><dd>{d.sector}</dd></div>
-      <div><dt>Konum</dt><dd>{d.location}</dd></div>
-      <div><dt>Diller</dt><dd>{d.languages.join(', ')}</dd></div>
-      {d.year && <div><dt>Yıl</dt><dd>{d.year}</dd></div>}
-    </dl>
-    {d.url && (
-      <a class="btn btn-primary visit" href={d.url} target="_blank" rel="noopener">{host} sitesini açın <Icon name="external" /></a>
-    )}
-  </header>
-
-  <div class="container shots">
-    <Window title={host} class="shot-desktop">
-      {d.desktopShot
-        ? <Image src={d.desktopShot} alt={`${d.name} sitesinin masaüstü görünümü`} widths={[640, 1000, 1440]} sizes="(max-width: 899px) 100vw, 800px" loading="eager" />
-        : <Placeholder label={`${host} masaüstü ekran görüntüsü`} ratio="16 / 10" />}
-    </Window>
-    <div class="phone">
-      {d.mobileShot
-        ? <Image src={d.mobileShot} alt={`${d.name} sitesinin telefon görünümü`} widths={[260, 390, 780]} sizes="260px" />
-        : <Placeholder label={`${host} telefon ekran görüntüsü`} ratio="390 / 844" />}
+<Desktop title={title} description={description} path={path} ogImage={ogImage} jsonLd={buildWorkSchema(w, ogImage, photoUrls)}>
+  <MediaCinema media={hero} first>
+    <div slot="intro" class="intro">
+      <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work'), path: '/isler' }, { name: w.name }]} />
+      <h1>{w.name}</h1>
+      <p class="intro-meta">{groupLabel}{d?.location ? `, ${d.location}` : ''}</p>
     </div>
+    <div slot="caption" class="caption">
+      {w.summary && <p class="cap-text">{w.summary}</p>}
+      <div class="cap-actions">
+        <a class="btn btn-whatsapp" href={whatsappLink(quoteMsg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Benzerini isteyin</a>
+        {d?.url && <a class="btn btn-ghost" href={d.url} target="_blank" rel="noopener">{host} <Icon name="external" /></a>}
+      </div>
+    </div>
+  </MediaCinema>
+
+  <div class="container facts-wrap">
+    <dl class="facts">
+      <div><dt>Kategori</dt><dd>{groupLabel}</dd></div>
+      {d?.location && <div><dt>Konum</dt><dd>{d.location}</dd></div>}
+      {photoCount > 0 && <div><dt>Fotoğraf</dt><dd>{photoCount}</dd></div>}
+      {videoCount > 0 && <div><dt>Video</dt><dd>{videoCount}</dd></div>}
+      {d?.languages && <div><dt>Site dilleri</dt><dd>{d.languages.join(', ')}</dd></div>}
+      {d?.year && <div><dt>Yıl</dt><dd>{d.year}</dd></div>}
+    </dl>
   </div>
 
-  <article class="container body"><div class="prose"><Content /></div></article>
+  {shoot && shoot.photos.length > 0 && (
+    <section class="section container" aria-labelledby="galeri">
+      <h2 id="galeri">Fotoğraflar</h2>
+      <div class="block"><Gallery shoot={shoot} name={w.name} /></div>
+    </section>
+  )}
+
+  {shoot && shoot.videos.length > 0 && (
+    <section class="section container" aria-labelledby="videolar">
+      <h2 id="videolar">{shoot.videos.length > 1 ? 'Videolar' : 'Video'}</h2>
+      <div class="videos block">
+        {shoot.videos.map((v) => (
+          <video class:list={['vid', { tall: v.h > v.w }]} controls playsinline preload="none" poster={media.posterSrc(shoot, v) ?? undefined}
+            width={v.w} height={v.h} aria-label={`${w.name} videosu, ${v.duration} saniye`}>
+            <source src={media.videoSrc(shoot, v)} type="video/mp4" />
+          </video>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {site && (
+    <section class="section container" aria-labelledby="site">
+      <h2 id="site">{w.kind === 'both' ? 'Web sitesi' : 'Site'}</h2>
+      <div class="shots block">
+        <Window title={host ?? w.name} class="shot-desktop">
+          {d!.desktopShot
+            ? <Image src={d!.desktopShot} alt={`${w.name} sitesinin masaüstü görünümü`} widths={[640, 1000, 1440]} sizes="(max-width: 899px) 100vw, 800px" />
+            : <Placeholder label={`${host} masaüstü ekran görüntüsü`} ratio="16 / 10" />}
+        </Window>
+        <div class="phone">
+          {d!.mobileShot
+            ? <Image src={d!.mobileShot} alt={`${w.name} sitesinin telefon görünümü`} widths={[260, 390, 780]} sizes="240px" />
+            : <Placeholder label={`${host} telefon ekran görüntüsü`} ratio="390 / 844" />}
+        </div>
+      </div>
+      {Content && <div class="prose site-body"><Content /></div>}
+    </section>
+  )}
 
   {related.length > 0 && (
     <section class="section container" aria-labelledby="benzer">
-      <h2 id="benzer">Diğer işler</h2>
-      <ul class="grid">
-        {related.map((w) => <li><ProjectCard entry={w} /></li>)}
+      <div class="related-head">
+        <h2 id="benzer">Benzer işler</h2>
+        <a href={`/isler#${w.groups[0].slug}`}>{w.groups[0].label}: tümü</a>
+      </div>
+      <ul class="related">
+        {related.map((x) => <li><WorkCard work={x} /></li>)}
       </ul>
     </section>
   )}
 
-  <QuoteCta title="Benzer bir siteye mi ihtiyacınız var?" message={`Merhaba Cihan, ${d.name} sitesini gördüm; benzer bir site için görüşmek istiyorum.`} />
+  <QuoteCta title="Benzer bir proje mi düşünüyorsunuz?" message={quoteMsg} />
 </Desktop>
 
 <style>
-  .head { padding-top: clamp(2rem, 1.5rem + 3vw, 4rem); }
-  .head h1 { margin-top: 1.25rem; }
-  .lead { margin-top: 1rem; max-width: 56ch; font-size: var(--fs-md); color: rgb(245 245 247 / 0.82); }
-  .facts { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin-top: 1.75rem; }
+  .intro h1 { margin-top: 0.9rem; font-size: clamp(2.2rem, 1.2rem + 4vw, 5rem); letter-spacing: -0.045em; line-height: 0.98; max-width: 18ch; }
+  .intro-meta { margin-top: 0.6rem; color: rgb(245 245 247 / 0.8); font-size: var(--fs-md); }
+  .caption { max-width: 60ch; }
+  .cap-text { font-size: var(--fs-md); color: rgb(245 245 247 / 0.9); }
+  .cap-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+
+  .facts-wrap { margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
+  .facts { display: flex; flex-wrap: wrap; gap: 1rem 2.75rem; padding: 1.25rem 0; border-top: 0.5px solid var(--c-line); border-bottom: 0.5px solid var(--c-line); }
   .facts dt { color: var(--c-muted); font-size: var(--fs-sm); }
-  .facts dd { margin: 0.1rem 0 0; font-weight: 600; }
-  .visit { margin-top: 1.75rem; max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; line-height: 1.25; }
+  .facts dd { margin: 0.15rem 0 0; font-weight: 600; }
 
-  .shots {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 240px;
-    gap: 2.5rem;
-    align-items: end;
-    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
-  }
+  .block { margin-top: 1.5rem; }
+  .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 1rem; align-items: start; }
+  .vid { width: 100%; height: auto; border-radius: 12px; background: #000; }
+  .vid.tall { max-height: 80vh; width: auto; max-width: 100%; justify-self: center; }
+
+  .shots { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 2.5rem; align-items: end; }
   .shots :global(.shot-desktop img) { width: 100%; height: auto; }
-  .phone {
-    border-radius: 34px;
-    padding: 9px;
-    background: #0d0d0e;
-    box-shadow: 0 0 0 1.5px #3a3a3c, var(--shadow-window);
-  }
+  .phone { border-radius: 34px; padding: 9px; background: #0d0d0e; box-shadow: 0 0 0 1.5px #3a3a3c, var(--shadow-window); }
   .phone > :global(*) { border-radius: 26px; overflow: hidden; width: 100%; height: auto; }
+  .site-body { margin-top: 2.5rem; }
 
-  .body { margin-top: clamp(2.5rem, 2rem + 2vw, 4rem); }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-    gap: 3rem 2rem;
-    margin-top: 1.75rem;
-    list-style: none;
-    padding: 0;
-  }
+  .related-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; }
+  .related { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 2rem 1.25rem; margin-top: 1.5rem; list-style: none; padding: 0; }
 
   @media (max-width: 899px) {
     .shots { grid-template-columns: minmax(0, 1fr); }

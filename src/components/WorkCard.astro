@@ -1,0 +1,65 @@
+---
+// İş kartı: çekimde kapak fotoğrafı, sitede pencere çerçeveli ekran görüntüsü.
+import { Image } from 'astro:assets';
+import Window from './Window.astro';
+import Placeholder from './Placeholder.astro';
+import { media } from '../lib/media';
+import type { Work } from '../lib/work';
+
+interface Props { work: Work; size?: 'normal' | 'large'; headingLevel?: 'h2' | 'h3'; eager?: boolean }
+const { work: w, size = 'normal', headingLevel: H = 'h3', eager = false } = Astro.props;
+const c = w.cover;
+const sizes = size === 'large' ? '(max-width: 899px) 100vw, 50vw' : '(max-width: 599px) 100vw, (max-width: 1099px) 50vw, 25vw';
+const host = w.site?.data.url ? new URL(w.site.data.url).host : undefined;
+const meta = [w.groups.map((g) => g.label).join(' · '), w.location].filter(Boolean).join(', ');
+---
+<a class:list={['wc', `wc-${c.kind}`, { 'wc-large': size === 'large' }]} href={`/isler/${w.slug}`}>
+  <div class="wc-media">
+    {c.kind === 'photo' && (
+      <img src={media.photoSrc(c.shoot, c.photo, 640)} srcset={media.photoSrcset(c.shoot, c.photo)} sizes={sizes}
+        width={c.photo.w} height={c.photo.h} alt={`${w.name} çekiminden kapak`} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    )}
+    {c.kind === 'poster' && (
+      <img src={media.posterSrc(c.shoot, c.video) ?? ''} width={c.video.w} height={c.video.h} alt={`${w.name} videosundan kare`} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    )}
+    {c.kind === 'shot' && (
+      <Window title={host ?? w.name}>
+        {c.site.data.desktopShot
+          ? <Image src={c.site.data.desktopShot} alt={`${w.name} web sitesi`} widths={[400, 640, 880]} sizes={sizes} loading={eager ? 'eager' : 'lazy'} />
+          : <Placeholder label={`${host} ekran görüntüsü`} ratio="16 / 10" />}
+      </Window>
+    )}
+    <span class="wc-badges">
+      {w.shoot?.videos.length ? <span class="badge">Video</span> : null}
+      {w.kind === 'both' && <span class="badge">Çekim + Site</span>}
+    </span>
+  </div>
+  <div class="wc-text">
+    <H class="wc-name">{w.name}</H>
+    {meta && <p class="wc-meta">{meta}</p>}
+  </div>
+</a>
+
+<style>
+  .wc { display: block; color: var(--c-text); text-decoration: none; }
+  .wc-media { position: relative; overflow: hidden; border-radius: 14px; aspect-ratio: 4 / 3; background: #161618; }
+  .wc-large .wc-media { aspect-ratio: 16 / 10; }
+  .wc-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .wc:hover .wc-media img { transform: scale(1.04); }
+  .wc-shot .wc-media { background: radial-gradient(120% 120% at 20% 0%, #2a3a5a, #14161c 60%); padding: 6% 6% 0; display: flex; align-items: flex-end; }
+  .wc-shot .wc-media :global(.window) { width: 100%; border-bottom-left-radius: 0; border-bottom-right-radius: 0; transition: transform 0.3s ease; }
+  .wc-shot:hover .wc-media :global(.window) { transform: translateY(-4px); }
+  .wc-shot .wc-media :global(.window-body) { aspect-ratio: 16 / 9; overflow: hidden; }
+  .wc-shot .wc-media :global(.window-body img) { object-position: top; }
+  .wc-badges { position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; }
+  .badge {
+    padding: 0.2rem 0.55rem; border-radius: var(--r-pill);
+    background: rgb(0 0 0 / 0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border: 0.5px solid rgb(255 255 255 / 0.2); font-size: 0.75rem; font-weight: 600;
+  }
+  .wc-text { padding: 0.8rem 0.1rem 0; }
+  .wc-name { font-size: 1.0625rem; transition: color 0.15s ease; }
+  .wc-large .wc-name { font-size: var(--fs-md); }
+  .wc:hover .wc-name { color: var(--c-accent-text); }
+  .wc-meta { margin-top: 0.15rem; color: var(--c-muted); font-size: var(--fs-sm); }
+</style>

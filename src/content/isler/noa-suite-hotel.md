@@ -4,6 +4,7 @@ sector: "Butik otel"
 location: "Bodrum, Kumbahçe"
 category: [yazilim]
 url: "https://noasuitehotel.com"
+shoot: "noa-suite-hotel"
 year: 2026
 summary: "Yetişkinlere özel süit otel için Türkçe, İngilizce ve Almanca site."
 languages: ["Türkçe","İngilizce","Almanca"]

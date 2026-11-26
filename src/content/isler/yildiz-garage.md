@@ -4,6 +4,7 @@ sector: "Oto tamir ve bakım"
 location: "Bodrum, Konacık"
 category: [yazilim]
 url: "https://yildizgarage.com"
+shoot: "yildiz-garage"
 year: 2026
 summary: "Konacık sanayideki oto servis için yerel aramaya odaklı site."
 languages: ["Türkçe"]

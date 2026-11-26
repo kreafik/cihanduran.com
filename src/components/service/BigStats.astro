@@ -1,0 +1,38 @@
+---
+// Büyük rakam şeridi (ana sayfadaki StatStrip dili). "TODO" değerleri gösterilmez.
+interface Props { items: { value: string; label: string }[] }
+const items = Astro.props.items.filter((i) => !i.value.startsWith('TODO'));
+---
+<section class="stats container" aria-label="Rakamlarla">
+  <dl style={`--n:${items.length}`}>
+    {items.map((it) => (
+      <div class="stat">
+        <dt>{it.label}</dt>
+        <dd>{it.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .stats { padding-top: clamp(2.5rem, 2rem + 2vw, 4rem); }
+  dl { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); border-top: 0.5px solid var(--c-line); border-bottom: 0.5px solid var(--c-line); }
+  .stat { display: flex; flex-direction: column-reverse; gap: 0.35rem; padding: 1.6rem 1.5rem; }
+  .stat + .stat { border-left: 0.5px solid var(--c-line); }
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 1.4rem + 2.6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    background: linear-gradient(180deg, #fff, rgb(245 245 247 / 0.55));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  dt { color: var(--c-muted); font-size: var(--fs-sm); max-width: 24ch; }
+  @media (max-width: 699px) {
+    dl { grid-template-columns: minmax(0, 1fr); }
+    .stat + .stat { border-left: 0; border-top: 0.5px solid var(--c-line); }
+    .stat { padding: 1.2rem 0; }
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+// Sinema geçişi (21st.dev "Scroll media expansion hero" esinli): kaydırdıkça ortadaki medya tam ekrana açılır.
+// Slotlar: "intro" (üstte, hep görünür — ör. h1), "caption" (sonda belirir). İsteğe bağlı iki yana kayan kelimeler.
+// JS yoksa veya azaltılmış harekette: --p = 1 (tam açık, statik).
+export type CinemaMedia =
+  | { type: 'video'; src: string; webm?: string; poster?: string | null; label: string }
+  | { type: 'image'; src: string; srcset?: string; sizes?: string; alt: string; width: number; height: number }
+  | { type: 'placeholder'; label: string };
+
+interface Props { media: CinemaMedia; words?: [string, string]; first?: boolean; class?: string }
+const { media, words, first = false, class: cls } = Astro.props;
+---
+<section class:list={['cinema', cls, { first }]} data-cinema>
+  <div class="stage">
+    <div class="media">
+      {media.type === 'video' && (
+        <video autoplay muted loop playsinline preload={first ? 'auto' : 'none'} poster={media.poster ?? undefined} aria-label={media.label}>
+          {media.webm && <source src={media.webm} type="video/webm" />}
+          <source src={media.src} type="video/mp4" />
+        </video>
+      )}
+      {media.type === 'image' && (
+        <img src={media.src} srcset={media.srcset} sizes={media.sizes ?? '100vw'} alt={media.alt} width={media.width} height={media.height}
+          loading={first ? 'eager' : 'lazy'} fetchpriority={first ? 'high' : undefined} decoding="async" />
+      )}
+      {media.type === 'placeholder' && (
+        <div class="ph" data-todo="cihan" role="img" aria-label={media.label}><span>GÖRSEL: {media.label}</span></div>
+      )}
+    </div>
+    {words && <p class="word w-left" aria-hidden="true">{words[0]}</p>}
+    {words && <p class="word w-right" aria-hidden="true">{words[1]}</p>}
+    {Astro.slots.has('intro') && <div class="intro"><slot name="intro" /></div>}
+    {Astro.slots.has('caption') && <div class="cap"><slot name="caption" /></div>}
+  </div>
+</section>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('[data-cinema]').forEach((root) => {
+    if (reduce) return;
+    root.classList.add('is-anim');
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = root.getBoundingClientRect();
+      const travel = r.height - window.innerHeight;
+      const p = Math.min(1, Math.max(0, -r.top / (travel * 0.85)));
+      root.style.setProperty('--p', p.toFixed(4));
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  });
+</script>
+
+<style>
+  .cinema { --p: 1; position: relative; }
+  .cinema.is-anim { --p: 0; height: 250vh; }
+  .stage {
+    position: relative;
+    height: calc(100vh - var(--menubar-h));
+    min-height: 520px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  .is-anim .stage { position: sticky; top: var(--menubar-h); }
+
+  .media {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(calc((1 - var(--p)) * 24%) calc((1 - var(--p)) * 30%) round calc((1 - var(--p)) * 28px));
+    will-change: clip-path;
+  }
+  /* Proje sayfasında başlık için üstte daha çok yer */
+  .first .media { clip-path: inset(calc((1 - var(--p)) * 30%) calc((1 - var(--p)) * 26%) calc((1 - var(--p)) * 14%) round calc((1 - var(--p)) * 28px)); }
+  .media img, .media video, .ph { width: 100%; height: 100%; object-fit: cover; }
+  .ph { position: relative; background: linear-gradient(165deg, #06293a 0%, #0d5f73 35%, #2aa3a8 55%, #d8c9a0 72%, #5d7448 86%, #2c3b24 100%); }
+  .ph span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 0.3rem 0.7rem; border-radius: 6px; background: rgb(0 0 0 / 0.35); color: rgb(255 255 255 / 0.8); font-size: var(--fs-sm); text-align: center; }
+  .media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgb(0 0 0 / calc(0.45 * var(--p))), transparent 30%, transparent 45%, rgb(0 0 0 / calc(0.75 * var(--p)))); pointer-events: none; }
+
+  .word {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 1rem + 6.5vw, 7.5rem);
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    opacity: calc(1 - var(--p) * 1.4);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .w-left { left: 6vw; top: calc(24% - 0.55em); transform: translateX(calc(var(--p) * -50vw)); }
+  .w-right {
+    right: 6vw; bottom: calc(24% - 0.45em); transform: translateX(calc(var(--p) * 50vw));
+    background: linear-gradient(90deg, #b9a6ff, #9fd3ff); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .cinema:not(.is-anim) .word { display: none; }
+
+  .intro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    width: min(100% - 2 * var(--gutter), var(--container));
+    margin-inline: auto;
+    padding-top: clamp(1.5rem, 1rem + 2vw, 3rem);
+    text-shadow: 0 2px 24px rgb(0 0 0 / calc(0.6 * var(--p)));
+  }
+  .cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    width: min(100% - 2 * var(--gutter), var(--container));
+    margin-inline: auto;
+    padding-bottom: clamp(5rem, 4rem + 4vw, 7rem);
+    opacity: clamp(0, calc((var(--p) - 0.65) * 3), 1);
+    transform: translateY(calc((1 - var(--p)) * 30px));
+  }
+
+  @media (max-width: 899px) {
+    .w-left { left: var(--gutter); }
+    .w-right { right: var(--gutter); }
+    .cinema.is-anim { height: 210vh; }
+    .stage { height: calc(100svh - 52px); }
+    .is-anim .stage { top: 52px; }
+    .first .media { clip-path: inset(calc((1 - var(--p)) * 34%) calc((1 - var(--p)) * 8%) calc((1 - var(--p)) * 16%) round calc((1 - var(--p)) * 20px)); }
+  }
+</style>

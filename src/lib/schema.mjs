@@ -123,3 +123,42 @@ export function buildPageSchema(type, name, path) {
     buildBreadcrumb([{ name: 'Ana sayfa', path: '/' }, { name, path }]),
   ];
 }
+
+/**
+ * İş sayfası (site, çekim ya da ikisi). Çekim varsa ImageGallery de eklenir.
+ * @param {{ slug: string, name: string, kind: string, summary?: string, groups: {label: string}[], site?: any, shoot?: any }} work
+ * @param {string | undefined} image mutlak ya da kök göreli kapak adresi
+ * @param {string[]} [photoUrls] galeri görselleri (mutlak)
+ */
+export function buildWorkSchema(work, image, photoUrls = []) {
+  const path = `/isler/${work.slug}`;
+  const d = work.site?.data;
+  const what = work.kind === 'site' ? 'web sitesi' : work.kind === 'shoot' ? 'fotoğraf ve video çekimi' : 'çekim ve web sitesi';
+  const blocks = [
+    {
+      '@context': ctx,
+      '@type': 'CreativeWork',
+      name: `${work.name} ${what}`,
+      ...(work.summary && { description: work.summary }),
+      url: abs(path),
+      creator: { '@id': PERSON_ID },
+      genre: work.groups.map((g) => g.label).join(', '),
+      ...(image && { image: new URL(image, site.origin).href }),
+      ...(d?.year && { dateCreated: String(d.year) }),
+      ...(d?.languages && { inLanguage: d.languages }),
+      about: { '@type': 'Organization', name: work.name, ...(d?.url && { url: d.url }) },
+    },
+    buildBreadcrumb([{ name: 'Ana sayfa', path: '/' }, { name: 'İşler', path: '/isler' }, { name: work.name, path }]),
+  ];
+  if (photoUrls.length) {
+    blocks.push({
+      '@context': ctx,
+      '@type': 'ImageGallery',
+      name: `${work.name} galerisi`,
+      url: abs(path),
+      creator: { '@id': PERSON_ID },
+      image: photoUrls.slice(0, 20).map((u) => ({ '@type': 'ImageObject', contentUrl: u, creator: { '@id': PERSON_ID } })),
+    });
+  }
+  return blocks;
+}

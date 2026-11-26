@@ -1,0 +1,54 @@
+---
+// Ana sayfa iş seçkisi: 2 büyük + 6 küçük karo, yazılım ve çekim karışık; üstte kategori sayıları.
+import WorkCard from '../WorkCard.astro';
+import { getAllWork, workGroups, type Work } from '../../lib/work';
+
+const all = await getAllWork();
+const groups = workGroups(all);
+const pick: Work[] = [];
+const add = (w?: Work) => { if (w && !pick.includes(w)) pick.push(w); };
+
+// Büyükler: videolu bir "çekim + site" ve videolu bir çekim; yoksa ilk uygunlar.
+add(all.find((w) => w.kind === 'both' && w.shoot?.videos.length) ?? all.find((w) => w.kind === 'both'));
+add(all.find((w) => w.kind === 'shoot' && w.shoot?.videos.length && w.groups[0].slug !== pick[0]?.groups[0].slug));
+// Küçükler: her gruptan biri (yazılım dahil), sonra öne çıkanlar.
+for (const g of groups) add(all.find((w) => w.groups[0].slug === g.slug && !pick.includes(w)));
+for (const w of all) { if (pick.length >= 8) break; add(w); }
+const [big1, big2, ...small] = pick.slice(0, 8);
+---
+<section class="section container" aria-labelledby="isler-baslik">
+  <div class="head">
+    <div>
+      <h2 id="isler-baslik">Son işler</h2>
+      <p>Oteller, yatlar, villalar, markalar ve web siteleri. {all.length} iş bu sitede.</p>
+    </div>
+    <ul class="chips">
+      {groups.map((g) => <li><a href={`/isler#${g.slug}`}>{g.label} <small>{g.count}</small></a></li>)}
+    </ul>
+  </div>
+
+  <div class="show">
+    <div class="big">{big1 && <WorkCard work={big1} size="large" />}</div>
+    <div class="big">{big2 && <WorkCard work={big2} size="large" />}</div>
+    <ul class="small">
+      {small.map((w) => <li><WorkCard work={w} /></li>)}
+    </ul>
+  </div>
+  <p class="more"><a class="btn btn-ghost" href="/isler">{all.length} işin tamamı</a></p>
+</section>
+
+<style>
+  .head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 1.75rem; }
+  .head p { margin-top: 0.6rem; color: var(--c-muted); font-size: var(--fs-md); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; }
+  .chips a {
+    display: inline-flex; align-items: center; gap: 0.35rem; min-height: 36px; padding: 0.35rem 0.85rem;
+    border-radius: var(--r-pill); background: var(--c-surface); color: var(--c-text); text-decoration: none; font-size: var(--fs-sm); font-weight: 600;
+  }
+  .chips a:hover { background: var(--c-surface-2); }
+  .chips small { color: var(--c-muted); font-weight: 500; }
+  .show { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.25rem; }
+  .small { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 2rem 1.25rem; list-style: none; padding: 0; }
+  .more { margin-top: 2.25rem; }
+  @media (max-width: 899px) { .show { grid-template-columns: minmax(0, 1fr); } }
+</style>

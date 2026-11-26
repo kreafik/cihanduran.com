@@ -6,6 +6,7 @@ seoTitle: Bodrum Emlak ve Tekne Fotoğraf Çekimi | Cihan Duran
 description: Bodrum'da villa, daire, tekne ve otel için profesyonel fotoğraf ve video çekimi. İlanınızı ve rezervasyon sayfanızı güçlendiren görüntüler.
 lead: İlana bakan biri karar vermeden önce fotoğraflara bakıyor. Villanızı, teknenizi ya da otelinizi doğru ışıkta, geniş açıyla ve gerçek renkleriyle çekiyorum; gerektiğinde havadan görüntülerle tamamlıyorum.
 tagline: Emlak, tekne ve otel
+heroShoot: artunc-hotel
 heroPlaceholder: fotoğraf — villa iç mekânı ya da güvertede gulet, doğal ışık, yatay
 proof:
   - value: İç, dış, hava

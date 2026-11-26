@@ -4,6 +4,7 @@ sector: "Mermer ve doğal taş"
 location: "Bodrum, Gündoğan"
 category: [yazilim]
 url: "https://narinmermer.com"
+shoot: "narin-mermer"
 year: 2026
 summary: "Mermer, granit ve kuvars uygulamalarını anlatan 38 sayfalık kurumsal site."
 languages: ["Türkçe"]

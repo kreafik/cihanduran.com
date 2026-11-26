@@ -4,6 +4,7 @@ sector: "Güzellik salonu"
 location: "Bodrum, Yeniköy"
 category: [yazilim]
 url: "https://pearlbeautybodrum.com"
+shoot: "pearl-beauty-bodrum"
 year: 2026
 summary: "Cilt bakımı ve lazer epilasyon salonu için randevu odaklı site."
 languages: ["Türkçe"]

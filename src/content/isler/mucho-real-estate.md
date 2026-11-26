@@ -4,6 +4,7 @@ sector: "Emlak ve inşaat"
 location: "Bodrum Yarımadası"
 category: [yazilim]
 url: "https://muchorealestate.com"
+shoot: "mucho-real-estate"
 year: 2026
 summary: "Emlak ve inşaat danışmanlığı için 44 sayfalık iki dilli site."
 languages: ["Türkçe","İngilizce"]

@@ -8,6 +8,8 @@ Astro ile statik üretim, Cloudflare Workers (static assets + Worker) üzerinde 
 | Komut | Ne yapar |
 |---|---|
 | `npm run dev` | Geliştirme sunucusu (http://localhost:4321) |
+| `npm run media` | Yerel medya sunucusu (http://127.0.0.1:4400, `media/` klasörü). Geliştirirken `npm run dev` ile birlikte açık olmalı |
+| `npm run media:optimize` | Masaüstü'ndeki `Portfolyo/` arşivini küçültür → `media/` + `src/data/media-manifest.json` |
 | `npm run build` | `dist/` üretir |
 | `npm test` | Yönlendirme, Worker, terminal ve `dist/` SEO testleri (önce `npm run build`) |
 | `npm run preview` | Build + `wrangler dev`: Worker dahil gerçek davranış |
@@ -44,6 +46,15 @@ tests/                       node:test
 - `/iban`, `/vscode`, `/qemu`, `/git`, `/danger-zone` sitede durur ama `noindex`; site haritasında yoktur.
 - Canonical olmayan her host (`*.workers.dev`, sürüm önizlemeleri, localhost) `X-Robots-Tag: noindex, nofollow` alır.
 - Bilinmeyen adres `404.html` gövdesiyle **404** döner.
+
+## Medya (portfolyo çekimleri)
+
+- Ham arşiv repo **dışında** durur: `~/OneDrive/Masaüstü/Portfolyo` (başka yer için `PORTFOLYO_DIR`). Yapı: `<Kategori>/<Proje>/proje-01.jpg … proje-video-1.mp4` (01 = kapak).
+- `npm run media:optimize` → `media/` (640/1600px WebP, 720p H.264 video, WebP kapak). Var olan çıktılar atlanır. `media/` git'e girmez.
+- Proje listesi ve görsel boyutları `src/data/media-manifest.json`'dadır (repoda); site build'i medya dosyalarına değil bu listeye bakar.
+- Adres `PUBLIC_MEDIA_BASE`'ten gelir: local `.env` → `http://127.0.0.1:4400`; yayında tanımsızsa `https://media.cihanduran.com` (Cloudflare R2).
+- Bir çekimi bir web sitesiyle birleştirmek için iş dosyasına `shoot: "<çekim-slug>"` yazın (tek sayfa olur).
+- Yayına almadan önce: `media/` içeriğini R2 bucket'ına yükleyin, `media.cihanduran.com`'u bucket'a bağlayın.
 
 ## İçerik düzenleme
 

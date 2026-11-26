@@ -1,0 +1,45 @@
+---
+// Çekim kategorileri: kapak fotoğraflı büyük karolar → /isler#kategori
+import { media, shoots } from '../../lib/media';
+
+const cats = shoots.reduce<Map<string, { label: string; slug: string; count: number; cover?: (typeof shoots)[number] }>>((m, s) => {
+  const c = m.get(s.categorySlug) ?? { label: s.category, slug: s.categorySlug, count: 0 };
+  c.count++;
+  if (!c.cover && s.photos.length) c.cover = s;
+  m.set(s.categorySlug, c);
+  return m;
+}, new Map());
+---
+<section class="section container" aria-labelledby="kategoriler">
+  <div class="section-head">
+    <h2 id="kategoriler">Ne çekiyorum</h2>
+    <p>Kategoriye tıklayın, o alandaki bütün çekimleri görün.</p>
+  </div>
+  <ul class="tiles">
+    {[...cats.values()].map((c) => (
+      <li>
+        <a class="tile" href={`/isler#${c.slug}`}>
+          {c.cover && (
+            <img src={media.photoSrc(c.cover, c.cover.photos[0], 640)} srcset={media.photoSrcset(c.cover, c.cover.photos[0])}
+              sizes="(max-width: 599px) 100vw, (max-width: 1099px) 50vw, 33vw" width={c.cover.photos[0].w} height={c.cover.photos[0].h}
+              alt="" loading="lazy" decoding="async" />
+          )}
+          <span class="t-text"><strong>{c.label}</strong><small>{c.count} çekim</small></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; list-style: none; padding: 0; }
+  .tile { position: relative; display: block; overflow: hidden; border-radius: 20px; aspect-ratio: 4 / 3; color: #fff; text-decoration: none; background: #161618; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .tile:hover img { transform: scale(1.05); }
+  .tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgb(0 0 0 / 0.75)); }
+  .t-text { position: absolute; z-index: 1; left: 1.2rem; right: 1.2rem; bottom: 1.1rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .t-text strong { font-family: var(--font-display); font-size: var(--fs-md); letter-spacing: -0.01em; }
+  .t-text small { color: rgb(255 255 255 / 0.8); font-size: var(--fs-sm); white-space: nowrap; }
+  @media (max-width: 1099px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 599px) { .tiles { grid-template-columns: minmax(0, 1fr); } }
+</style>

@@ -25,6 +25,10 @@ macOS koyu görünümü: menü çubuğu, dock, pencere çerçevesi (`Window.astr
 
 `src/site.config.mjs` tek kaynak. E-posta alanı boşsa sitede e-posta gösterilmez.
 
+## Medya
+
+Portfolyo medyası git'e **girmez** (`media/`, `/Portfolyo/` .gitignore'da; ham arşiv Masaüstü'nde). Kodda medya adresi sabit yazılmaz: `src/lib/media.ts` (`media.photoSrc` vb.). İş listesi `src/lib/work.ts` (yazılım işleri + manifest çekimleri). Geliştirirken `npm run media` açık olmalı.
+
 ## Bilinen açık işler
 
 - Görseller: `npm run check:placeholders`.

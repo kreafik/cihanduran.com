@@ -25,6 +25,8 @@ const hizmetler = defineCollection({
       tagline: z.string(),
       heroImage: image().optional(),
       heroPlaceholder: z.string(),
+      /** Hero görseli için portfolyo çekimi (media manifest slug'ı) */
+      heroShoot: z.string().optional(),
       proof: z.array(z.object({ value: z.string(), label: z.string() })),
       scope: z.array(z.object({ title: z.string(), desc: z.string() })),
       process: z.array(z.object({ title: z.string(), desc: z.string() })),
@@ -45,6 +47,8 @@ const isler = defineCollection({
       location: z.string(),
       category: z.array(category).min(1),
       url: z.string().url().optional(),
+      /** Aynı müşterinin portfolyo çekimi (media manifest slug'ı); tek sayfada birleşir */
+      shoot: z.string().optional(),
       year: z.number().optional(),
       /** Kartlarda tek satır: ne yapıldı */
       summary: z.string().max(140),

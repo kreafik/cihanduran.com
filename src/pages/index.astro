@@ -6,8 +6,8 @@ import StatStrip from '../components/home/StatStrip.astro';
 import TechMarquee from '../components/home/TechMarquee.astro';
 import WorkWall from '../components/home/WorkWall.astro';
 import Bento from '../components/home/Bento.astro';
-import DroneCinema from '../components/home/DroneCinema.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import MediaCinema from '../components/MediaCinema.astro';
+import WorkShowcase from '../components/home/WorkShowcase.astro';
 import Placeholder from '../components/Placeholder.astro';
 import Icon from '../components/Icon.astro';
 import { site, whatsappLink } from '../site.config.mjs';
@@ -15,7 +15,6 @@ import { t } from '../i18n';
 import { buildHomeSchema } from '../lib/schema.mjs';
 
 const allWork = await getCollection('isler');
-const featured = allWork.filter((w) => w.data.featured).sort((a, b) => a.data.order - b.data.order);
 const liveSites = allWork.filter((w) => w.data.url).length;
 ---
 <Desktop
@@ -30,18 +29,15 @@ const liveSites = allWork.filter((w) => w.data.url).length;
   <StatStrip liveSites={liveSites} />
   <TechMarquee />
   <Bento />
-  <DroneCinema />
-
-  <section class="section container" aria-labelledby="isler-baslik">
-    <div class="section-head">
-      <h2 id="isler-baslik">Son işler</h2>
-      <p>Bodrum'da ve Türkiye'de işletmeler için yaptığım, şu an yayında olan sitelerden bazıları.</p>
+  <MediaCinema class="home-cinema" media={site.heroVideo.mp4 ? { type: 'video', src: site.heroVideo.mp4, webm: site.heroVideo.webm, poster: site.heroVideo.poster, label: "Bodrum'un drone ile havadan görüntüsü" } : { type: 'placeholder', label: 'drone videosu' }} words={['Havadan.', 'Koddan.']}>
+    <div slot="caption" class="cinema-cap">
+      <h2>Bodrum'u yukarıdan görün.</h2>
+      <p>Villa, tekne, otel ve etkinlik için 4K hava çekimi. {site.stats.shoots} çekim teslim edildi.</p>
+      <a class="btn btn-primary" href="/drone-cekimi-bodrum">Drone çekimi</a>
     </div>
-    <ul class="work-grid">
-      {featured.map((w) => <li><ProjectCard entry={w} /></li>)}
-    </ul>
-    <p class="work-more"><a class="btn btn-ghost" href="/isler">{allWork.length} işin tamamını gör</a></p>
-  </section>
+  </MediaCinema>
+
+  <WorkShowcase />
 
   <section class="section container about" aria-labelledby="hakkimda-baslik">
     <div class="about-photo">
@@ -71,14 +67,6 @@ const liveSites = allWork.filter((w) => w.data.url).length;
 </Desktop>
 
 <style>
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-    gap: 3rem 2rem;
-    list-style: none;
-    padding: 0;
-  }
-  .work-more { margin-top: 2.5rem; }
   .about {
     display: grid;
     grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
@@ -87,6 +75,10 @@ const liveSites = allWork.filter((w) => w.data.url).length;
   }
   .about-photo { border-radius: var(--r-window); overflow: hidden; }
   .about .prose p { color: rgb(245 245 247 / 0.86); }
+  :global(.home-cinema) { margin-top: var(--space-section); }
+  .cinema-cap h2 { font-size: var(--fs-xl); letter-spacing: -0.035em; max-width: 16ch; }
+  .cinema-cap p { margin-top: 0.6rem; max-width: 46ch; color: rgb(245 245 247 / 0.85); font-size: var(--fs-md); }
+  .cinema-cap .btn { margin-top: 1.4rem; }
   .cta h2 { font-size: var(--fs-xl); max-width: 18ch; }
   .cta-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
   @media (max-width: 899px) {

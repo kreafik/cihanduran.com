@@ -1,83 +1,101 @@
 ---
-import { buildPageSchema } from '../../lib/schema.mjs';
-import { getCollection } from 'astro:content';
 import Desktop from '../../layouts/Desktop.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import WorkCard from '../../components/WorkCard.astro';
 import QuoteCta from '../../components/QuoteCta.astro';
+import { getAllWork, workGroups } from '../../lib/work';
+import { buildPageSchema } from '../../lib/schema.mjs';
+import { site } from '../../site.config.mjs';
 import { t } from '../../i18n';
 
-const work = (await getCollection('isler')).sort((a, b) => a.data.order - b.data.order);
-const filters = [
-  { id: 'tumu', label: 'Tümü' },
-  { id: 'yazilim', label: 'Yazılım' },
-  { id: 'drone', label: 'Drone' },
-  { id: 'fotograf', label: 'Fotoğraf' },
-] as const;
-const counts = Object.fromEntries(filters.map((f) => [f.id, f.id === 'tumu' ? work.length : work.filter((w) => w.data.category.includes(f.id as any)).length]));
+const all = await getAllWork();
+const groups = workGroups(all);
+const shootCount = all.filter((w) => w.shoot).length;
+const siteCount = all.filter((w) => w.site).length;
 ---
 <Desktop
-  title="İşler | Cihan Duran"
-  description={`Bodrum'da ve Türkiye'de işletmeler için yaptığım ${work.length} web sitesi; oteller, gulet kiralama, hukuk, inşaat ve daha fazlası. Hepsi yayında.`}
+  title="İşler: çekimler ve web siteleri | Cihan Duran"
+  description={`Otel, yat, villa, restoran ve marka çekimleri ile web siteleri: ${all.length} iş tek sayfada. Bodrum'dan drone, fotoğraf ve yazılım.`}
   path="/isler"
   jsonLd={buildPageSchema('CollectionPage', 'İşler', '/isler')}
 >
   <header class="container head">
     <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.work') }]} />
     <h1>İşler</h1>
-    <p class="lead">{work.length} işletmenin sitesi şu an yayında. Her birine tıklayıp ne yaptığımı okuyabilir, siteyi açıp kendiniz gezebilirsiniz.</p>
+    <p class="lead">
+      {shootCount} çekim ve {siteCount} web sitesinden bir seçki. {site.stats.years} yılda {site.stats.software} yazılım projesi ve {site.stats.shoots} çekim teslim ettim.
+    </p>
   </header>
 
   <div class="container">
-    <form class="filters" aria-label="Kategoriye göre süz">
-      {filters.map((f, i) => (
-        <label>
-          <input type="radio" name="kategori" value={f.id} checked={i === 0} disabled={counts[f.id] === 0} />
-          <span>{f.label} <small>{counts[f.id]}</small></span>
-        </label>
+    <form class="filters" aria-label="Kategoriye göre süz" data-filters>
+      <label><input type="radio" name="kategori" value="tumu" checked /><span>Tümü <small>{all.length}</small></span></label>
+      {groups.map((g) => (
+        <label><input type="radio" name="kategori" value={g.slug} /><span>{g.label} <small>{g.count}</small></span></label>
       ))}
     </form>
 
-    <ul class="grid">
-      {work.map((w, i) => (
-        <li data-cat={w.data.category.join(' ')}><ProjectCard entry={w} headingLevel="h2" eager={i < 3} /></li>
+    <ul class="grid" data-grid>
+      {all.map((w, i) => (
+        <li data-groups={w.groups.map((g) => g.slug).join(' ')}>
+          <WorkCard work={w} headingLevel="h2" eager={i < 4} />
+        </li>
       ))}
     </ul>
   </div>
 
-  <QuoteCta title="Sıradaki site sizinki olsun." message="Merhaba Cihan, web sitesi için görüşmek istiyorum." />
+  <QuoteCta title="Sıradaki iş sizinki olsun." message="Merhaba Cihan, bir proje için görüşmek istiyorum." />
 </Desktop>
+
+<script>
+  // /isler#oteller → o kategori seçili açılır; seçim adrese yazılır (JS yoksa CSS süzgeci yine çalışır).
+  const form = document.querySelector<HTMLFormElement>('[data-filters]');
+  const grid = document.querySelector<HTMLElement>('[data-grid]');
+  if (form && grid) {
+    const apply = (value: string) => {
+      grid.querySelectorAll<HTMLElement>('li').forEach((li) => {
+        li.hidden = value !== 'tumu' && !(li.dataset.groups ?? '').split(' ').includes(value);
+      });
+    };
+    const fromHash = decodeURIComponent(location.hash.slice(1));
+    const radio = form.querySelector<HTMLInputElement>(`input[value="${CSS.escape(fromHash)}"]`);
+    if (radio) { radio.checked = true; apply(fromHash); }
+    form.addEventListener('change', (e) => {
+      const v = (e.target as HTMLInputElement).value;
+      apply(v);
+      history.replaceState(null, '', v === 'tumu' ? location.pathname : `#${v}`);
+    });
+  }
+</script>
 
 <style>
   .head { padding-top: clamp(2rem, 1.5rem + 3vw, 4rem); }
-  .head h1 { margin-top: 1.25rem; }
-  .lead { margin-top: 1rem; max-width: 56ch; font-size: var(--fs-md); color: rgb(245 245 247 / 0.82); }
+  .head h1 { margin-top: 1.25rem; font-size: var(--fs-hero); letter-spacing: -0.04em; }
+  .lead { margin-top: 1rem; max-width: 60ch; font-size: var(--fs-md); color: rgb(245 245 247 / 0.82); }
 
-  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2.5rem 0 2rem; }
+  .filters { position: sticky; top: var(--menubar-h); z-index: 5; display: flex; gap: 0.5rem; margin: 2.25rem 0 2rem; padding: 0.75rem 0; overflow-x: auto; scrollbar-width: none; background: linear-gradient(var(--c-bg) 70%, transparent); }
+  .filters::-webkit-scrollbar { display: none; }
+  .filters label { flex: none; }
   .filters input { position: absolute; opacity: 0; pointer-events: none; }
   .filters span {
     display: inline-flex; align-items: center; gap: 0.4rem;
     min-height: 40px; padding: 0.45rem 1rem;
     border-radius: var(--r-pill);
     background: var(--c-surface);
-    font-size: var(--fs-sm); font-weight: 600; cursor: pointer;
+    font-size: var(--fs-sm); font-weight: 600; cursor: pointer; white-space: nowrap;
   }
   .filters small { color: var(--c-muted); font-weight: 500; }
   .filters input:checked + span { background: var(--c-text); color: var(--c-bg); }
   .filters input:checked + span small { color: rgb(28 28 30 / 0.6); }
   .filters input:focus-visible + span { outline: 2px solid var(--c-accent); outline-offset: 2px; }
-  .filters input:disabled + span { opacity: 0.4; cursor: not-allowed; }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-    gap: 3rem 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 2.25rem 1.25rem;
     list-style: none;
     padding: 0;
   }
-
-  /* JS'siz süzme: seçili kategoriye uymayan kartları gizle */
-  .container:has(input[value='yazilim']:checked) li:not([data-cat~='yazilim']),
-  .container:has(input[value='drone']:checked) li:not([data-cat~='drone']),
-  .container:has(input[value='fotograf']:checked) li:not([data-cat~='fotograf']) { display: none; }
+  .grid li[hidden] { display: none; }
+  @media (max-width: 899px) { .filters { top: 52px; } }
 </style>

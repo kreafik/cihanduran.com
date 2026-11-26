@@ -4,6 +4,7 @@ sector: "Gulet kiralama"
 location: "Bodrum"
 category: [yazilim]
 url: "https://letsdanceyacht.com"
+shoot: "lets-dance-yacht"
 year: 2026
 summary: "Bodrum çıkışlı mavi yolculuk guleti için iki dilli site."
 languages: ["İngilizce","Türkçe"]

@@ -4,6 +4,7 @@ sector: "Gulet kiralama"
 location: "Göcek"
 category: [yazilim]
 url: "https://sunsetgulet.com"
+shoot: "ssunset-gulet"
 year: 2026
 summary: "Göcek çıkışlı özel gulet kiralaması için iki dilli tanıtım sitesi."
 languages: ["İngilizce","Türkçe"]

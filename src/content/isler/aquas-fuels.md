@@ -4,6 +4,7 @@ sector: "Denizcilik yakıt tedariki"
 location: "Türkiye geneli"
 category: [yazilim]
 url: "https://aquasfuels.com"
+shoot: "aquas-fuels"
 year: 2026
 summary: "Yat ve gemilere yakıt tedariki yapan firma için İngilizce kurumsal site."
 languages: ["İngilizce"]

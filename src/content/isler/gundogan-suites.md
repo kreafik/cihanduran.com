@@ -4,6 +4,7 @@ sector: "Butik otel"
 location: "Bodrum, Gündoğan"
 category: [yazilim]
 url: "https://gundogansuites.com"
+shoot: "gundogan-suites"
 year: 2026
 summary: "Gündoğan koyundaki iki butik otel için tanıtım sitesi."
 languages: ["Türkçe"]

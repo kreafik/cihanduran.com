@@ -1,5 +1,6 @@
 // Portfolyo/ arşivini web için küçültür → media/ (git dışında; R2'ye yüklenecek) + media/manifest.json
 // Kullanım: node scripts/optimize-media.mjs [--only <proje-slug>]
+//   Kaynak klasör: PORTFOLYO_DIR ortam değişkeni (varsayılan: Masaüstü'ndeki Portfolyo; repo dışında tutulur).
 //   Fotoğraf: 640px ve 1600px WebP (uzun kenar), EXIF yönü uygulanır, meta veri atılır.
 //   Video: kısa kenar 720px, H.264 CRF 31 (slow), AAC 64k, faststart; kapak → 1280px WebP.
 // Var olan çıktılar atlanır (yeniden çalıştırmak güvenli ve hızlı).
@@ -8,9 +9,10 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { readdirSync, statSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join, basename, extname } from 'node:path';
+import { homedir } from 'node:os';
 
 const run = promisify(execFile);
-const SRC = 'Portfolyo';
+const SRC = process.env.PORTFOLYO_DIR ?? join(homedir(), 'OneDrive', 'Masaüstü', 'Portfolyo');
 const OUT = 'media';
 const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1] : null;
 
