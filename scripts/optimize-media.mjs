@@ -100,4 +100,6 @@ for (const e of manifest) {
   e.videos.sort((a, b) => a.name.localeCompare(b.name));
 }
 writeFileSync(join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 2));
+// Site build'i medyaya değil yalnız bu listeye bakar; repoda durur.
+if (!only) writeFileSync('src/data/media-manifest.json', JSON.stringify(manifest));
 console.log('manifest yazıldı');

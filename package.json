@@ -14,7 +14,9 @@
     "deploy": "npm run build && wrangler deploy",
     "versions:upload": "npm run build && wrangler versions upload",
     "check:placeholders": "node scripts/check-placeholders.mjs",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "media": "node scripts/media-server.mjs",
+    "media:optimize": "node scripts/optimize-media.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.9",
