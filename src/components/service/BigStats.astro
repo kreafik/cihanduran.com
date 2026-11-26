@@ -28,6 +28,7 @@ const items = Astro.props.items.filter((i) => !i.value.startsWith('TODO'));
     line-height: 1;
     background: linear-gradient(180deg, #fff, rgb(245 245 247 / 0.55));
     -webkit-background-clip: text; background-clip: text; color: transparent;
+    padding-bottom: 0.15em; margin-bottom: -0.15em; /* ğ, ş, ç kuyrukları kesilmesin */
   }
   dt { color: var(--c-muted); font-size: var(--fs-sm); max-width: 24ch; }
   @media (max-width: 699px) {

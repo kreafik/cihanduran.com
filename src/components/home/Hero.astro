@@ -120,6 +120,10 @@ import { t } from '../../i18n';
     background-size: 200% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent;
     animation: sheen 9s linear infinite;
+    /* line-height < 1: arka plan satır kutusuyla sınırlı, harf kuyrukları (y, ç, ğ) boyanmaz.
+       Kutuyu aşağı uzat, boşluğu negatif margin ile geri al (yerleşim değişmez). */
+    padding-bottom: 0.2em;
+    margin-bottom: -0.2em;
   }
   @keyframes sheen { to { background-position: -200% 0; } }
   .lead { margin-top: 1.6rem; max-width: 48ch; font-size: var(--fs-md); line-height: 1.5; color: rgb(245 245 247 / 0.78); }
