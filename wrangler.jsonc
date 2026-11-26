@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Workers Builds'teki Worker adı bununla AYNI olmalı.
+  "name": "cihanduran",
+  "main": "worker/index.mjs",
+  "compatibility_date": "2026-11-24",
+  "assets": {
+    "directory": "./dist/",
+    "binding": "ASSETS",
+    // Host/yol yönlendirmeleri Worker'da yapıldığı için Worker her istekte önce çalışır.
+    "run_worker_first": true,
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash"
+  },
+  // workers.dev ve sürüm önizleme adresleri açık; Worker bu host'larda X-Robots-Tag: noindex ekler.
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": { "enabled": true }
+
+  // ÖZEL ALAN ADLARI BİLEREK EKLENMEDİ — canlıya geçiş onayından sonra (README "Canlıya alma"):
+  // "routes": [
+  //   { "pattern": "cihanduran.com", "custom_domain": true },
+  //   { "pattern": "www.cihanduran.com", "custom_domain": true }
+  // ]
+}

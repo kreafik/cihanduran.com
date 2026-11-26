@@ -125,3 +125,8 @@ dist
 # Local tooling
 .playwright-mcp/
 .superpowers/
+
+# Astro / Wrangler
+.astro/
+.wrangler/
+.dev.vars
