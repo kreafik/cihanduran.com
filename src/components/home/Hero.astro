@@ -2,10 +2,17 @@
 // Ana sayfa hero'su: tam genişlik, aurora + ızgara, dev başlık, küçük (büyütülebilir) terminal.
 import Icon from '../Icon.astro';
 import Terminal from '../../islands/terminal/Terminal.jsx';
-import { whatsappLink } from '../../site.config.mjs';
+import { site, whatsappLink } from '../../site.config.mjs';
+const v = site.heroVideo;
 import { t } from '../../i18n';
 ---
 <section class="hero" aria-labelledby="hero-baslik">
+  {(v.mp4 || v.webm) && (
+    <video class="bg-video" autoplay muted loop playsinline preload="metadata" poster={v.poster || undefined} aria-hidden="true">
+      {v.webm && <source src={v.webm} type="video/webm" />}
+      {v.mp4 && <source src={v.mp4} type="video/mp4" />}
+    </video>
+  )}
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="grid-bg" aria-hidden="true"></div>
 
@@ -51,6 +58,8 @@ import { t } from '../../i18n';
     background: linear-gradient(transparent, var(--c-bg));
     pointer-events: none;
   }
+  /* Drone videosu: düşük opaklık, aurora ve ızgara üstünde renk verir */
+  .bg-video { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; opacity: 0.32; filter: saturate(1.1); }
   .aurora { position: absolute; inset: -20%; z-index: -2; filter: blur(60px); }
   .aurora i { position: absolute; border-radius: 50%; opacity: 0.55; animation: drift 22s ease-in-out infinite alternate; }
   .aurora i:nth-child(1) { width: 55%; height: 60%; right: 5%; top: 5%; background: radial-gradient(closest-side, rgb(64 120 255 / 0.75), transparent); }
@@ -116,6 +125,7 @@ import { t } from '../../i18n';
     .aurora { filter: blur(40px); }
   }
   @media (prefers-reduced-motion: reduce) {
+    .bg-video { display: none; }
     .aurora i, .grad, .pulse { animation: none; }
   }
 </style>

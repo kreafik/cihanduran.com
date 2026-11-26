@@ -14,6 +14,9 @@ export const site = {
   github: 'https://github.com/kreafik',
   // Cihan'ın beyanı (2026-11-26). Sitedeki bütün rakamlar buradan gelir; başka sayı uydurulmaz.
   stats: { software: '300+', shoots: '200+', years: '10+' },
+  // Hero arka plan videosu (kendi drone çekimin): public/video/ altına koy. Boşken aurora tek başına kalır.
+  // TODO(cihan): 10–20 sn sessiz döngü; mp4 (H.264) + webm, ~1080p, 3–5 MB; poster = ilk kare (jpg).
+  heroVideo: { mp4: '', webm: '', poster: '' },
   // TODO(cihan): Cloudflare Web Analytics token'ı (panel → Analytics & Logs → Web Analytics). Boşken beacon eklenmez.
   cfAnalyticsToken: '',
 };
