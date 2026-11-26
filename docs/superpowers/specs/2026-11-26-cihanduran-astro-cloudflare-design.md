@@ -227,3 +227,5 @@ Genel: tüm sayfalarda tam genişlik düzen (içerik genişliği 1120 → ~1440p
 **Rakamlar ve iddialar (Ek A ile değişen kural):** Sayılar ve öne çıkan iddialar Cihan'ın beyanıdır; `site.config.mjs` → `stats` içinde tek yerde durur ve Cihan tarafından verilir. Claude kendi başına sayı uydurmaz.
 
 **Teknik karar (Claude'un kararı):** 21st.dev bileşenleri Tailwind ile yazılı; efektler kendi CSS değişkenlerimize ve küçük React adalarına çevrilir, Tailwind eklenmez (tek stil sistemi, sayfa başına daha az CSS).
+
+**Rakamlar (Cihan'ın beyanı, 2026-11-26):** 300+ yazılım projesi teslim edildi · 200+ fotoğraf ve video çekimi teslim edildi · 10+ yıl deneyim. Bunlar `stats`'ta durur; hizmet sayfalarındaki "Sayı eklenecek" kutuları ve hakkımda sayfasındaki "kaç yıldır" maddesi bu değerlerle dolar. Yayında olan site sayısı (koleksiyondan hesaplanır) ayrıca gösterilebilir.
