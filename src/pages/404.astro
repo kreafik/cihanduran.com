@@ -1,0 +1,39 @@
+---
+// Bilinmeyen adresler: Worker bu sayfayı 404 durum koduyla sunar.
+import Desktop from '../layouts/Desktop.astro';
+import Window from '../components/Window.astro';
+import { mainNav } from '../lib/nav';
+import { t } from '../i18n';
+---
+<Desktop title="Sayfa bulunamadı | Cihan Duran" description="Aradığınız sayfa bulunamadı." path="/404" noindex>
+  <section class="container nf">
+    <Window title="cihan — zsh">
+      <div class="term">
+        <p><span class="p">cihan@bodrum ~ %</span> open <span data-path>bu-sayfa</span></p>
+        <p class="err">zsh: no such file or directory</p>
+        <p class="m">Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir. Şunlardan birini deneyin:</p>
+        <ul>
+          <li><a href="/">cd ~</a></li>
+          {mainNav.map((n) => <li><a href={n.href}>{t(n.key).toLocaleLowerCase('tr-TR')}/</a></li>)}
+        </ul>
+      </div>
+    </Window>
+    <h1 class="visually-hidden">Sayfa bulunamadı</h1>
+  </section>
+</Desktop>
+
+<script>
+  const el = document.querySelector('[data-path]');
+  if (el) el.textContent = decodeURIComponent(location.pathname).slice(0, 80);
+</script>
+
+<style>
+  .nf { max-width: 720px; padding-top: clamp(3rem, 2rem + 5vw, 7rem); }
+  .term { padding: 1.25rem 1.25rem 1.5rem; font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.7; color: var(--c-terminal); background: rgb(23 23 23 / 0.94); }
+  .p { color: #ff6b5e; }
+  .err { color: #ff6b5e; }
+  .m { color: rgb(245 245 247 / 0.6); margin-top: 0.75rem; }
+  ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; list-style: none; padding: 0; margin-top: 0.5rem; }
+  a { color: #6cc7ff; text-decoration: none; display: inline-block; padding: 0.3rem 0; }
+  a:hover { text-decoration: underline; }
+</style>

@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content';
+import Desktop from '../layouts/Desktop.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Placeholder from '../components/Placeholder.astro';
+import QuoteCta from '../components/QuoteCta.astro';
+import { site } from '../site.config.mjs';
+import { t } from '../i18n';
+
+const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order - b.data.order);
+const workCount = (await getCollection('isler')).length;
+---
+<Desktop
+  title="Hakkımda | Cihan Duran, Bodrum"
+  description="Cihan Duran: Bodrum'da drone ve fotoğraf çekimi yapan, işletmelere yapay zeka destekli web siteleri ve yazılımlar geliştiren bağımsız üretici."
+  path="/hakkimda"
+>
+  <div class="container wrap">
+    <header class="head">
+      <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.about') }]} />
+      <h1>Merhaba, ben Cihan.</h1>
+      <p class="lead">
+        Bodrum'da yaşıyor ve çalışıyorum. İki işim var ve ikisini de severek yapıyorum: havadan ve yerden görüntü üretmek, işletmeler için yazılım geliştirmek.
+      </p>
+    </header>
+    <div class="portrait">
+      <Placeholder label="Cihan'ın portresi — doğal ışık, dikey" ratio="4 / 5" />
+    </div>
+
+    <div class="prose story">
+      <h2>Ne yapıyorum</h2>
+      <p>
+        Villa, tekne ve otelleri drone ile ve yerden çekiyorum; ilan sitelerinde, rezervasyon sayfalarında ve sosyal medyada işe yarayan görüntüler hazırlıyorum.
+      </p>
+      <p>
+        Yazılım tarafında işletmelere hızlı açılan, çok dilli ve Google'ın okuyabildiği web siteleri, paneller ve otomasyonlar geliştiriyorum. Şu an <a href="/isler">{workCount} işletmenin sitesi</a> yayında.
+      </p>
+
+      <h2>Nasıl çalışıyorum</h2>
+      <ul>
+        <li><strong>Doğrudan benimle.</strong> İlk görüşmeden teslime kadar aynı kişiyle konuşuyorsunuz.</li>
+        <li><strong>Görerek ilerliyoruz.</strong> Siteler size özel bir önizleme adresinde gelişiyor; çekimlerde ham görüntüleri aynı gün paylaşıyorum.</li>
+        <li><strong>Yapay zeka bir araç.</strong> Kodu, metni ve testleri hızlandırmak için kullanıyorum; kararları ve kaliteyi ben veriyorum.</li>
+      </ul>
+
+      <h2>Ekipman ve belgeler</h2>
+      <ul class="todo-list" data-todo="cihan">
+        <li>TODO(cihan): drone modeli ve kamera ekipmanı</li>
+        <li>TODO(cihan): pilot lisansı / SHGM kaydı ve sigorta bilgisi</li>
+        <li>TODO(cihan): kısa geçmiş (kaç yıldır, nerelerde çalıştın)</li>
+      </ul>
+
+      <h2>Hizmetler</h2>
+      <ul>
+        {services.map((s) => <li><a href={`/${s.id}`}>{s.data.name}</a>: {s.data.tagline.toLocaleLowerCase('tr-TR')}</li>)}
+      </ul>
+
+      <p class="muted">Kodlarımın bir kısmı açık: <a href={site.github} rel="me noopener" target="_blank">GitHub</a>.</p>
+    </div>
+  </div>
+
+  <QuoteCta title="Bir proje mi düşünüyorsunuz?" message="Merhaba Cihan, bir proje için görüşmek istiyorum." />
+</Desktop>
+
+<style>
+  .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    grid-template-areas: 'head portrait' 'story portrait';
+    gap: 0 clamp(2rem, 1rem + 4vw, 5rem);
+    padding-top: clamp(2rem, 1.5rem + 3vw, 4rem);
+  }
+  .head { grid-area: head; }
+  .head h1 { margin-top: 1.25rem; font-size: var(--fs-hero); letter-spacing: -0.035em; }
+  .lead { margin-top: 1.1rem; max-width: 52ch; font-size: var(--fs-md); line-height: 1.5; color: rgb(245 245 247 / 0.86); }
+  .portrait { grid-area: portrait; align-self: start; position: sticky; top: 4rem; border-radius: var(--r-window); overflow: hidden; }
+  .story { grid-area: story; margin-top: 1rem; }
+  .story p, .story li { color: rgb(245 245 247 / 0.86); }
+  .todo-list li { color: var(--c-muted); border: 1.5px dashed rgb(255 255 255 / 0.25); border-radius: 6px; padding: 0.4rem 0.7rem; list-style: none; margin-left: -1.2em; }
+
+  @media (max-width: 899px) {
+    .wrap { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'head' 'portrait' 'story'; }
+    .portrait { position: static; max-width: 300px; margin-top: 2rem; }
+  }
+</style>

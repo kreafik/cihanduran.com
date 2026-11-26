@@ -1,0 +1,131 @@
+---
+import { getCollection } from 'astro:content';
+import Desktop from '../layouts/Desktop.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsappLink } from '../site.config.mjs';
+import { t } from '../i18n';
+
+const services = (await getCollection('hizmetler')).sort((a, b) => a.data.order - b.data.order);
+---
+<Desktop
+  title="İletişim | Cihan Duran, Bodrum"
+  description="WhatsApp, telefon ya da e-posta ile Cihan Duran'a ulaşın. Drone çekimi, fotoğraf ve yapay zeka destekli yazılım projeleri için 24 saat içinde dönüş."
+  path="/iletisim"
+>
+  <div class="container wrap">
+    <header>
+      <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: t('nav.contact') }]} />
+      <h1>Projenizi anlatın.</h1>
+      <p class="lead">En hızlı yol WhatsApp. Birkaç cümle yeter; 24 saat içinde dönüş yapıyorum.</p>
+
+      <ul class="channels">
+        <li>
+          <a href={whatsappLink('Merhaba Cihan,')} target="_blank" rel="noopener">
+            <span class="ch-icon wa"><Icon name="whatsapp" /></span>
+            <span><strong>WhatsApp</strong><small>{site.phone}</small></span>
+          </a>
+        </li>
+        <li>
+          <a href={site.phoneHref}>
+            <span class="ch-icon"><Icon name="phone" /></span>
+            <span><strong>Telefon</strong><small>{site.phone}</small></span>
+          </a>
+        </li>
+        {site.email && (
+          <li>
+            <a href={`mailto:${site.email}`}>
+              <span class="ch-icon"><Icon name="mail" /></span>
+              <span><strong>E-posta</strong><small>{site.email}</small></span>
+            </a>
+          </li>
+        )}
+        <li class="static">
+          <span class="ch-icon"><Icon name="pin" /></span>
+          <span><strong>Konum</strong><small>{site.locality}, {site.region}. Çekim için yerinize geliyorum.</small></span>
+        </li>
+      </ul>
+    </header>
+
+    <form class="wa-form" id="wa-form" action={site.whatsapp} method="get" target="_blank">
+      <h2>WhatsApp mesajı hazırlayın</h2>
+      <p class="muted">Formu doldurun; mesaj WhatsApp'ta hazır açılır, siz gönderirsiniz.</p>
+      <label>
+        <span>Adınız</span>
+        <input name="ad" autocomplete="name" required maxlength="80" />
+      </label>
+      <label>
+        <span>Konu</span>
+        <select name="konu">
+          {services.map((s) => <option>{s.data.name}</option>)}
+          <option>Diğer</option>
+        </select>
+      </label>
+      <label>
+        <span>Mesajınız</span>
+        <textarea name="mesaj" rows="5" required maxlength="1200" placeholder="Ne, nerede, ne zaman? Kısaca yazın."></textarea>
+      </label>
+      <input type="hidden" name="text" />
+      <button class="btn btn-whatsapp" type="submit"><Icon name="whatsapp" /> WhatsApp'ta aç</button>
+    </form>
+  </div>
+</Desktop>
+
+<script>
+  // Alanları tek bir WhatsApp mesajında birleştirip wa.me?text= ile açar.
+  const form = document.getElementById('wa-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const text = `Merhaba Cihan, ben ${data.get('ad')}.\nKonu: ${data.get('konu')}\n\n${data.get('mesaj')}`;
+    window.open(`${form.action}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  });
+</script>
+
+<style>
+  .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+    gap: clamp(2.5rem, 1rem + 5vw, 6rem);
+    padding-top: clamp(2rem, 1.5rem + 3vw, 4rem);
+    align-items: start;
+  }
+  h1 { margin-top: 1.25rem; font-size: var(--fs-hero); letter-spacing: -0.035em; }
+  .lead { margin-top: 1rem; font-size: var(--fs-md); color: rgb(245 245 247 / 0.86); max-width: 40ch; }
+
+  .channels { list-style: none; padding: 0; margin-top: 2.25rem; border-top: 0.5px solid var(--c-line); }
+  .channels li { border-bottom: 0.5px solid var(--c-line); }
+  .channels a, .channels .static {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 0; min-height: 64px;
+    color: var(--c-text); text-decoration: none;
+  }
+  .channels a:hover strong { color: var(--c-accent-text); }
+  .channels strong { display: block; font-weight: 600; }
+  .channels small { display: block; color: var(--c-muted); font-size: var(--fs-sm); }
+  .ch-icon { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 12px; background: var(--c-surface); }
+  .ch-icon.wa { background: var(--c-whatsapp); color: #fff; }
+
+  .wa-form {
+    display: grid; gap: 1.1rem;
+    padding: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+    border-radius: var(--r-window);
+    background: var(--c-surface);
+  }
+  .wa-form h2 { font-size: var(--fs-md); }
+  .wa-form .muted { font-size: var(--fs-sm); margin-top: -0.6rem; }
+  label { display: grid; gap: 0.35rem; font-size: var(--fs-sm); font-weight: 600; }
+  input, select, textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border-radius: var(--r-control);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    background: var(--c-bg);
+    font-size: 16px;
+    font-weight: 400;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--c-accent); outline-offset: 0; border-color: transparent; }
+  textarea { resize: vertical; }
+
+  @media (max-width: 899px) { .wrap { grid-template-columns: minmax(0, 1fr); } }
+</style>
