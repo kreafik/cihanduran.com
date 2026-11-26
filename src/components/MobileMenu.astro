@@ -1,0 +1,185 @@
+---
+// Telefon menüsü (< 900px): iOS ana ekranı dilinde buzlu cam katman + 3B uygulama ikonları.
+// Yerleşik popover API: üst katmanda açılır (menü çubuğunun backdrop-filter'ından etkilenmez),
+// Esc / dışarı dokunma kapatır, JS gerekmez. Açılış-kapanış @starting-style geçişleriyle.
+import { t } from '../i18n';
+import { mainNav, isActive } from '../lib/nav';
+import { site } from '../site.config.mjs';
+import AppIcon, { type AppName } from './AppIcon.astro';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+interface Props { path: string }
+const { path } = Astro.props;
+
+const items: { label: string; href: string; app: AppName; active: boolean }[] = [
+  { label: t('nav.home'), href: '/', app: 'home', active: path === '/' },
+  ...mainNav.map((n) => ({ label: t(n.key), href: n.href, app: n.app, active: isActive(path, n.href) })),
+  { label: t('dock.terminal'), href: '/#terminal', app: 'terminal', active: false },
+  { label: t('dock.iban'), href: '/iban', app: 'iban', active: isActive(path, '/iban') },
+];
+---
+<div id="mobil-menu" class="mm" popover role="dialog" aria-label={t('nav.menu')}>
+  <div class="mm-inner">
+    <div class="mm-top">
+      <a class="mm-brand" href="/"><Logo size={16} /> {site.name}</a>
+      <button class="mm-close" type="button" popovertarget="mobil-menu" popovertargetaction="hide" aria-label={t('nav.close')}>
+        <Icon name="close" size={20} />
+      </button>
+    </div>
+
+    <nav aria-label={t('nav.main')}>
+      <ul class="mm-grid">
+        {items.map((it, i) => (
+          <li style={`--i:${i}`}>
+            <a href={it.href} aria-current={it.active ? 'page' : undefined}>
+              <span class="mm-icon"><AppIcon app={it.app} size={64} eager /></span>
+              <span class="mm-label">{it.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="mm-card" style={`--i:${items.length}`}>
+      <div class="mm-card-head">
+        <span class="mm-dot" aria-hidden="true"></span>
+        <span>{t('footer.location')}, yeni projelere açık</span>
+      </div>
+      <div class="mm-actions">
+        <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" /> {t('cta.whatsapp')}</a>
+        <a class="btn btn-ghost" href={site.phoneHref}><Icon name="phone" /> {t('cta.call')}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Menüden bir bağlantıya dokununca (aynı sayfadaki #terminal dahil) katmanı kapat.
+  const mm = document.getElementById('mobil-menu');
+  mm?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) mm.hidePopover?.();
+  });
+</script>
+
+<style>
+  .mm {
+    --ease: cubic-bezier(0.32, 0.72, 0, 1);
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: var(--c-text);
+    background: rgb(18 18 20 / 0.62);
+    backdrop-filter: saturate(170%) blur(34px);
+    -webkit-backdrop-filter: saturate(170%) blur(34px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* kapanış: önce içerik, sonra katman */
+    opacity: 0;
+    transition: opacity 0.28s var(--ease), overlay 0.28s allow-discrete, display 0.28s allow-discrete;
+  }
+  .mm:popover-open { opacity: 1; }
+  @starting-style { .mm:popover-open { opacity: 0; } }
+  .mm::backdrop { background: transparent; }
+  /* menü açıkken arkadaki sayfa kaymasın */
+  :global(html:has(#mobil-menu:popover-open)) { overflow: hidden; }
+
+  .mm-inner {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--gutter) calc(1.5rem + env(safe-area-inset-bottom));
+  }
+  .mm-top { display: flex; align-items: center; justify-content: space-between; height: 52px; }
+  .mm-brand { display: inline-flex; align-items: center; gap: 0.5rem; color: #fff; font-weight: 700; text-decoration: none; }
+  .mm-close {
+    display: grid; place-items: center;
+    width: 44px; height: 44px; margin-right: -6px;
+    border: 0; border-radius: 50%;
+    background: rgb(255 255 255 / 0.12);
+    box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.2);
+    color: #fff; cursor: pointer;
+    transition: transform 0.35s var(--ease), background 0.2s ease;
+  }
+  .mm-close:active { transform: scale(0.92); background: rgb(255 255 255 / 0.2); }
+  .mm:popover-open .mm-close { transform: rotate(0deg); }
+  @starting-style { .mm:popover-open .mm-close { transform: rotate(-90deg) scale(0.6); } }
+
+  /* İkon ızgarası (iOS ana ekranı) */
+  .mm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.6rem 0.5rem;
+    margin: clamp(1.25rem, 5vh, 2.75rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .mm-grid li, .mm-card {
+    transition:
+      opacity 0.42s var(--ease) calc(var(--i) * 28ms),
+      transform 0.5s var(--ease) calc(var(--i) * 28ms);
+  }
+  .mm:popover-open .mm-grid li, .mm:popover-open .mm-card { opacity: 1; transform: none; }
+  @starting-style {
+    .mm:popover-open .mm-grid li { opacity: 0; transform: translateY(18px) scale(0.72); }
+    .mm:popover-open .mm-card { opacity: 0; transform: translateY(24px); }
+  }
+  /* kapanırken hepsi birlikte, hızlı */
+  .mm:not(:popover-open) .mm-grid li { opacity: 0; transform: scale(0.85); transition-delay: 0s; transition-duration: 0.2s; }
+  .mm:not(:popover-open) .mm-card { opacity: 0; transform: translateY(12px); transition-delay: 0s; transition-duration: 0.2s; }
+
+  .mm-grid a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    color: rgb(245 245 247 / 0.92);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mm-icon { display: block; transition: transform 0.25s var(--ease); }
+  .mm-grid a:active .mm-icon { transform: scale(0.88); }
+  .mm-label { font-size: 0.8125rem; font-weight: 500; line-height: 1.2; text-align: center; text-shadow: 0 1px 6px rgb(0 0 0 / 0.5); }
+  .mm-grid a[aria-current='page'] .mm-label { color: #fff; font-weight: 650; }
+  .mm-grid a[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -0.45rem;
+    width: 5px;
+    height: 5px;
+    margin-left: -2.5px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px rgb(255 255 255 / 0.6);
+  }
+  .mm-grid a:focus-visible { outline: none; }
+  .mm-grid a:focus-visible .mm-icon { outline: 2px solid var(--c-accent); outline-offset: 4px; border-radius: 24%; }
+
+  /* İletişim kartı (iOS widget) */
+  .mm-card {
+    margin-top: auto;
+    padding: 1rem;
+    border-radius: 24px;
+    background: rgb(255 255 255 / 0.08);
+    box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.16);
+  }
+  .mm-inner > nav { margin-bottom: 2rem; }
+  .mm-card-head { display: flex; align-items: center; gap: 0.55rem; color: rgb(245 245 247 / 0.8); font-size: var(--fs-sm); }
+  .mm-dot { width: 8px; height: 8px; border-radius: 50%; background: #30d158; box-shadow: 0 0 0 3px rgb(48 209 88 / 0.25); }
+  .mm-actions { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.6rem; margin-top: 0.85rem; }
+  .mm-actions .btn { justify-content: center; min-height: 48px; padding-inline: 0.75rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mm, .mm-grid li, .mm-card, .mm-close { transition: none; }
+  }
+  @media (min-width: 900px) { .mm { display: none !important; } }
+</style>

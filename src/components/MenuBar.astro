@@ -7,6 +7,7 @@ import { site } from '../site.config.mjs';
 interface Props { path: string }
 const { path } = Astro.props;
 import Logo from './Logo.astro';
+import MobileMenu from './MobileMenu.astro';
 ---
 <header class="menubar">
   <a class="skip-link" href="#icerik">İçeriğe geç</a>
@@ -35,25 +36,12 @@ import Logo from './Logo.astro';
       <time class="menubar-clock" data-clock aria-hidden="true"></time>
     </div>
 
-    <details class="menu-sheet">
-      <summary aria-label={t('nav.menu')}>
-        <Icon name="menu" size={22} class="i-open" />
-        <Icon name="close" size={22} class="i-close" />
-      </summary>
-      <nav aria-label={t('nav.main')}>
-        <ul>
-          <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>{t('nav.home')}</a></li>
-          {mainNav.map((item) => (
-            <li><a href={item.href} aria-current={isActive(path, item.href) ? 'page' : undefined}>{t(item.key)}</a></li>
-          ))}
-        </ul>
-        <a class="btn btn-whatsapp sheet-wa" href={site.whatsapp} target="_blank" rel="noopener">
-          <Icon name="whatsapp" /> {t('cta.whatsapp')}
-        </a>
-      </nav>
-    </details>
+    <button class="menu-btn" type="button" popovertarget="mobil-menu" aria-label={t('nav.menu')}>
+      <span class="burger" aria-hidden="true"><i></i><i></i></span>
+    </button>
   </div>
 </header>
+<MobileMenu path={path} />
 
 <script>
   // Saat yalnız istemcide çizilir (HTML'de yok; önbellek ve hydration sorunsuz).
@@ -97,30 +85,21 @@ import Logo from './Logo.astro';
   .menubar-wa { display: inline-flex; align-items: center; gap: 0.35rem; }
   .menubar-clock { color: rgb(245 245 247 / 0.86); font-variant-numeric: tabular-nums; min-width: 9.5em; text-align: right; }
 
-  .menu-sheet { display: none; }
+  .menu-btn { display: none; }
 
   @media (max-width: 899px) {
     .menubar-inner { height: 52px; padding-inline: var(--gutter); font-size: 1rem; }
     .menubar-nav, .menubar-right { display: none; }
-    .menu-sheet { display: block; margin-left: auto; }
-    .menu-sheet summary {
-      list-style: none; display: grid; place-items: center;
-      width: 44px; height: 44px; margin-right: -10px; cursor: pointer; border-radius: var(--r-control);
+    .menu-btn {
+      display: grid; place-items: center;
+      width: 44px; height: 44px; margin-left: auto; margin-right: -10px;
+      border: 0; border-radius: 50%; background: transparent; color: var(--c-text); cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
-    .menu-sheet summary::-webkit-details-marker { display: none; }
-    .menu-sheet :global(.i-close), .menu-sheet[open] :global(.i-open) { display: none; }
-    .menu-sheet[open] :global(.i-close) { display: block; }
-    .menu-sheet nav {
-      position: fixed; inset: 52px 0 0; overflow-y: auto;
-      padding: 1rem var(--gutter) calc(2rem + env(safe-area-inset-bottom));
-      background: var(--c-bg);
-    }
-    .menu-sheet ul { list-style: none; padding: 0; }
-    .menu-sheet li a {
-      display: block; padding: 0.9rem 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em;
-      color: var(--c-text); text-decoration: none; border-bottom: 0.5px solid var(--c-line);
-    }
-    .menu-sheet li a[aria-current='page'] { color: var(--c-accent-text); }
-    .sheet-wa { margin-top: 1.5rem; width: 100%; }
+    .menu-btn:active { background: rgb(255 255 255 / 0.1); }
+    .burger { position: relative; display: block; width: 20px; height: 12px; }
+    .burger i { position: absolute; left: 0; right: 0; height: 2px; border-radius: 2px; background: currentColor; }
+    .burger i:first-child { top: 0; }
+    .burger i:last-child { bottom: 0; width: 70%; left: auto; }
   }
 </style>
