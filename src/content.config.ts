@@ -45,7 +45,7 @@ const isler = defineCollection({
       location: z.string(),
       category: z.array(category).min(1),
       url: z.string().url().optional(),
-      year: z.number(),
+      year: z.number().optional(),
       /** Kartlarda tek satır: ne yapıldı */
       summary: z.string().max(140),
       languages: z.array(z.string()).default(['Türkçe']),

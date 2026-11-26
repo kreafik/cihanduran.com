@@ -39,7 +39,7 @@ const title = `${d.name} web sitesi | Cihan Duran`.length <= 60 ? `${d.name} web
       <div><dt>Sektör</dt><dd>{d.sector}</dd></div>
       <div><dt>Konum</dt><dd>{d.location}</dd></div>
       <div><dt>Diller</dt><dd>{d.languages.join(', ')}</dd></div>
-      <div><dt>Yıl</dt><dd>{d.year}</dd></div>
+      {d.year && <div><dt>Yıl</dt><dd>{d.year}</dd></div>}
     </dl>
     {d.url && (
       <a class="btn btn-primary visit" href={d.url} target="_blank" rel="noopener">{host} sitesini açın <Icon name="external" /></a>

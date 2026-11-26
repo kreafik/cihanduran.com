@@ -100,7 +100,7 @@ export function buildProjectSchema(entry, image) {
       name: `${d.name} web sitesi`,
       description: d.summary,
       url: abs(path),
-      dateCreated: String(d.year),
+      ...(d.year && { dateCreated: String(d.year) }),
       creator: { '@id': PERSON_ID },
       ...(image && { image: new URL(image, site.origin).href }),
       inLanguage: d.languages,

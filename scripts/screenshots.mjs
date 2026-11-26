@@ -37,7 +37,8 @@ for (const e of entries) {
     const ctx = await browser.newContext({ viewport: s.viewport, deviceScaleFactor: s.scale, isMobile: s.mobile, hasTouch: s.mobile, locale: 'tr-TR' });
     const page = await ctx.newPage();
     try {
-      await page.goto(e.url, { waitUntil: 'networkidle', timeout: 30_000 });
+      await page.goto(e.url, { waitUntil: 'load', timeout: 45_000 });
+      await page.waitForLoadState('networkidle', { timeout: 8_000 }).catch(() => {});
       await page.waitForTimeout(1500);
       // Çerez bandı varsa kapat (reddet tercih edilir; yoksa kabul).
       for (const label of [/^(Reddet|Decline|Reject|Отклонить)$/i, /^(Kabul et|Accept|Tamam|OK)$/i]) {
