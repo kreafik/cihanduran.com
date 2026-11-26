@@ -1,0 +1,7 @@
+---
+import MacWindowPage from '../layouts/MacWindowPage.astro';
+import Qemu from '../islands/macos/Qemu.jsx';
+---
+<MacWindowPage title="qemu | Cihan Duran" description="Tarayıcıda küçük bir Linux taklidi." path="/qemu" windowTitle="qemu">
+  <Qemu client:only="react" />
+</MacWindowPage>

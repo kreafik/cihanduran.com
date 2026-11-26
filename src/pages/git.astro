@@ -1,0 +1,7 @@
+---
+import MacWindowPage from '../layouts/MacWindowPage.astro';
+import Git from '../islands/macos/Git.jsx';
+---
+<MacWindowPage title="git log | Cihan Duran" description="Cihan Duran'ın açık GitHub projeleri." path="/git" windowTitle="git log" wide>
+  <Git client:only="react" />
+</MacWindowPage>

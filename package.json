@@ -19,15 +19,12 @@
   "dependencies": {
     "@astrojs/react": "^7.1.9",
     "@astrojs/sitemap": "^3.7.6",
-    "@radix-ui/react-menubar": "^1.1.6",
     "astro": "^7.4.13",
     "color": "^4.2.3",
-    "dompurify": "^3.2.4",
     "framer-motion": "^12.0.0",
     "hack-font": "^3.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-draggable": "^4.4.6",
     "sharp": "^0.35.5",
     "simplebar-react": "^3.2.4",
     "styled-components": "^6.1.14"

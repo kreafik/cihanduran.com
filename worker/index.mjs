@@ -11,7 +11,7 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
   "connect-src 'self' https://api.github.com https://cloudflareinsights.com",
-  'frame-src https://github1s.com',
+  'frame-src https://github1s.com https://www.youtube-nocookie.com',
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

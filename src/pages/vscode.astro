@@ -1,0 +1,14 @@
+---
+import MacWindowPage from '../layouts/MacWindowPage.astro';
+---
+<MacWindowPage title="Visual Studio Code | Cihan Duran" description="Bu sitenin kaynak kodu." path="/vscode" windowTitle="Visual Studio Code" wide>
+  <iframe
+    class="frame"
+    src="https://github1s.com/kreafik/cihanduran.com/blob/main/src/pages/index.astro"
+    title="Bu sitenin kaynak kodu (github1s)"
+    loading="lazy"
+  ></iframe>
+</MacWindowPage>
+<style>
+  .frame { display: block; width: 100%; height: min(72vh, 760px); border: 0; background: #1e1e1e; }
+</style>

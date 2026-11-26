@@ -1,0 +1,7 @@
+---
+import MacWindowPage from '../layouts/MacWindowPage.astro';
+import Iban from '../islands/macos/Iban.jsx';
+---
+<MacWindowPage title="Banka Hesapları | Cihan Duran" description="Cihan Duran banka hesap bilgileri (IBAN)." path="/iban" windowTitle="Banka Hesapları">
+  <Iban client:only="react" />
+</MacWindowPage>

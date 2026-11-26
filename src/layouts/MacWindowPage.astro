@@ -1,0 +1,37 @@
+---
+// macOS eğlence sayfaları: duvar kâğıdı üzerinde tek pencere. Hepsi noindex.
+import { Image } from 'astro:assets';
+import Desktop from './Desktop.astro';
+import Window from '../components/Window.astro';
+import wallpaper from '../assets/desktop.jpeg';
+
+interface Props { title: string; description: string; path: string; windowTitle: string; wide?: boolean }
+const { title, description, path, windowTitle, wide = false } = Astro.props;
+---
+<Desktop title={title} description={description} path={path} noindex footer={false}>
+  <section class="mac">
+    <Image src={wallpaper} alt="" class="mac-bg" widths={[800, 1440, 2048]} sizes="100vw" loading="eager" />
+    <h1 class="visually-hidden">{windowTitle}</h1>
+    <div class:list={['mac-win', { wide }]}>
+      <Window title={windowTitle}><slot /></Window>
+    </div>
+  </section>
+</Desktop>
+
+<style>
+  .mac {
+    position: relative;
+    isolation: isolate;
+    min-height: calc(100dvh - var(--menubar-h));
+    display: grid;
+    place-items: center;
+    padding: 2rem var(--gutter) 7rem;
+  }
+  .mac :global(.mac-bg) { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; }
+  .mac-win { width: min(100%, 860px); }
+  .mac-win.wide { width: min(100%, 1200px); }
+  .mac-win :global(.window-body) { background: rgb(23 23 23 / 0.92); color: rgb(60 60 60 / 0.85); }
+  @media (max-width: 899px) {
+    .mac { min-height: calc(100dvh - 52px); padding-bottom: calc(var(--tabbar-h) + 5rem); }
+  }
+</style>
