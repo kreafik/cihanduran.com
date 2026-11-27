@@ -17,8 +17,12 @@ export const site = {
   // Hero arka plan videosu (kendi drone çekimin): public/video/ altına koy. Boşken aurora tek başına kalır.
   // Kaynak: Cihan'ın Axopar çekimi (Portfolyo/02 Yatlar & Tekneler/Axopar), ilk 12 sn: Bodrum Kalesi önü + yukarıdan dönüş. Sessiz döngü.
   heroVideo: { mp4: '/video/hero-drone.mp4', webm: '', poster: '/video/hero-drone.jpg' },
-  // TODO(cihan): Cloudflare Web Analytics token'ı (panel → Analytics & Logs → Web Analytics). Boşken beacon eklenmez.
+  // Cloudflare Web Analytics zone'da "otomatik ekleme" ile açık: beacon'ı Cloudflare kenarda ekliyor (token 3bba…).
+  // Burayı doldurmak beacon'ı ikinci kez ekler; otomatik ekleme kapatılırsa token buraya yazılır.
   cfAnalyticsToken: '',
+  // Google Etiket Yöneticisi kapsayıcısı (cihandran@gmail.com). İçinde GA4 etiketi G-ZP72V4T1DG var.
+  // Consent Mode v2: analitik çerezleri yalnız çerez bandında onay verilince yazılır. Boşken GTM eklenmez.
+  gtmId: 'GTM-PSP78T7T',
   // TODO(cihan): portre fotoğrafı eklenince src/assets/ altına koyup yolu yazın; boşken portre alanları gizli.
   portrait: '',
   // TODO(cihan): ekipman ve belge satırları (ör. 'DJI ...', 'SHGM İHA pilot lisansı ...'); boşken bölüm gizli.

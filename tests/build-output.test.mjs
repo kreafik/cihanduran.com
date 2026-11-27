@@ -124,6 +124,18 @@ test('yasaklı içerik yok: Kreafik markası, AI sohbet kalıntısı', () => {
   }
 });
 
+test('analitik: her sayfada GTM, onay varsayılanları GTM\'den önce, çerez bandı var', () => {
+  for (const p of pages) {
+    const consent = p.html.indexOf("gtag('consent','default'");
+    const gtm = p.html.indexOf('googletagmanager.com/gtm.js?id=GTM-PSP78T7T');
+    assert.ok(consent > -1 && gtm > -1, `${p.path}: GTM ya da onay varsayılanı yok`);
+    assert.ok(consent < gtm, `${p.path}: onay varsayılanı GTM'den sonra`);
+    assert.match(p.html, /analytics_storage:c==='granted'\?'granted':'denied'/, p.path);
+    assert.match(p.html, /id="cerez-bandi"[^>]*hidden/, `${p.path}: çerez bandı yok`);
+    assert.ok(!p.html.includes('ns.html?id=GTM'), `${p.path}: noscript GTM onaysız çerez yazar`);
+  }
+});
+
 test('indekslenen sayfalarda emoji yok', () => {
   for (const p of indexable) assert.doesNotMatch(p.html, /\p{Emoji_Presentation}/u, p.path);
 });

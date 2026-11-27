@@ -59,6 +59,10 @@ const stats = [
 
     <div class="base">
       <span>© {year} {site.name}. {t('footer.rights')}</span>
+      <span class="legal">
+        <a href="/cerez-politikasi">Çerez politikası</a>
+        {site.gtmId && <button type="button" data-consent-open>Çerez tercihleri</button>}
+      </span>
       <span class="loc"><Icon name="pin" size={15} /> {site.locality}, {site.region}</span>
     </div>
   </div>
@@ -138,6 +142,13 @@ const stats = [
     margin-top: 1.75rem; color: var(--c-muted);
   }
   .loc { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .legal { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem; }
+  .legal a, .legal button {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0;
+    border: 0; background: none; font: inherit; color: var(--c-muted);
+    text-decoration: none; cursor: pointer;
+  }
+  .legal a:hover, .legal button:hover { color: var(--c-text); }
 
   /* Sayfa genişliğinde silik imza: alt kenarda kesilir */
   .sign {

@@ -3,6 +3,7 @@
 import '../styles/global.css';
 import { site } from '../site.config.mjs';
 import { alternates, DEFAULT_LANG, type Lang } from '../i18n';
+import CookieConsent from '../components/CookieConsent.astro';
 
 interface Props {
   title: string;
@@ -22,12 +23,22 @@ const abs = (p: string) => (p === '/' ? `${site.origin}/` : `${site.origin}${p}`
 const canonical = abs(path);
 const og = ogImage ? new URL(ogImage, site.origin).href : `${site.origin}/og-default.png`;
 const langs = alternates(path, alternateMap);
+
+// Consent Mode v2 varsayılanları GTM'den ÖNCE çalışmalı. Reklam izinleri hep kapalı (sitede reklam yok);
+// analitik izni yalnız çerez bandında verilen onayla açılır (CookieConsent.astro, anahtar: cd-consent).
+const consentDefaults = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+var c=null;try{c=localStorage.getItem('cd-consent')}catch(e){}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:c==='granted'?'granted':'denied'});
+gtag('set','ads_data_redaction',true);
+gtag('js',new Date());`;
 ---
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    {site.gtmId && <script is:inline set:html={consentDefaults} />}
+    {site.gtmId && <script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${site.gtmId}`}></script>}
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex
@@ -64,5 +75,6 @@ const langs = alternates(path, alternateMap);
   </head>
   <body>
     <slot />
+    {site.gtmId && <CookieConsent />}
   </body>
 </html>

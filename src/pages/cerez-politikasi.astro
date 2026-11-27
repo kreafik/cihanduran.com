@@ -1,0 +1,66 @@
+---
+import { buildPageSchema } from '../lib/schema.mjs';
+import Desktop from '../layouts/Desktop.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { site } from '../site.config.mjs';
+import { t } from '../i18n';
+---
+<Desktop
+  title="Çerez Politikası | Cihan Duran"
+  description="cihanduran.com'da kullanılan ölçüm araçları, Google Analytics çerezleri ve çerez tercihinizi nasıl değiştirebileceğiniz."
+  path="/cerez-politikasi"
+  jsonLd={buildPageSchema('WebPage', 'Çerez politikası', '/cerez-politikasi')}
+>
+  <div class="container wrap">
+    <header>
+      <Breadcrumb items={[{ name: t('nav.home'), path: '/' }, { name: 'Çerez politikası' }]} />
+      <h1>Çerez politikası</h1>
+      <p class="lead">Bu sayfa, sitede hangi ölçüm araçlarının kullanıldığını ve çerez tercihinizi nasıl yönetebileceğinizi açıklar.</p>
+    </header>
+
+    <div class="prose">
+      <h2>Ölçüm araçları</h2>
+      <p>
+        <strong>Cloudflare Web Analytics.</strong> Sayfa görüntüleme sayısı ve sayfa yüklenme hızı gibi toplu istatistikleri ölçer.
+        Çerez kullanmaz ve ziyaretçiyi tanımlamaz; bu nedenle onaya bağlı değildir.
+      </p>
+      <p>
+        <strong>Google Analytics 4.</strong> Google Etiket Yöneticisi üzerinden yüklenir ve sitenin nasıl kullanıldığını ölçer
+        (hangi sayfaların açıldığı, ziyaretin hangi kaynaktan geldiği gibi). Analitik çerezleri (<code>_ga</code>, <code>_ga_*</code>)
+        yalnız çerez bandında "Kabul et" seçeneğini işaretlerseniz tarayıcınıza yazılır.
+      </p>
+      <p>
+        Onay vermezseniz Google Analytics çerez yazmaz; Google'a yalnız çerez içermeyen, sizi tanımlamayan ölçüm sinyalleri gönderilir
+        (Google Consent Mode).
+      </p>
+
+      <h2>Kullanılmayan çerezler</h2>
+      <p>Sitede reklam, yeniden pazarlama ya da sosyal medya takip çerezi kullanılmaz.</p>
+
+      <h2>Tercihin saklanması</h2>
+      <p>
+        Çerez bandındaki seçiminiz, bandın tekrar gösterilmemesi için tarayıcınızın yerel depolamasında (<code>cd-consent</code>) saklanır
+        ve sunucuya gönderilmez.
+      </p>
+
+      <h2>Tercihi değiştirme</h2>
+      <p>Seçiminizi istediğiniz zaman değiştirebilirsiniz.</p>
+      <p><button type="button" class="btn btn-ghost" data-consent-open>Çerez tercihlerini aç</button></p>
+
+      <h2>İletişim</h2>
+      <p>Sorularınız için <a href="/iletisim">iletişim</a> sayfasındaki kanalları ya da <a href={site.phoneHref}>telefonu</a> kullanabilirsiniz.</p>
+    </div>
+  </div>
+</Desktop>
+
+<style>
+  .wrap { padding-top: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
+  header { max-width: var(--measure); margin-bottom: 2rem; }
+  h1 { margin-top: 1rem; font-size: var(--fs-xl); }
+  .lead { margin-top: 0.75rem; color: var(--c-muted); font-size: var(--fs-md); }
+  .prose { color: var(--c-muted); }
+  .prose strong, .prose h2 { color: var(--c-text); }
+  .prose h2 { font-size: var(--fs-lg); }
+  .prose code { font-family: var(--font-mono); font-size: 0.9em; color: var(--c-text); }
+  .prose .btn { cursor: pointer; }
+</style>
